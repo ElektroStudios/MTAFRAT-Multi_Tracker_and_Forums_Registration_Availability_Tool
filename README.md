@@ -37,8 +37,6 @@ checker
 
 # Multi-Tracker and Forums Registration Availability Tool
 # <p align="center">(MTAFRAT)
-	
-### <p align="center">(MTAFRAT) </p>
 
 ------------------
 
@@ -143,21 +141,21 @@ All plugins are located in the `plugins` folder. If you don't find one of them u
 ## 📝 Requirements
 
 - Microsoft Windows OS. (It may work in Linux with Wine)
-- [.NET Desktop Runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- [.NET Desktop Runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (64-Bit)
 
 ## 🤖 Getting Started (common users)
 
-Download the latest build by clicking [here](https://github.com/ElektroStudios/MTAFRAT/releases/latest).
+Download the latest build by clicking [here](https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/releases/latest).
 
 And simply run the program to get started. It features an intuitive, user-friendly interface.
 
 💡 Also remember to read the included `README.txt` file located in the `docs` folder for more details and also tips for using the application. 
-   Or click [here](https://github.com/ElektroStudios/MTAFRAT/Source/MTAFRAT/docs/english/README.txt) to read the document now.
+   Or click [here](https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/Source/MTAFRAT/docs/english/README.txt) to read the document now.
 
 ## 🤖 Getting Started (plugin developers)
 
 Read the included `README (for programmers).md` file located in the `docs` folder for more details. 
-Or click [here](https://github.com/ElektroStudios/MTAFRAT/Source/MTAFRAT/docs/english/README%20%28for%20programmers%29.md) to read the document now.
+Or click [here](https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/Source/MTAFRAT/docs/english/README%20%28for%20programmers%29.md) to read the document now.
 
 ## 🔄 Change Log
 
