@@ -161,7 +161,7 @@ Explore the complete list of changes, bug fixes, and improvements across differe
 
 This work relies on the following resources: 
 
- - [Microsoft .net]([https://dotnet.microsoft.com/en-us/download/dotnet-framework](https://dotnet.microsoft.com/en-us/download/dotnet))
+ - [Microsoft .net](https://dotnet.microsoft.com/en-us/download/dotnet)
  - [DarkModeUI](https://www.nuget.org/packages/DarkModeUI)
  - [Jot](https://github.com/anakic/Jot)
  - [Selenium.WebDriver](https://github.com/SeleniumHQ/selenium/)
