@@ -36,7 +36,8 @@ checker
  -->
 
 # Multi-Tracker and Forums Registration Availability Tool
-
+# <p align="center">(MTAFRAT)
+	
 ### <p align="center">(MTAFRAT) </p>
 
 ------------------
