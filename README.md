@@ -132,11 +132,11 @@ All plugins are located in the `plugins` folder. If you don't find one of them u
 
 ## 🖼️ Screenshots
 
-![screenshot](/Images/Screenshot_01.png)
+![screenshot](/Images/Screenshot01.png)
 
-![screenshot](/Images/Screenshot_02.png)
+![screenshot](/Images/Screenshot02.png)
 
-![screenshot](/Images/Screenshot_03.png)
+![screenshot](/Images/Screenshot03.png)
 
 ## 📝 Requirements
 
@@ -150,12 +150,12 @@ Download the latest build by clicking [here](https://github.com/ElektroStudios/M
 And simply run the program to get started. It features an intuitive, user-friendly interface.
 
 💡 Also remember to read the included `README.txt` file located in the `docs` folder for more details and also tips for using the application. 
-   Or click [here](https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/tree/main/Source/MTAFRAT/docs/english/README.txt) to read the document now.
+   Or click [here](https://raw.githubusercontent.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/tree/main/Source/MTAFRAT/docs/english/README.txt) to read the document now.
 
 ## 🤖 Getting Started (plugin developers)
 
 Read the included `README (for programmers).md` file located in the `docs` folder for more details. 
-Or click [here](https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/tree/main/Source/MTAFRAT/docs/english/README%20%28for%20programmers%29.md) to read the document now.
+Or click [here](https://raw.githubusercontent.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/main/Source/MTAFRAT/docs/english/README%20%28for%20programmers%29.md) to read the document now.
 
 ## 🔄 Change Log
 
