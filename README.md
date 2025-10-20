@@ -1,13 +1,9 @@
 <!-- Common Project Tags:
-command-line 
-console-applications 
 desktop-app 
 desktop-application 
 dotnet 
 dotnet-core 
 netcore 
-netframework 
-netframework48 
 tool 
 tools 
 vbnet 
@@ -165,7 +161,7 @@ Explore the complete list of changes, bug fixes, and improvements across differe
 
 This work relies on the following resources: 
 
- - [.NET Framework](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
+ - [Microsoft .net]([https://dotnet.microsoft.com/en-us/download/dotnet-framework](https://dotnet.microsoft.com/en-us/download/dotnet))
  - [DarkModeUI](https://www.nuget.org/packages/DarkModeUI)
  - [Jot](https://github.com/anakic/Jot)
  - [Selenium.WebDriver](https://github.com/SeleniumHQ/selenium/)
