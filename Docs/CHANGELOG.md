@@ -1,12 +1,13 @@
-# REPOSITORY NAME Change Log 📋
+# MTAFRAT Change Log 📋
 
-## v1.1 *(current)* 🆕
-#### 🚀 New Features:
-    • Description
-#### 🛠️ Fixes:
-    • Description
-#### 🌟 Improvements:
-    • Description
+## v1.0.3 *(current)* 🆕
+Initial public release on GitHub.
 
-## v1.0 🔄
-Initial Release.
+## v1.0.2 🔄
+Private release.
+
+## v1.0.1 🔄
+Private release.
+
+## v1.0.0 🔄
+Private release.

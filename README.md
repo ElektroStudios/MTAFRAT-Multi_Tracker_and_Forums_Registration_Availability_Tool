@@ -18,40 +18,127 @@ windows-application
 windows-applications 
 windows-forms 
 winforms 
+plugin 
+plugins
+forum 
+tracker 
+trackers 
+torrent 
+torrents 
+private 
  -->
 
-# PROJECT NAME
+# Multi-Tracker and Forums Registration Availability Tool
 
-### PROJECT DESCRIPTION
+### (MTAFRAT)
 
 ------------------
 
 ## 👋 Introduction
 
-INTRODUCTION TEXT
+**MTAFRAT** is a tool designed to automatically check registration availability across multiple trackers and forums.
+
+It allows you to quickly analyze registration status using a modular, plugin-based system that facilitates the integration of new sites without modifying the program core.
 
 ## 👌 Features
 
-FEATURES TEXT
+	📦 Plugin-Based Architecture
+
+		The program works through a plugin system.
+
+		Each plugin is composed of three main elements:
+
+			● JSON file
+				Contains the plugin's basic metadata:
+				name, description, login or registration URL, etc.
+
+			● PNG, JPG, BMP, or ICO image file
+				This is usually a banner or favicon
+				that visually represents the plugin.
+				A square image is recommended,
+				preferably 48x48 pixels.
+
+			● VB file
+				Contains the VB.NET source code that implements the 
+				plugin's logic and behavior within the program.
+
+	📁 Plugins Location
+
+		All plugins are located in the "plugins" folder.
+		If you don't find one of them useful and want to remove it from the program,
+		you can delete the folder corresponding to the plugin name,
+		or move it to another directory outside of its original locati
+
+🔧 Built-in plugins
+
+	3ChangTrai      
+	3D Torrents     
+	4th Dimension   
+	AlphaRatio      
+	Animebytes      
+	AnimeTorrents   
+	AvistaZ         
+	BeyondHD        
+	BitPorn         
+	Blutopia        
+	Cinemageddon    
+	CinemaZ         
+	DarkPeers       
+	Digital Core    
+	Elite-HD        
+	ExoticaZ        
+	Fappaizuri      
+	FearNoPeer      
+	Femdomcult      
+	GreatPosterWall 
+	HD Dolby        
+	HD-Forever      
+	HD-Olimpo       
+	HD-Space        
+	HD-Zero         
+	HDHome          
+	HDTime          
+	Hebits          
+	iPtorrents      
+	Kleverig        
+	KrazyZone       
+	Lat-Team        
+	Locadora        
+	LST             
+	More Than TV    
+	NicePT          
+	Old Toons World 
+	OnlyEncodes     
+	PassThePopcorn  
+	PrivateHD       
+	Punto Torrent   
+	Rastastugan     
+	ReelFlix        
+	SceneRush       
+	SeedFile        
+	SportsCult      
+	Superbits       
+	Tekno3D         
+	TorrentCFF      
+	Torrent Day     
+	Torrenteros     
+	TorrentLand     
+	TorrentLeech    
+	Upscale Vault   
+	xBytesv2       
 
 ## 🖼️ Screenshots
 
 ![screenshot](/Images/screenshot.png)
 
-## 🎦 Videos
-
-<!-- Download a recorded video by clicking [here](/Video/video.mp4) -->
-
-<!-- See a recorded video by clicking on the following button:
-[![PROJECT_NAME DEMO VIDEO](Images/demo_video.jpg)](https://www.youtube.com/watch?v=XXXXXXXXX)  -->
-
 ## 📝 Requirements
 
-- Microsoft Windows OS.
+- Microsoft Windows OS. (It may work in Linux with Wine)
+- [.NET Desktop Runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
 ## 🤖 Getting Started
 
-Download the latest compilation by clicking [here](https://github.com/ElektroStudios/PROJECT_NAME/releases/latest).
+Download the latest build by clicking [here](https://github.com/ElektroStudios/MTAFRAT/releases/latest).
 
 ## 🔄 Change Log
 
@@ -62,6 +149,9 @@ Explore the complete list of changes, bug fixes, and improvements across differe
 This work relies on the following resources: 
 
  - [.NET Framework](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
+ - [DarkModeUI](https://www.nuget.org/packages/DarkModeUI)
+ - [Jot](https://github.com/anakic/Jot)
+ - [Selenium.WebDriver](https://github.com/SeleniumHQ/selenium/)
 
 ## ⚠️ Disclaimer:
 
@@ -71,7 +161,7 @@ This Work has no affiliation, approval or endorsement by the author(s) of the th
 
 ## 💪 Contributing
 
-Your contribution is highly appreciated!. If you have any ideas, suggestions, or encounter issues, feel free to open an issue by clicking [here](https://github.com/ElektroStudios/PROJECT_NAME/issues/new/choose). 
+Your contribution is highly appreciated!. If you have any ideas, suggestions, or encounter issues, feel free to open an issue by clicking [here](https://github.com/ElektroStudios/MTAFRAT/issues/new/choose). 
 
 Your input helps make this Work better for everyone. Thank you for your support! 🚀
 
