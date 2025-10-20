@@ -31,6 +31,7 @@ private
 # Multi-Tracker and Forums Registration Availability Tool
 
 ### (MTAFRAT)
+<p align="center">(MTAFRAT) </p>
 
 ------------------
 
