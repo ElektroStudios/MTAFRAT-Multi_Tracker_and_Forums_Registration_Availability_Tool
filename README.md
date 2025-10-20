@@ -42,90 +42,90 @@ It allows you to quickly analyze registration status using a modular, plugin-bas
 
 ## 👌 Features
 
-	📦 Plugin-Based Architecture
+📦 Plugin-Based Architecture
 
-		The program works through a plugin system.
+The program works through a plugin system.
 
-		Each plugin is composed of three main elements:
+Each plugin is composed of three main elements:
 
-			● JSON file
-				Contains the plugin's basic metadata:
-				name, description, login or registration URL, etc.
+-  JSON file
+			Contains the plugin's basic metadata:
+			name, description, login or registration URL, etc.
 
-			● PNG, JPG, BMP, or ICO image file
-				This is usually a banner or favicon
-				that visually represents the plugin.
-				A square image is recommended,
-				preferably 48x48 pixels.
+- PNG, JPG, BMP, or ICO image file
+			This is usually a banner or favicon
+			that visually represents the plugin.
+			A square image is recommended,
+			preferably 48x48 pixels.
 
-			● VB file
-				Contains the VB.NET source code that implements the 
-				plugin's logic and behavior within the program.
+- VB file
+			Contains the VB.NET source code that implements the 
+			plugin's logic and behavior within the program.
 
-	📁 Plugins Location
+📁 Plugins Location
 
-		All plugins are located in the "plugins" folder.
-		If you don't find one of them useful and want to remove it from the program,
-		you can delete the folder corresponding to the plugin name,
-		or move it to another directory outside of its original locati
+All plugins are located in the "plugins" folder.
+
+If you don't find one of them useful and want to remove it from the program, you can delete the folder corresponding to the plugin name, or move it to another directory outside of its original location.
+
 
 🔧 Built-in plugins
 
-	3ChangTrai      
-	3D Torrents     
-	4th Dimension   
-	AlphaRatio      
-	Animebytes      
-	AnimeTorrents   
-	AvistaZ         
-	BeyondHD        
-	BitPorn         
-	Blutopia        
-	Cinemageddon    
-	CinemaZ         
-	DarkPeers       
-	Digital Core    
-	Elite-HD        
-	ExoticaZ        
-	Fappaizuri      
-	FearNoPeer      
-	Femdomcult      
-	GreatPosterWall 
-	HD Dolby        
-	HD-Forever      
-	HD-Olimpo       
-	HD-Space        
-	HD-Zero         
-	HDHome          
-	HDTime          
-	Hebits          
-	iPtorrents      
-	Kleverig        
-	KrazyZone       
-	Lat-Team        
-	Locadora        
-	LST             
-	More Than TV    
-	NicePT          
-	Old Toons World 
-	OnlyEncodes     
-	PassThePopcorn  
-	PrivateHD       
-	Punto Torrent   
-	Rastastugan     
-	ReelFlix        
-	SceneRush       
-	SeedFile        
-	SportsCult      
-	Superbits       
-	Tekno3D         
-	TorrentCFF      
-	Torrent Day     
-	Torrenteros     
-	TorrentLand     
-	TorrentLeech    
-	Upscale Vault   
-	xBytesv2       
+- 3ChangTrai      
+- 3D Torrents     
+- 4th Dimension   
+- AlphaRatio      
+- Animebytes      
+- AnimeTorrents   
+- AvistaZ         
+- BeyondHD        
+- BitPorn         
+- Blutopia        
+- Cinemageddon    
+- CinemaZ         
+- DarkPeers       
+- Digital Core    
+- Elite-HD        
+- ExoticaZ        
+- Fappaizuri      
+- FearNoPeer      
+- Femdomcult      
+- GreatPosterWall 
+- HD Dolby        
+- HD-Forever      
+- HD-Olimpo       
+- HD-Space        
+- HD-Zero         
+- HDHome          
+- HDTime          
+- Hebits          
+- iPtorrents      
+- Kleverig        
+- KrazyZone       
+- Lat-Team        
+- Locadora        
+- LST             
+- More Than TV    
+- NicePT          
+- Old Toons World 
+- OnlyEncodes     
+- PassThePopcorn  
+- PrivateHD       
+- Punto Torrent   
+- Rastastugan     
+- ReelFlix        
+- SceneRush       
+- SeedFile        
+- SportsCult      
+- Superbits       
+- Tekno3D         
+- TorrentCFF      
+- Torrent Day     
+- Torrenteros     
+- TorrentLand     
+- TorrentLeech    
+- Upscale Vault   
+- xBytesv2       
 
 ## 🖼️ Screenshots
 
