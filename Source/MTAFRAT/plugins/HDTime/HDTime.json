@@ -1,0 +1,8 @@
+{
+    "Name": "HDTime",
+    "Description": "HDtime is a CHINESE Private Torrent Tracker for HD MOVIES / TV / GENERAL.",
+    "Url": "https://hdtime.org/signup.php",
+    "IconPath": ".\\HDTime.png",
+    "VbCodeFile": ".\\HDTime.vb"
+}
+

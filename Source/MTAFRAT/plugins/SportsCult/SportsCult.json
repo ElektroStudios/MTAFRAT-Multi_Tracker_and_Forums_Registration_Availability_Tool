@@ -1,0 +1,8 @@
+{
+    "Name": "SportsCult",
+    "Description": "SportsCult is a Private Torrent Tracker for SPORTS.",
+    "Url": "https://sportscult.org/index.php?page=signup",
+    "IconPath": ".\\SportsCult.png",
+    "VbCodeFile": ".\\SportsCult.vb"
+}
+

@@ -23,23 +23,29 @@ plugins
 forum 
 tracker 
 trackers 
+torrenting 
 torrent 
 torrents 
 private 
+internet
+www
+register
+registration
+automation
+checker
  -->
 
 # Multi-Tracker and Forums Registration Availability Tool
 
-### (MTAFRAT)
-<p align="center">(MTAFRAT) </p>
+### <p align="center">(MTAFRAT) </p>
 
 ------------------
 
 ## 👋 Introduction
 
-**MTAFRAT** is a tool designed to automatically check registration availability across multiple trackers and forums.
+Ever wanted to join your favorite private torrent tracker or forum but got tired of waiting for open registration? Well, this program will not do magic — but it will help you take the edge off that frustrating wait...
 
-It allows you to quickly analyze registration status using a modular, plugin-based system that facilitates the integration of new sites without modifying the program core.
+**MTAFRAT** is a tool designed to quickly and automatically check registration availability status across multiple trackers and forums using a modular, plugin-based system.
 
 ## 👌 Features
 
@@ -50,25 +56,22 @@ The program works through a plugin system.
 Each plugin is composed of three main elements:
 
 -  JSON file
-			Contains the plugin's basic metadata:
-			name, description, login or registration URL, etc.
+	Contains the plugin's basic metadata:
+	name, description, login or registration URL, etc.
 
 - PNG, JPG, BMP, or ICO image file
-			This is usually a banner or favicon
-			that visually represents the plugin.
-			A square image is recommended,
-			preferably 48x48 pixels.
+	This is usually a banner or favicon
+	that visually represents the plugin.
+	A square image is recommended,
+	preferably 48x48 pixels.
 
 - VB file
-			Contains the VB.NET source code that implements the 
-			plugin's logic and behavior within the program.
+	Contains the VB.NET source code that implements the 
+	plugin's logic and behavior within the program.
 
 📁 Plugins Location
 
-All plugins are located in the "plugins" folder.
-
-If you don't find one of them useful and want to remove it from the program, you can delete the folder corresponding to the plugin name, or move it to another directory outside of its original location.
-
+All plugins are located in the `plugins` folder. If you don't find one of them useful and want to remove it from the program, you can delete the folder corresponding to the plugin name, or move it to another directory outside of its original location.
 
 🔧 Built-in plugins
 
@@ -130,16 +133,30 @@ If you don't find one of them useful and want to remove it from the program, you
 
 ## 🖼️ Screenshots
 
-![screenshot](/Images/screenshot.png)
+![screenshot](/Images/Screenshot_01.png)
+
+![screenshot](/Images/Screenshot_02.png)
+
+![screenshot](/Images/Screenshot_03.png)
 
 ## 📝 Requirements
 
 - Microsoft Windows OS. (It may work in Linux with Wine)
 - [.NET Desktop Runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
-## 🤖 Getting Started
+## 🤖 Getting Started (common users)
 
 Download the latest build by clicking [here](https://github.com/ElektroStudios/MTAFRAT/releases/latest).
+
+And simply run the program to get started. It features an intuitive, user-friendly interface.
+
+💡 Also remember to read the included `README.txt` file located in the `docs` folder for more details and also tips for using the application. 
+   Or click [here](https://github.com/ElektroStudios/MTAFRAT/Source/MTAFRAT/docs/english/README.txt) to read the document now.
+
+## 🤖 Getting Started (plugin developers)
+
+Read the included `README (for programmers).md` file located in the `docs` folder for more details. 
+Or click [here](https://github.com/ElektroStudios/MTAFRAT/Source/MTAFRAT/docs/english/README%20%28for%20programmers%29.md) to read the document now.
 
 ## 🔄 Change Log
 

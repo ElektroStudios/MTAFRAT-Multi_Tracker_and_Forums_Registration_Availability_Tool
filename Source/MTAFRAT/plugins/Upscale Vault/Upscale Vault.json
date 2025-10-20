@@ -1,0 +1,8 @@
+{
+    "Name": "Upscale Vault",
+    "Description": "Upscale Vault is a private torrent tracker for Upscaled & Remastered movies.",
+    "Url": "https://upscalevault.com/register",
+    "IconPath": ".\\Upscale Vault.png",
+    "VbCodeFile": ".\\Upscale Vault.vb"
+}
+

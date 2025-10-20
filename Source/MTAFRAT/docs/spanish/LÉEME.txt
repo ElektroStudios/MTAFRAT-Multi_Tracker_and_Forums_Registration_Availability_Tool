@@ -1,0 +1,155 @@
+---------------------------------------------------------------------
+🧩 Multi-Tracker and Forums Registration Availability Tool (MTAFRAT)
+
+Autor: ElektroStudios
+Versión: 1.0.3
+Fecha de lanzamiento: 18 de octubre de 2025
+---------------------------------------------------------------------
+
+MTAFRAT es una herramienta diseñada para comprobar la 
+disponibilidad de registro en múltiples trackers y 
+foros de manera automatizada.
+
+Permite analizar rápidamente el estado de registro 
+mediante un sistema modular basado en plugins 
+que facilitan la integración de nuevos sitios 
+sin modificar el núcleo del programa.
+
+ARCHIVO LÉEME
+_____________
+
+📋 Requisitos
+
+	Este programa requiere de .NET Desktop Runtime 8.0 instalado en su equipo.
+
+	Descargue el paquete de .NET Desktop Runtime 8.0 de 64-Bits aquí:
+		► https://dotnet.microsoft.com/en-us/download/dotnet/8.0
+
+📦 Arquitectura basada en plugins
+
+	El programa funciona mediante un sistema de plugins (complementos).
+
+	Cada plugin está compuesto por tres elementos principales:
+
+		● Archivo JSON
+		    Contiene los metadatos básicos del plugin: 
+		    	nombre, descripción, URL de inicio de sesión o registro, etc.
+
+		● Archivo de imagen PNG, JPG, BMP o ICO
+		    Generalmente se trata de un banner o un favicon 
+		    que representa visualmente al plugin.
+		    Se recomienda que sea una imagen cuadrada (square), 
+		    preferiblemente de 48×48 píxeles.
+
+		● Archivo VB
+		    Contiene el código fuente en VB.NET que implementa la 
+		    lógica y el comportamiento del plugin dentro del programa.
+
+📁 Ubicación de los plugins
+
+	Todos los plugins se encuentran dentro de la carpeta "plugins".
+	Si alguno no le resulta útil y quiere eliminarlo del programa, 
+	puede borrar la carpeta correspondiente al nombre del plugin, 
+	o moverlo a otro directorio fuera de su ubicación.
+
+🔧 Plugins integrados
+
+	Índice Nombre          Url
+	------ ------          ---
+	01     3ChangTrai      https://3changtrai.com/signup.php
+	02     3D Torrents     http://www.3dtorrents.org/index.php?page=signup
+	03     4th Dimension   https://4thd.xyz/register.php
+	04     AlphaRatio      https://alpharatio.cc/register.php
+	05     Animebytes      https://animebytes.tv/register/apply
+	06     AnimeTorrents   https://animetorrents.me/register.php
+	07     AvistaZ         https://avistaz.to/auth/register
+	08     BeyondHD        https://beyond-hd.me/login
+	09     BitPorn         https://bitporn.eu/register
+	10     Blutopia        https://blutopia.cc/application
+	11     Cinemageddon    https://cinemageddon.net/signup.php
+	12     CinemaZ         https://cinemaz.to/auth/register
+	13     DarkPeers       https://darkpeers.org/register
+	14     Digital Core    https://digitalcore.club/signup/
+	15     Elite-HD        https://www.elitehd.li/ucp.php?mode=register
+	16     ExoticaZ        https://exoticaz.to/register
+	17     Fappaizuri      https://fappaizuri.me/account-signup.php
+	18     FearNoPeer      https://fearnopeer.com/register
+	19     Femdomcult      https://femdomcult.org/
+	20     GreatPosterWall https://greatposterwall.com/register.php
+	21     HD Dolby        https://www.hddolby.com/signup.php
+	22     HD-Forever      https://hdf.world/register.php
+	23     HD-Olimpo       https://hd-olimpo.club/login
+	24     HD-Space        https://hd-space.org/index.php?page=signup
+	25     HD-Zero         https://www.hdzero.org/register
+	26     HDHome          https://hdhome.org/signup.php
+	27     HDTime          https://hdtime.org/signup.php
+	28     Hebits          https://hebits.net/register.php
+	29     iPtorrents      https://www.iptorrents.com/signup.php
+	30     Kleverig        https://www.kleverig.eu/register.php
+	31     KrazyZone       https://krazyzone.net/account-signup.php
+	32     Lat-Team        https://lat-team.com/application
+	33     Locadora        https://locadora.cc/register
+	34     LST             https://lst.gg/register
+	35     More Than TV    https://www.morethantv.me/application
+	36     NicePT          https://www.nicept.net/signup.php
+	37     Old Toons World https://oldtoons.world/register
+	38     OnlyEncodes     https://onlyencodes.cc/application
+	39     PassThePopcorn  https://passthepopcorn.me/register.php
+	40     PrivateHD       https://privatehd.to/auth/register
+	41     Punto Torrent   https://xbt.puntotorrent.com/index.php?page=signup
+	42     Rastastugan     https://rastastugan.org/register
+	43     ReelFlix        https://reelflix.xyz/register
+	44     SceneRush       https://www.scene-rush.com/signup.php
+	45     SeedFile        https://seedfile.io/register
+	46     SportsCult      https://sportscult.org/index.php?page=signup
+	47     Superbits       https://login.superbits.org/signup/
+	48     Tekno3D         https://tracker.tekno3d.com/signup.php
+	49     TorrentCFF      https://et8.org/signup.php
+	50     Torrent Day     https://www.torrentday.me/register.php
+	51     Torrenteros     https://torrenteros.org/application
+	52     TorrentLand     https://torrentland.li/login
+	53     TorrentLeech    https://www.torrentleech.org/
+	54     Upscale Vault   https://upscalevault.com/register
+	55     xBytesv2        https://xbytesv2.li/register
+
+💡 Consejos
+
+	1.  Algunos de los sitios web pueden mantener abierto el registro 
+		durante varios días o incluso semanas y meses. Sin embargo 
+		—y según la información recopilada y comentarios de usuarios— 
+		otros sitios solo habilitan el registro durante períodos muy breves, 
+		a veces menos de 24 horas, y entre ellos, sitios españoles como Torrentland.
+
+		Por ese motivo, si no quiere perder la oportunidad de registrarse a tiempo, 
+		se recomienda encarecidamente configurar la ejecución automática cada hora.
+		De esta forma, MTAFRAT podrá detectar con fiabilidad 
+		periodos muy cortos de apertura de registro en un sitio web.
+
+	2.  Si activa la éjecución en paralelo, los plugins se ejecutarán de cuatro en cuatro,
+		significando abrir cuatro instancias del proceso chromedriver.exe (y sus respectivos 
+		procesos hijos de Chrome.exe) al mismo tiempo. Esto acortará en gran medida el 
+		tiempo total necesario para terminar de ejecutar todos los plugins, sin embargo, 
+		también podría ocasionar problemas inesperados en la aplicación. Es experimental.
+		
+	3.  Si activa la éjecución automática de plugins, se recomienda seleccionar
+		solamente aquellos plugins que realmente le interesen. A veces un sitio web
+		puede estar caído o provocar un error inesperado que prolongue en exceso
+		el tiempo total de ejecución.
+
+	4.  Cada vez que ejecute un plugin, MTAFRAT generará ciertos archivos en el disco 
+		de forma automática. Esto es la caché de la aplicación. Si desea borrar la caché, 
+		simplemente pulse el botón "Borrar caché" en las opciones del programa.
+
+	5.  La primera vez que ejecute un plugin que interactúe con un sitio web protegido 
+		por Cloudflare (ej. "AvistaZ", "CinemaZ" o "ExoticaZ"), puede fallar 
+		la prueba de Cloudflare, sin embargo, las siguientes veces no debería fallar.
+		Tenga en cuenta que, si borra la caché del programa, la próxima vez que
+		ejecute el plugin será como si fuese la primera vez que lo hace. 
+
+	6.  Si por cualquier motivo MTAFRAT registrase errores extraños relacionados con Chrome
+		al ejecutar un plugin, pruebe a cerrar todos los procesos que haya en ejecución 
+		con los siguientes nombres: "Chrome.exe" y "ChromeDriver.exe". Esto lo puede hacer
+		de manera sencilla con el siguiente comando en la CMD de Windows:
+			Taskkill /F /T /IM "Chrome.exe" /IM "ChromeDriver.exe"
+		Una vez que los procesos en ejecución hayan sido cerrados, 
+		abra MTAFRAT y vuelva a intentar ejecutar el plugin.

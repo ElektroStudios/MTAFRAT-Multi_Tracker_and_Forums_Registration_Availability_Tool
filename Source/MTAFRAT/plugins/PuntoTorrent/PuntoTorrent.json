@@ -1,0 +1,8 @@
+{
+    "Name": "Punto Torrent",
+    "Description": "PuntoTorrent is a SPANISH Private Torrent Tracker for 0DAY / GENERAL.",
+    "Url": "https://xbt.puntotorrent.com/index.php?page=signup",
+    "IconPath": ".\\PuntoTorrent.png",
+    "VbCodeFile": ".\\PuntoTorrent.vb"
+}
+

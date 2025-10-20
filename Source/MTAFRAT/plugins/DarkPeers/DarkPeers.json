@@ -1,0 +1,8 @@
+{
+    "Name": "DarkPeers",
+    "description": "DarkPeers is a private torrent tracker for GENRAL releases.",
+    "Url": "https://darkpeers.org/register",
+    "IconPath": ".\\DarkPeers.png",
+    "VbCodeFile": ".\\DarkPeers.vb"
+}
+

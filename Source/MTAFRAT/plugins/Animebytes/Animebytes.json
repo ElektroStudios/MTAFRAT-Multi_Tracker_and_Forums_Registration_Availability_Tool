@@ -1,0 +1,8 @@
+{
+    "Name": "Animebytes",
+    "Description": "AnimeBytes (AB) is a Private Torrent Tracker for ANIME.",
+    "Url": "https://animebytes.tv/register/apply",
+    "IconPath": ".\\Animebytes.png",
+    "VbCodeFile": ".\\Animebytes.vb"
+}
+

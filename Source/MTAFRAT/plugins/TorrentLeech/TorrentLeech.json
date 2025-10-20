@@ -1,0 +1,8 @@
+{
+    "Name": "TorrentLeech",
+    "Description": "TorrentLeech (TL) is a Private Torrent Tracker for 0DAY / GENERAL.",
+    "Url": "https://www.torrentleech.org/",
+    "IconPath": ".\\TorrentLeech.png",
+    "VbCodeFile": ".\\TorrentLeech.vb"
+}
+

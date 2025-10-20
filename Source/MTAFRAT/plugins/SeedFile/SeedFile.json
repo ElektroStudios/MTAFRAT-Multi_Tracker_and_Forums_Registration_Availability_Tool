@@ -1,0 +1,8 @@
+{
+    "Name": "SeedFile",
+    "Description": "SeedFile (SF) is a ROMANIAN Private Torrent Tracker for 0DAY / GENERAL.",
+    "Url": "https://seedfile.io/register",
+    "IconPath": ".\\SeedFile.png",
+    "VbCodeFile": ".\\SeedFile.vb"
+}
+

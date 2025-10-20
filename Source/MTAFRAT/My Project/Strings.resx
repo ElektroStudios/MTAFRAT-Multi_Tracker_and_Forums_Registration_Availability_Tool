@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About...</value>
+  </data>
+  <data name="AutoPluginRunMsg" xml:space="preserve">
+    <value>Run selected plugins every hour:</value>
+  </data>
+  <data name="AutoPluginRunGroupBox" xml:space="preserve">
+    <value>Automatic Plugin Execution</value>
+  </data>
+  <data name="ComputerGroupBox" xml:space="preserve">
+    <value>Computer</value>
+  </data>
+  <data name="Program" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SingleInstanceMsg" xml:space="preserve">
+    <value>Only one instance of the program is allowed.</value>
+  </data>
+  <data name="SystemSleepMsg" xml:space="preserve">
+    <value>Prevent the system from entering sleep mode.</value>
+  </data>
+  <data name="Plugins" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="StatusMsg_ConnectingFormat" xml:space="preserve">
+    <value>🌐 Connecting to {0} website...</value>
+  </data>
+  <data name="StatusMsg_LoginPageLoaded" xml:space="preserve">
+    <value>✅ Login page loaded.</value>
+  </data>
+  <data name="StatusMsg_RegisterButtonFound" xml:space="preserve">
+    <value>✅ Register button found.</value>
+  </data>
+  <data name="StatusMsg_RegisterButtonClicked" xml:space="preserve">
+    <value>➡️ Register button clicked.</value>
+  </data>
+  <data name="StatusMsg_AnalyzingPageContent" xml:space="preserve">
+    <value>⏳ Analyzing page content...</value>
+  </data>
+  <data name="StatusMsg_DetectedRegClosed" xml:space="preserve">
+    <value>🚫 Registration has been detected as closed.</value>
+  </data>
+  <data name="StatusMsg_DetectedRegOpen" xml:space="preserve">
+    <value>🎉 Registration has been detected as open.</value>
+  </data>
+  <data name="StatusMsg_MsgboxRegOpenFormat" xml:space="preserve">
+    <value>🎉 Open registration on {0}! You can create an account now. 😃</value>
+  </data>
+  <data name="StatusMsg_ExceptionFormat" xml:space="preserve">
+    <value>❌ Error: {0}</value>
+  </data>
+  <data name="StatusMsg_ExceptionMessageBoxFormat" xml:space="preserve">
+    <value>❌ There was an error during the last plugin run: {0}</value>
+  </data>
+  <data name="StatusMsg_OperationCompleted" xml:space="preserve">
+    <value>🧹 Connection finished. Operation completed.</value>
+  </data>
+  <data name="StatusMsg_RegisterPageLoaded" xml:space="preserve">
+    <value>✅ Registration page loaded.</value>
+  </data>
+  <data name="RunPluginButton" xml:space="preserve">
+    <value>Run plugin</value>
+  </data>
+  <data name="LastPluginRunMsgFormat" xml:space="preserve">
+    <value>Last plugin execution on {0} at {1} hours.</value>
+  </data>
+  <data name="LastPluginRunInitialText" xml:space="preserve">
+    <value>💡 Press the main button to run the plugin.</value>
+  </data>
+  <data name="ErrorLoadingPluginFormat" xml:space="preserve">
+    <value>❌ Error loading plugin file '{0}': {1}</value>
+  </data>
+  <data name="NoPluginsAvailable" xml:space="preserve">
+    <value>❌ Error: No plugins are available inside the 'plugins' folder.</value>
+  </data>
+  <data name="DynamicCompilationErrors" xml:space="preserve">
+    <value>❌ Dynamic Code Compilation Errors:</value>
+  </data>
+  <data name="RememberSettings" xml:space="preserve">
+    <value>Remember current settings</value>
+  </data>
+  <data name="MissingDynamicPluginClass" xml:space="preserve">
+    <value>❌ Error: No class of type DynamicPlugin was found in the plugin's source code.</value>
+  </data>
+  <data name="MissingRunAsyncMethod" xml:space="preserve">
+    <value>❌ Error: No method with name RunAsync was found in the plugin's source code.</value>
+  </data>
+  <data name="DynamicCodeExecutionErrorFormat" xml:space="preserve">
+    <value>❌ Error executing dynamic code: {0}</value>
+  </data>
+  <data name="DuplicatedPluginsDetected" xml:space="preserve">
+    <value>Duplicated plugins with the same name have been found. Only the first plugin will be loaded.</value>
+  </data>
+  <data name="GroupBoxApplication" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="OpenWebsiteButton" xml:space="preserve">
+    <value>Open Website</value>
+  </data>
+  <data name="ExecutingPlugin" xml:space="preserve">
+    <value>⚙️ Running plugin...</value>
+  </data>
+  <data name="AutoPluginRunTimerEnabled" xml:space="preserve">
+    <value>✔️ Automatic plugins execution timer enabled.</value>
+  </data>
+  <data name="AutoPluginRunTimerDisabled" xml:space="preserve">
+    <value>⛔ Automatic plugins execution timer disabled.</value>
+  </data>
+  <data name="WaitingForTheNextAutomaticExecutionFormat" xml:space="preserve">
+    <value>⌛ Waiting {0} for the next automatic plugins execution...</value>
+  </data>
+  <data name="StatusMsg_CloudflareTrialWait" xml:space="preserve">
+    <value>⌛ Waiting to complete Cloudflare trial...</value>
+  </data>
+  <data name="StatusMsg_CloudflareTrialCompleted" xml:space="preserve">
+    <value>✅ Cloudflare trial completed.</value>
+  </data>
+  <data name="CantNavigateToUrlFormat" xml:space="preserve">
+    <value>Cannot navigate to the specified URL. Reason: {0}</value>
+  </data>
+  <data name="CantStablishConnectionFormat" xml:space="preserve">
+    <value>Cannot establish a connection to the specified URL. HTTP Status Code: {0}</value>
+  </data>
+  <data name="FormCloseWarningPluginWorkInProgress" xml:space="preserve">
+    <value>A plugin is currently running. Do you really want to exit now?. 
+
+Press NO to wait until the plugin execution ends.
+
+Press YES to exit, forcefully terminating any Chrome-related child processes.</value>
+  </data>
+  <data name="ClearApplicationCache" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
+  <data name="ApplicationCacheHasBeenCleaned" xml:space="preserve">
+    <value>Application cache has been fully cleaned.</value>
+  </data>
+  <data name="ClearingApplicationCacheMsg" xml:space="preserve">
+    <value>🧹  Clearing application cache...</value>
+  </data>
+  <data name="EnableParalellExecution" xml:space="preserve">
+    <value>Enable paralell execution</value>
+  </data>
+  <data name="ClearSelectedPlugins" xml:space="preserve">
+    <value>Clear selection</value>
+  </data>
+  <data name="SelectAllPlugins" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="ShowWindow" xml:space="preserve">
+    <value>Show window</value>
+  </data>
+  <data name="HideWindow" xml:space="preserve">
+    <value>Hide window</value>
+  </data>
+  <data name="CloseApplication" xml:space="preserve">
+    <value>Close application</value>
+  </data>
+  <data name="ExecutingPluginsTooltip" xml:space="preserve">
+    <value>⚙️ Running plugins...</value>
+  </data>
+  <data name="AutoRunPluginCheckedCountFormat" xml:space="preserve">
+    <value>🗹 {0} of {1}</value>
+  </data>
+  <data name="AutoRunPluginCheckedNoneFormat" xml:space="preserve">
+    <value>☐ 0 of {0}</value>
+  </data>
+  <data name="AutoRunPluginCheckedAllFormat" xml:space="preserve">
+    <value>⬛ {0} of {1}</value>
+  </data>
+  <data name="ClearingPluginCacheMsg" xml:space="preserve">
+    <value>🧹  Clearing plugin's cache...</value>
+  </data>
+  <data name="PluginCacheHasBeenCleaned" xml:space="preserve">
+    <value>Plugin's cache has been fully cleaned.</value>
+  </data>
+  <data name="RunAppMinimized" xml:space="preserve">
+    <value>Run application minimized to system-tray</value>
+  </data>
+</root>

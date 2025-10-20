@@ -1,0 +1,8 @@
+{
+    "Name": "HDHome",
+    "Description": "HDHome (HDBiger) is a CHINESE Private Torrent Tracker for HD MOVIES / TV.",
+    "Url": "https://hdhome.org/signup.php",
+    "IconPath": ".\\HDHome.png",
+    "VbCodeFile": ".\\HDHome.vb"
+}
+

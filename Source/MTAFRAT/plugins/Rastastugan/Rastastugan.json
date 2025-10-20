@@ -1,0 +1,8 @@
+{
+    "Name": "Rastastugan",
+    "Description": "Rastastugan is a private torrent tracker for HD MOVIES / TV",
+    "Url": "https://rastastugan.org/register",
+    "IconPath": ".\\Rastastugan.png",
+    "VbCodeFile": ".\\Rastastugan.vb"
+}
+

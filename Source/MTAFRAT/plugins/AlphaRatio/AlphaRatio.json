@@ -1,0 +1,8 @@
+{
+    "Name": "AlphaRatio",
+    "Description": "AlphaRatio (AR) is a Private Torrent Tracker for 0DAY / GENERAL.",
+    "Url": "https://alpharatio.cc/register.php",
+    "IconPath": ".\\AlphaRatio.png",
+    "VbCodeFile": ".\\AlphaRatio.vb"
+}
+

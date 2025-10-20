@@ -1,0 +1,8 @@
+{
+    "Name": "OnlyEncodes",
+    "Description": "OnlyEncodes (OE) is a private torrent tracker for MOVIES / TV that main focus in encodes.",
+    "Url": "https://onlyencodes.cc/application",
+    "IconPath": ".\\OnlyEncodes.png",
+    "VbCodeFile": ".\\OnlyEncodes.vb"
+}
+

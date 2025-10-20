@@ -1,0 +1,8 @@
+{
+    "Name": "TorrentLand",
+    "Description": "Torrentland is a SPANISH Private Torrent Tracker for MOVIES / TV / GENERAL.",
+    "Url": "https://torrentland.li/login",
+    "IconPath": ".\\TorrentLand.png",
+    "VbCodeFile": ".\\TorrentLand.vb"
+}
+

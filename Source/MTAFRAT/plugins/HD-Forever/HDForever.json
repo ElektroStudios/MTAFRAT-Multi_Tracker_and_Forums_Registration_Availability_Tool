@@ -1,0 +1,8 @@
+{
+    "Name": "HD-Forever",
+    "Description": "HD-Forever (HD-F) is a FRENCH Private Torrent Tracker for HD MOVIES.",
+    "Url": "https://hdf.world/register.php",
+    "IconPath": ".\\HDForever.png",
+    "VbCodeFile": ".\\HDForever.vb"
+}
+
