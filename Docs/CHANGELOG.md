@@ -12,7 +12,7 @@
 
 #### 📦 Installer changes:
 
- - The installer now asks for confirmation before overwriting the contents of the 'plugins' folder during installation, allowing to preserve any custom or modified plugins.
+ - The installer now asks for confirmation before overwriting the contents of the 'plugins' folder during installation, allowing to preserve any custom or modified plugins, allowing to preserve any custom or modified plugins.
 
 ## v1.0.4 🔄
 
@@ -32,7 +32,7 @@
 
 #### 📦 Installer changes:
 
-The installer now requires admin privileges (preventing errors when creating the 'cache' folder) and prompts whether to delete the 'plugins' folder on uninstall, preserving any custom or modified plugins.
+ - The installer now requires admin privileges (preventing errors when creating the 'cache' folder) and prompts whether to delete the 'plugins' folder on uninstall, allowing to preserve any custom or modified plugins.
 
 ## v1.0.3 🔄
 Initial public release on GitHub.
