@@ -24,6 +24,12 @@ Public Module AppGlobals
 #Region " Fields "
 
     ''' <summary>
+    ''' The official GitHub repository page for this application.
+    ''' </summary>
+    Public Const GitHubUrl As String =
+        "https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool/"
+
+    ''' <summary>
     ''' Duration in milliseconds that the splash screen is displayed.
     ''' </summary>
     Public Const SplashScreenTime As Integer = 2500

@@ -253,7 +253,7 @@ Press NO to wait until the plugin execution ends.
 
 Press YES to exit, forcefully terminating any Chrome-related child processes.</value>
   </data>
-  <data name="ClearApplicationCache" xml:space="preserve">
+  <data name="ClearCache" xml:space="preserve">
     <value>Clear cache</value>
   </data>
   <data name="ApplicationCacheHasBeenCleaned" xml:space="preserve">
@@ -318,5 +318,8 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
   </data>
   <data name="StatusMsg_MsgboxApplicationOpenFormat" xml:space="preserve">
     <value>🎉 The application form is now open on {0}! You can apply for an account now. 😃</value>
+  </data>
+  <data name="AboutDescriptionText" xml:space="preserve">
+    <value>A multi-tracker and forums registration availability tool through Selenium API.</value>
   </data>
 </root>

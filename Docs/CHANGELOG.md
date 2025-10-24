@@ -1,6 +1,16 @@
 # MTAFRAT Change Log 📋
 
-## v1.0.4 *(current)* 🆕
+## v1.0.5 *(current)* 🆕
+
+#### 🛠️ Fixes:
+ - Button "Clear cache" in the plugin tabs was not properly translated.
+
+#### 🌟 Improvements:
+ - Added a link in the 'About' dialog window pointing to the GitHub's application repository page.
+ - Description text in the 'About' dialog window is now translated.
+ - Tab navigation has been adjusted to reflect the new added controls.
+
+## v1.0.4 🔄
 
 #### 🚀 New Features:
  - Added a button in the `Settings` panel to run all selected plugins on demand.

@@ -157,7 +157,7 @@ Partial Public Class MainForm
         Me.DarkCheckBox_ClearPreviousLogEntries.Location = New Point(6, 28)
         Me.DarkCheckBox_ClearPreviousLogEntries.Name = "DarkCheckBox_ClearPreviousLogEntries"
         Me.DarkCheckBox_ClearPreviousLogEntries.Size = New Size(443, 25)
-        Me.DarkCheckBox_ClearPreviousLogEntries.TabIndex = 4
+        Me.DarkCheckBox_ClearPreviousLogEntries.TabIndex = 0
         Me.DarkCheckBox_ClearPreviousLogEntries.Text = "Clear previous log entries on plugin execution"
         ' 
         ' DarkCheckBox_RunAppMinimized
@@ -166,7 +166,7 @@ Partial Public Class MainForm
         Me.DarkCheckBox_RunAppMinimized.Location = New Point(6, 59)
         Me.DarkCheckBox_RunAppMinimized.Name = "DarkCheckBox_RunAppMinimized"
         Me.DarkCheckBox_RunAppMinimized.Size = New Size(443, 25)
-        Me.DarkCheckBox_RunAppMinimized.TabIndex = 0
+        Me.DarkCheckBox_RunAppMinimized.TabIndex = 1
         Me.DarkCheckBox_RunAppMinimized.Text = "Run application minimized"
         ' 
         ' DarkButtonImageAllignFix_ClearCache
@@ -178,7 +178,7 @@ Partial Public Class MainForm
         Me.DarkButtonImageAllignFix_ClearCache.Padding = New Padding(5)
         Me.DarkButtonImageAllignFix_ClearCache.ResizedImage = My.Resources.Resources.clean
         Me.DarkButtonImageAllignFix_ClearCache.Size = New Size(107, 71)
-        Me.DarkButtonImageAllignFix_ClearCache.TabIndex = 3
+        Me.DarkButtonImageAllignFix_ClearCache.TabIndex = 4
         Me.DarkButtonImageAllignFix_ClearCache.Text = "Clear cache"
         Me.DarkButtonImageAllignFix_ClearCache.TextImageRelation = TextImageRelation.ImageAboveText
         ' 
@@ -190,7 +190,7 @@ Partial Public Class MainForm
         Me.Label_Language.Location = New Point(6, 97)
         Me.Label_Language.Name = "Label_Language"
         Me.Label_Language.Size = New Size(78, 21)
-        Me.Label_Language.TabIndex = 1
+        Me.Label_Language.TabIndex = 2
         Me.Label_Language.Text = "Language"
         ' 
         ' DarkComboBox_Language
@@ -202,7 +202,7 @@ Partial Public Class MainForm
         Me.DarkComboBox_Language.Location = New Point(90, 94)
         Me.DarkComboBox_Language.Name = "DarkComboBox_Language"
         Me.DarkComboBox_Language.Size = New Size(102, 30)
-        Me.DarkComboBox_Language.TabIndex = 2
+        Me.DarkComboBox_Language.TabIndex = 3
         ' 
         ' DarkGroupBox_OS
         ' 
@@ -248,7 +248,7 @@ Partial Public Class MainForm
         Me.DarkButton_RunAllSelectedPluginsNow.Padding = New Padding(5)
         Me.DarkButton_RunAllSelectedPluginsNow.ResizedImage = My.Resources.Resources.execute
         Me.DarkButton_RunAllSelectedPluginsNow.Size = New Size(160, 25)
-        Me.DarkButton_RunAllSelectedPluginsNow.TabIndex = 4
+        Me.DarkButton_RunAllSelectedPluginsNow.TabIndex = 1
         Me.DarkButton_RunAllSelectedPluginsNow.Text = "Run now"
         Me.DarkButton_RunAllSelectedPluginsNow.TextImageRelation = TextImageRelation.ImageBeforeText
         ' 
@@ -260,7 +260,7 @@ Partial Public Class MainForm
         Me.Label_AutoRunPluginCheckedCount.Location = New Point(436, 184)
         Me.Label_AutoRunPluginCheckedCount.Name = "Label_AutoRunPluginCheckedCount"
         Me.Label_AutoRunPluginCheckedCount.Size = New Size(121, 27)
-        Me.Label_AutoRunPluginCheckedCount.TabIndex = 3
+        Me.Label_AutoRunPluginCheckedCount.TabIndex = 4
         Me.Label_AutoRunPluginCheckedCount.Text = "0\0"
         Me.Label_AutoRunPluginCheckedCount.TextAlign = ContentAlignment.TopRight
         ' 
@@ -271,7 +271,7 @@ Partial Public Class MainForm
         Me.DarkCheckBox_ParalellExecution.Location = New Point(6, 183)
         Me.DarkCheckBox_ParalellExecution.Name = "DarkCheckBox_ParalellExecution"
         Me.DarkCheckBox_ParalellExecution.Size = New Size(424, 25)
-        Me.DarkCheckBox_ParalellExecution.TabIndex = 2
+        Me.DarkCheckBox_ParalellExecution.TabIndex = 3
         Me.DarkCheckBox_ParalellExecution.Text = "Enable paralell execution"
         ' 
         ' CheckedListBox_AutoPluginRun
@@ -287,7 +287,7 @@ Partial Public Class MainForm
         Me.CheckedListBox_AutoPluginRun.Location = New Point(6, 59)
         Me.CheckedListBox_AutoPluginRun.Name = "CheckedListBox_AutoPluginRun"
         Me.CheckedListBox_AutoPluginRun.Size = New Size(551, 122)
-        Me.CheckedListBox_AutoPluginRun.TabIndex = 1
+        Me.CheckedListBox_AutoPluginRun.TabIndex = 2
         ' 
         ' DarkContextMenu_AutoRunPluginsListBox
         ' 
@@ -365,7 +365,7 @@ Partial Public Class MainForm
         Me.DarkSectionPanel_Program.Name = "DarkSectionPanel_Program"
         Me.DarkSectionPanel_Program.SectionHeader = "Program"
         Me.DarkSectionPanel_Program.Size = New Size(227, 120)
-        Me.DarkSectionPanel_Program.TabIndex = 0
+        Me.DarkSectionPanel_Program.TabIndex = 1
         ' 
         ' TableLayoutPanel2
         ' 

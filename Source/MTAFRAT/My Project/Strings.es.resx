@@ -253,7 +253,7 @@ Pulse NO para esperar hasta que finalice la ejecución del plugin.
 
 Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado con Chrome.</value>
   </data>
-  <data name="ClearApplicationCache" xml:space="preserve">
+  <data name="ClearCache" xml:space="preserve">
     <value>Borrar caché</value>
   </data>
   <data name="ApplicationCacheHasBeenCleaned" xml:space="preserve">
@@ -318,5 +318,8 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
   </data>
   <data name="StatusMsg_MsgboxApplicationOpenFormat" xml:space="preserve">
     <value>🎉 ¡El formulario de solicitudes está abierto en {0}! Puedes solicitar el registro ahora. 😃</value>
+  </data>
+  <data name="AboutDescriptionText" xml:space="preserve">
+    <value>Una herramienta para verificar la disponibilidad de registro en trackers de torrents y foros usando la API de Selenium.</value>
   </data>
 </root>

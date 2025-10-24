@@ -74,6 +74,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to A multi-tracker and forums registration availability tool through Selenium API..
+        '''</summary>
+        Friend Shared ReadOnly Property AboutDescriptionText() As String
+            Get
+                Return ResourceManager.GetString("AboutDescriptionText", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Application cache has been fully cleaned..
         '''</summary>
         Friend Shared ReadOnly Property ApplicationCacheHasBeenCleaned() As String
@@ -166,9 +175,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Clear cache.
         '''</summary>
-        Friend Shared ReadOnly Property ClearApplicationCache() As String
+        Friend Shared ReadOnly Property ClearCache() As String
             Get
-                Return ResourceManager.GetString("ClearApplicationCache", resourceCulture)
+                Return ResourceManager.GetString("ClearCache", resourceCulture)
             End Get
         End Property
         

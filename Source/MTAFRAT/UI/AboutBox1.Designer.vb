@@ -21,7 +21,7 @@ Partial Class AboutBox1
     Friend WithEvents LogoPictureBox As System.Windows.Forms.PictureBox
     Friend WithEvents LabelProductName As System.Windows.Forms.Label
     Friend WithEvents LabelVersion As System.Windows.Forms.Label
-    Friend WithEvents LabelCompanyName As System.Windows.Forms.Label
+    Friend WithEvents LinkLabelGitHub As System.Windows.Forms.LinkLabel
     Friend WithEvents TextBoxDescription As DarkTextBox
     Friend WithEvents OKButton As DarkButton
     Friend WithEvents LabelCopyright As System.Windows.Forms.Label
@@ -40,7 +40,7 @@ Partial Class AboutBox1
         Me.LabelProductName = New Label()
         Me.LabelVersion = New Label()
         Me.LabelCopyright = New Label()
-        Me.LabelCompanyName = New Label()
+        Me.LinkLabelGitHub = New LinkLabel()
         Me.TextBoxDescription = New DarkTextBox()
         Me.OKButton = New DarkButton()
         Me.TableLayoutPanel.SuspendLayout()
@@ -56,7 +56,7 @@ Partial Class AboutBox1
         Me.TableLayoutPanel.Controls.Add(Me.LabelProductName, 1, 0)
         Me.TableLayoutPanel.Controls.Add(Me.LabelVersion, 1, 1)
         Me.TableLayoutPanel.Controls.Add(Me.LabelCopyright, 1, 2)
-        Me.TableLayoutPanel.Controls.Add(Me.LabelCompanyName, 1, 3)
+        Me.TableLayoutPanel.Controls.Add(Me.LinkLabelGitHub, 1, 3)
         Me.TableLayoutPanel.Controls.Add(Me.TextBoxDescription, 1, 4)
         Me.TableLayoutPanel.Controls.Add(Me.OKButton, 1, 5)
         Me.TableLayoutPanel.Dock = DockStyle.Fill
@@ -98,7 +98,7 @@ Partial Class AboutBox1
         Me.LabelProductName.MaximumSize = New Size(0, 23)
         Me.LabelProductName.Name = "LabelProductName"
         Me.LabelProductName.Size = New Size(393, 23)
-        Me.LabelProductName.TabIndex = 0
+        Me.LabelProductName.TabIndex = 1
         Me.LabelProductName.Text = "Product Name"
         Me.LabelProductName.TextAlign = ContentAlignment.MiddleLeft
         ' 
@@ -112,7 +112,7 @@ Partial Class AboutBox1
         Me.LabelVersion.MaximumSize = New Size(0, 23)
         Me.LabelVersion.Name = "LabelVersion"
         Me.LabelVersion.Size = New Size(393, 23)
-        Me.LabelVersion.TabIndex = 0
+        Me.LabelVersion.TabIndex = 2
         Me.LabelVersion.Text = "Version"
         Me.LabelVersion.TextAlign = ContentAlignment.MiddleLeft
         ' 
@@ -126,23 +126,25 @@ Partial Class AboutBox1
         Me.LabelCopyright.MaximumSize = New Size(0, 23)
         Me.LabelCopyright.Name = "LabelCopyright"
         Me.LabelCopyright.Size = New Size(393, 23)
-        Me.LabelCopyright.TabIndex = 0
+        Me.LabelCopyright.TabIndex = 3
         Me.LabelCopyright.Text = "Copyright"
         Me.LabelCopyright.TextAlign = ContentAlignment.MiddleLeft
         ' 
-        ' LabelCompanyName
+        ' LinkLabelGitHub
         ' 
-        Me.LabelCompanyName.Dock = DockStyle.Fill
-        Me.LabelCompanyName.Font = New Font("Segoe UI", 11F)
-        Me.LabelCompanyName.ForeColor = Color.Gainsboro
-        Me.LabelCompanyName.Location = New Point(127, 99)
-        Me.LabelCompanyName.Margin = New Padding(7, 0, 4, 0)
-        Me.LabelCompanyName.MaximumSize = New Size(0, 23)
-        Me.LabelCompanyName.Name = "LabelCompanyName"
-        Me.LabelCompanyName.Size = New Size(393, 23)
-        Me.LabelCompanyName.TabIndex = 0
-        Me.LabelCompanyName.Text = "Company Name"
-        Me.LabelCompanyName.TextAlign = ContentAlignment.MiddleLeft
+        Me.LinkLabelGitHub.Dock = DockStyle.Fill
+        Me.LinkLabelGitHub.Font = New Font("Segoe UI", 11F)
+        Me.LinkLabelGitHub.ForeColor = Color.Gainsboro
+        Me.LinkLabelGitHub.LinkColor = SystemColors.ActiveCaption
+        Me.LinkLabelGitHub.Location = New Point(127, 99)
+        Me.LinkLabelGitHub.Margin = New Padding(7, 0, 4, 0)
+        Me.LinkLabelGitHub.MaximumSize = New Size(0, 23)
+        Me.LinkLabelGitHub.Name = "LinkLabelGitHub"
+        Me.LinkLabelGitHub.Size = New Size(393, 23)
+        Me.LinkLabelGitHub.TabIndex = 4
+        Me.LinkLabelGitHub.TabStop = True
+        Me.LinkLabelGitHub.Text = "Company Name"
+        Me.LinkLabelGitHub.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' TextBoxDescription
         ' 
@@ -158,7 +160,7 @@ Partial Class AboutBox1
         Me.TextBoxDescription.ReadOnly = True
         Me.TextBoxDescription.ScrollBars = ScrollBars.Both
         Me.TextBoxDescription.Size = New Size(393, 163)
-        Me.TextBoxDescription.TabIndex = 0
+        Me.TextBoxDescription.TabIndex = 5
         Me.TextBoxDescription.TabStop = False
         Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
         ' 

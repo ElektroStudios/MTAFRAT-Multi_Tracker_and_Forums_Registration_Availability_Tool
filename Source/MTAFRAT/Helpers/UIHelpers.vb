@@ -51,7 +51,7 @@ Public Module UIHelper
         f.Label_Language.Text = My.Resources.Strings.LanguageLabel
         f.DarkButton_RunAllSelectedPluginsNow.Text = My.Resources.Strings.RunAllSelectedPluginsNow
         f.DarkCheckBox_RememberCurrentSettings.Text = My.Resources.Strings.RememberSettings
-        f.DarkButtonImageAllignFix_ClearCache.Text = My.Resources.Strings.ClearApplicationCache
+        f.DarkButtonImageAllignFix_ClearCache.Text = My.Resources.Strings.ClearCache
         f.DarkCheckBox_ParalellExecution.Text = My.Resources.Strings.EnableParalellExecution
         f.DarkCheckBox_RunAppMinimized.Text = My.Resources.Strings.RunAppMinimized
         f.DarkCheckBox_ClearPreviousLogEntries.Text = My.Resources.Strings.ClearPreviousLogEntries
@@ -68,6 +68,7 @@ Public Module UIHelper
         For Each plugin As DynamicPlugin In AppGlobals.LoadedDynamicPlugins
             plugin.ButtonRunPlugin.Text = My.Resources.Strings.RunPluginButton
             plugin.ButtonOpenWebsite.Text = My.Resources.Strings.OpenWebsiteButton
+            plugin.ButtonClearCache.Text = My.Resources.Strings.ClearCache
 
             If CStr(plugin.StatusLabel.Tag)?.Equals(AppGlobals.ControlInitialTextTag) Then
                 plugin.StatusLabel.Text = My.Resources.Strings.LastPluginRunInitialText
@@ -594,7 +595,7 @@ Public Module UIHelper
 
             Dim buttonClearCache As New DarkButtonImageAllignFix With {
                 .Name = plugin.ButtonClearCacheName,
-                .Text = My.Resources.Strings.ClearApplicationCache,
+                .Text = My.Resources.Strings.ClearCache,
                 .TextImageRelation = TextImageRelation.ImageBeforeText,
                 .Height = btPane.Height,
                 .Width = buttonWidth,

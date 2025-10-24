@@ -29,12 +29,26 @@ Public NotInheritable Class AboutBox1 : Inherits DarkForm
         Me.LabelProductName.Text = My.Application.Info.ProductName
         Me.LabelVersion.Text = String.Format("Version {0}", $"{My.Application.Info.Version.Major}.{My.Application.Info.Version.Minor}.{My.Application.Info.Version.Build}")
         Me.LabelCopyright.Text = My.Application.Info.Copyright
-        Me.LabelCompanyName.Text = My.Application.Info.CompanyName
-        Me.TextBoxDescription.Text = My.Application.Info.Description
+        Me.LinkLabelGitHub.Text = "🌐 GitHub"
+        Me.TextBoxDescription.Text = My.Resources.Strings.AboutDescriptionText
     End Sub
 
     Private Sub OKButton_Click(sender As Object, e As EventArgs) Handles OKButton.Click
         Me.Close()
     End Sub
 
+    Private Sub LinkLabelGitHub_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelGitHub.LinkClicked
+
+        Try
+            Using p As New Process
+                p.StartInfo.FileName = AppGlobals.GitHubUrl
+                p.StartInfo.UseShellExecute = True
+
+                p.Start()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(Me, $"Error: {ex.Message}", My.Application.Info.ProductName,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 End Class
