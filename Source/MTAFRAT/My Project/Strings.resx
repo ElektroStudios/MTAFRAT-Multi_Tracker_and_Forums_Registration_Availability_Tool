@@ -160,13 +160,13 @@
     <value>⏳ Analyzing page content...</value>
   </data>
   <data name="StatusMsg_DetectedRegClosed" xml:space="preserve">
-    <value>🚫 Registration has been detected as closed.</value>
+    <value>🚫 Registration form has been detected as closed.</value>
   </data>
   <data name="StatusMsg_DetectedRegOpen" xml:space="preserve">
-    <value>🎉 Registration has been detected as open.</value>
+    <value>🎉 Registration form has been detected as open.</value>
   </data>
   <data name="StatusMsg_MsgboxRegOpenFormat" xml:space="preserve">
-    <value>🎉 Open registration on {0}! You can create an account now. 😃</value>
+    <value>🎉 The registration form is now open on {0}! You can create an account now. 😃</value>
   </data>
   <data name="StatusMsg_ExceptionFormat" xml:space="preserve">
     <value>❌ Error: {0}</value>
@@ -175,7 +175,7 @@
     <value>❌ There was an error during the last plugin run: {0}</value>
   </data>
   <data name="StatusMsg_OperationCompleted" xml:space="preserve">
-    <value>🧹 Connection finished. Operation completed.</value>
+    <value>🧹 Closing browser. Operation completed.</value>
   </data>
   <data name="StatusMsg_RegisterPageLoaded" xml:space="preserve">
     <value>✅ Registration page loaded.</value>
@@ -300,5 +300,23 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
   </data>
   <data name="RunAppMinimized" xml:space="preserve">
     <value>Run application minimized to system-tray</value>
+  </data>
+  <data name="RunAllSelectedPluginsNow" xml:space="preserve">
+    <value>Run now</value>
+  </data>
+  <data name="ClearPreviousLogEntries" xml:space="preserve">
+    <value>Clear previous log entries on plugin execution</value>
+  </data>
+  <data name="StatusMsg_ApplicationPageLoaded" xml:space="preserve">
+    <value>✅ Application page loaded.</value>
+  </data>
+  <data name="StatusMsg_DetectedApplicationClosed" xml:space="preserve">
+    <value>🚫 Application form has been detected as closed.</value>
+  </data>
+  <data name="StatusMsg_DetectedApplicationOpen" xml:space="preserve">
+    <value>🎉 Application form has been detected as open.</value>
+  </data>
+  <data name="StatusMsg_MsgboxApplicationOpenFormat" xml:space="preserve">
+    <value>🎉 The application form is now open on {0}! You can apply for an account now. 😃</value>
   </data>
 </root>

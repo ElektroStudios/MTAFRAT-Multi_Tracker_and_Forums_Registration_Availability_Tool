@@ -9,7 +9,7 @@ Option Infer Off
 ''' <summary>
 ''' Base class for all plugins. This class must be inherited.
 ''' </summary>
-Public MustInherit Class PluginBase : Implements IEquatable(Of PluginBase)
+Public MustInherit Class PluginBase : Implements IEquatable(Of PluginBase), IDisposable
 
 #Region " Properties "
 
@@ -51,14 +51,14 @@ Public MustInherit Class PluginBase : Implements IEquatable(Of PluginBase)
     ''' Asynchronously executes the plugin's main logic.
     ''' </summary>
     ''' 
-    ''' <param name="statusTextBox">
+    ''' <param name="logTextBox">
     ''' A <see cref="TextBox"/> control where status messages can be logged during execution.
     ''' </param>
     ''' 
     ''' <returns>
     ''' A <see cref="Task(Of RegistrationStatus)"/> representing the asynchronous operation.
     ''' </returns>
-    Public MustOverride Async Function RunAsync(statusTextBox As TextBox) As Task(Of RegistrationStatus)
+    Public MustOverride Async Function RunAsync(logTextBox As TextBox) As Task(Of RegistrationStatus)
 
     ''' <summary>
     ''' Returns a <see cref="String" /> that represents this instance.
@@ -85,6 +85,27 @@ Public MustInherit Class PluginBase : Implements IEquatable(Of PluginBase)
     End Function
 
     ''' <summary>
+    ''' Determines whether the specified <see cref="Object"/> is equal to this instance.
+    ''' </summary>
+    ''' 
+    ''' <param name="obj">
+    ''' The <see cref="Object"/> to compare with this instance.
+    ''' </param>
+    ''' 
+    ''' <returns>
+    ''' <see langword="True"/> if the specified <see cref="Object"/> is equal to this instance; 
+    ''' otherwise, <see langword="False"/>.
+    ''' </returns>
+    Public Overrides Function Equals(obj As Object) As Boolean
+
+        Return Me.Equals(TryCast(obj, PluginBase))
+    End Function
+
+#End Region
+
+#Region " IEquatable Implementation "
+
+    ''' <summary>
     ''' Determines whether the specified <see cref="PluginBase"/> is equal to this instance.
     ''' </summary>
     ''' 
@@ -101,22 +122,45 @@ Public MustInherit Class PluginBase : Implements IEquatable(Of PluginBase)
         Return (other IsNot Nothing) AndAlso String.Equals(Me.ToString(), other.ToString(), StringComparison.InvariantCultureIgnoreCase)
     End Function
 
+#End Region
+
+#Region " IDisposable Implementation "
+
     ''' <summary>
-    ''' Determines whether the specified <see cref="Object"/> is equal to this instance.
+    ''' Tracks whether <see cref="Pluginbase.Dispose(Boolean)"/> method has already been called to prevent redundant calls.
+    ''' </summary>
+    Private disposedValue As Boolean
+
+    ''' <summary>
+    ''' Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     ''' </summary>
     ''' 
-    ''' <param name="obj">
-    ''' The <see cref="Object"/> to compare with this instance.
+    ''' <param name="disposing">
+    ''' <see langword="True"/> to release both managed and unmanaged resources; 
+    ''' <see langword="False"/> to release only unmanaged resources.
     ''' </param>
-    ''' 
-    ''' <returns>
-    ''' <see langword="True"/> if the specified <see cref="Object"/> is equal to this instance; 
-    ''' otherwise, <see langword="False"/>.
-    ''' </returns>
-    Public Overrides Function Equals(obj As Object) As Boolean
+    Private Sub Dispose(disposing As Boolean)
 
-        Return Me.Equals(TryCast(obj, PluginBase))
-    End Function
+        If Not Me.disposedValue Then
+            If disposing Then
+                Me.Image?.Dispose()
+            End If
+
+            Me.Image = Nothing
+
+            Me.disposedValue = True
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Releases the resources used by this <see cref="Pluginbase"/> instance.
+    ''' </summary>
+    Public Overridable Sub Dispose() Implements IDisposable.Dispose
+
+        ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+        Me.Dispose(disposing:=True)
+        GC.SuppressFinalize(Me)
+    End Sub
 
 #End Region
 

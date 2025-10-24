@@ -16,7 +16,8 @@ Class PrivateHDPlugin : Inherits DynamicPlugin
     Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
         Return Await Task.Run(
             Function()
-                Using driver As ChromeDriver = CreateChromeDriver(Me, headless:=False)
+                Using service As ChromeDriverService = Nothing,
+                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless:=False)
                     Try
                         LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
                         NavigateTo(driver, Me.Url)

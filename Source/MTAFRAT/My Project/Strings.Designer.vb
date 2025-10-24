@@ -191,6 +191,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Clear previous log entries on plugin execution.
+        '''</summary>
+        Friend Shared ReadOnly Property ClearPreviousLogEntries() As String
+            Get
+                Return ResourceManager.GetString("ClearPreviousLogEntries", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Clear selection.
         '''</summary>
         Friend Shared ReadOnly Property ClearSelectedPlugins() As String
@@ -411,6 +420,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Run now.
+        '''</summary>
+        Friend Shared ReadOnly Property RunAllSelectedPluginsNow() As String
+            Get
+                Return ResourceManager.GetString("RunAllSelectedPluginsNow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Run application minimized to system-tray.
         '''</summary>
         Friend Shared ReadOnly Property RunAppMinimized() As String
@@ -474,6 +492,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to ✅ Application page loaded..
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_ApplicationPageLoaded() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_ApplicationPageLoaded", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to ✅ Cloudflare trial completed..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_CloudflareTrialCompleted() As String
@@ -501,7 +528,25 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 🚫 Registration has been detected as closed..
+        '''  Looks up a localized string similar to 🚫 Application form has been detected as closed..
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_DetectedApplicationClosed() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_DetectedApplicationClosed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 🎉 Application form has been detected as open..
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_DetectedApplicationOpen() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_DetectedApplicationOpen", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 🚫 Registration form has been detected as closed..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_DetectedRegClosed() As String
             Get
@@ -510,7 +555,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 🎉 Registration has been detected as open..
+        '''  Looks up a localized string similar to 🎉 Registration form has been detected as open..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_DetectedRegOpen() As String
             Get
@@ -546,7 +591,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 🎉 Open registration on {0}! You can create an account now. 😃.
+        '''  Looks up a localized string similar to 🎉 The application form is now open on {0}! You can apply for an account now. 😃.
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_MsgboxApplicationOpenFormat() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_MsgboxApplicationOpenFormat", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 🎉 The registration form is now open on {0}! You can create an account now. 😃.
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_MsgboxRegOpenFormat() As String
             Get
@@ -555,7 +609,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 🧹 Connection finished. Operation completed..
+        '''  Looks up a localized string similar to 🧹 Closing browser. Operation completed..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_OperationCompleted() As String
             Get

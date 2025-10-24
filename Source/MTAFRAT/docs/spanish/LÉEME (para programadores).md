@@ -24,6 +24,7 @@ Un plugin se implementa mediante una clase de VB.NET con herencia del tipo **MTA
 Class MyPlugin : Inherits DynamicPlugin
 
     Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
+      
       ' Lógica del plugin aquí.
     End Function
 
@@ -47,6 +48,7 @@ Los desarrolladores de plugins tienen a su disposición el módulo **MTAFRAT.Plu
  - `CreateChromeDriver`
 ```vbnet
 plugin As DynamicPlugin
+ByRef refService As ChromeDriverService
 headless As Boolean
 ParamArray arguments As String()
 ```
@@ -86,7 +88,7 @@ Realiza un clic sobre el elemento usando JavaScript, útil cuando el método de 
 plugin As DynamicPlugin
 msg As String
 ```
-Imprime un mensaje en el control `StatusTextBox` asociado al plugin.
+Imprime un mensaje en el control `LogTextBox` asociado al plugin.
 Ideal para mostrar mensajes de progreso, resultados o errores dentro de la propia interfaz de **MTAFRAT**.
 
  - `LogMessageFormat`

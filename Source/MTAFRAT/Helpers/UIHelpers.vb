@@ -49,10 +49,12 @@ Public Module UIHelper
         f.DarkButton_About.Text = My.Resources.Strings.About
         f.DarkGroupBox_Application.Text = My.Resources.Strings.GroupBoxApplication
         f.Label_Language.Text = My.Resources.Strings.LanguageLabel
+        f.DarkButton_RunAllSelectedPluginsNow.Text = My.Resources.Strings.RunAllSelectedPluginsNow
         f.DarkCheckBox_RememberCurrentSettings.Text = My.Resources.Strings.RememberSettings
         f.DarkButtonImageAllignFix_ClearCache.Text = My.Resources.Strings.ClearApplicationCache
         f.DarkCheckBox_ParalellExecution.Text = My.Resources.Strings.EnableParalellExecution
         f.DarkCheckBox_RunAppMinimized.Text = My.Resources.Strings.RunAppMinimized
+        f.DarkCheckBox_ClearPreviousLogEntries.Text = My.Resources.Strings.ClearPreviousLogEntries
         f.ToolStripMenuItem_ClearSelectedPlugins.Text = My.Resources.Strings.ClearSelectedPlugins
         f.ToolStripMenuItem_SelectAllPlugins.Text = My.Resources.Strings.SelectAllPlugins
         f.ToolStripMenuItem_ShowWindow.Text = My.Resources.Strings.ShowWindow
@@ -223,7 +225,7 @@ Public Module UIHelper
     ''' Appends a line to the specified <see cref="TextBox"/> with a timestamp at the start of the line.
     ''' </summary>
     ''' 
-    ''' <param name="statusTextBox">
+    ''' <param name="logTextBox">
     ''' The textbox to append the message to.
     ''' </param>
     ''' 
@@ -418,10 +420,18 @@ Public Module UIHelper
         cb.DataSource = AppGlobals.LanguageComboBoxItems
         cb.DisplayMember = NameOf(LanguageComboBoxItem.DisplayName)
         cb.ValueMember = NameOf(LanguageComboBoxItem.Culture)
-        cb.SelectedItem = AppGlobals.LanguageComboBoxItems.Single(
+        cb.SelectedItem = AppGlobals.LanguageComboBoxItems.SingleOrDefault(
             Function(langItem As LanguageComboBoxItem) langItem.IsCurrentUICulture
         )
+
         AddHandler cb.SelectedIndexChanged, AddressOf f.DarkComboBoxLanguage_SelectedIndexChanged
+
+        ' Falls back to English when no supported language is detected.
+        If cb.SelectedItem Is Nothing Then
+            cb.SelectedItem = AppGlobals.LanguageComboBoxItems.Single(
+            Function(langItem As LanguageComboBoxItem) langItem.Culture.Equals(New CultureInfo("en"))
+        )
+        End If
     End Sub
 
     ''' <summary>
@@ -609,8 +619,8 @@ Public Module UIHelper
             }
             sectionPanel.Controls.Add(statusLabel)
 
-            Dim statusTextBox As New DarkTextBox With {
-                .Name = plugin.StatusTextBoxName,
+            Dim logTextBox As New DarkTextBox With {
+                .Name = plugin.LogTextBoxName,
                 .Multiline = True,
                 .[ReadOnly] = True,
                 .Height = (sectionPanel.ClientSize.Height - sectionPanelBorderMargin) - (buttonRunPlugin.Bottom + sectionPanelBorderMargin) - statusLabel.Height,
@@ -619,7 +629,7 @@ Public Module UIHelper
                 .Font = f.Font,
                 .ScrollBars = ScrollBars.Vertical
             }
-            sectionPanel.Controls.Add(statusTextBox)
+            sectionPanel.Controls.Add(logTextBox)
 
             AddHandler btPane.Click,
                 Sub(sender As Object, e As EventArgs)
@@ -719,6 +729,7 @@ Public Module UIHelper
 
             Case Keys.Tab
                 f.DarkSectionPanel_Program.Focus()
+                Return False
 
             Case Keys.Up, Keys.Left
                 Return curIndex <> 0
@@ -791,17 +802,19 @@ Public Module UIHelper
         f.UseWaitCursor = True
         UIHelper.ToggleControlsEnabledState(enabled:=False)
 
-        If plugin.StatusTextBox.InvokeRequired Then
-            plugin.StatusTextBox.Invoke(Sub() plugin.StatusTextBox.Clear())
-        Else
-            plugin.StatusTextBox.Clear()
+        If f.DarkCheckBox_ClearPreviousLogEntries.Checked() Then
+            If plugin.LogTextBox.InvokeRequired Then
+                plugin.LogTextBox.Invoke(Sub() plugin.LogTextBox.Clear())
+            Else
+                plugin.LogTextBox.Clear()
+            End If
         End If
 
         UIHelper.UpdateStatusLabelText(plugin, Nothing)
         Dim status As RegistrationStatus
         Try
             f.pluginWorkInProgress = True
-            status = Await plugin.RunAsync(plugin.StatusTextBox)
+            status = Await plugin.RunAsync(plugin.LogTextBox)
             Return status
 
         Finally

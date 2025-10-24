@@ -37,6 +37,10 @@ Public Module PluginSupport
     ''' The source <see cref="DynamicPlugin"/>.
     ''' </param>
     ''' 
+    ''' <param name="refService">
+    ''' Receives the <see cref="ChromeDriverService"/> instance created by this function.
+    ''' </param>
+    ''' 
     ''' <param name="headless">
     ''' If <see langword="True"/>, launches Chrome in headless mode.
     ''' </param>
@@ -49,7 +53,7 @@ Public Module PluginSupport
     ''' The resulting <see cref="ChromeDriver"/> instance.
     ''' </returns>
     <DebuggerStepThrough>
-    Public Function CreateChromeDriver(plugin As DynamicPlugin, headless As Boolean, ParamArray arguments As String()) As ChromeDriver
+    Public Function CreateChromeDriver(plugin As DynamicPlugin, ByRef refService As ChromeDriverService, headless As Boolean, ParamArray arguments As String()) As ChromeDriver
 
         Dim options As New ChromeOptions() With {
             .AcceptInsecureCertificates = True,
@@ -111,8 +115,8 @@ Public Module PluginSupport
 
         options.AddArguments(arguments)
 
-        Dim service As ChromeDriverService = ChromeDriverService.CreateDefaultService()
-        With service
+        refService = ChromeDriverService.CreateDefaultService()
+        With refService
             .DisableBuildCheck = False
             .EnableAppendLog = False
             .EnableVerboseLogging = False
@@ -123,12 +127,12 @@ Public Module PluginSupport
             .SuppressInitialDiagnosticInformation = False ' Note: If True, it hangs ChromeDriver initialization.
         End With
         ' Selenium driver sometimes causes an error if log file does not exists.
-        If Not File.Exists(service.LogPath) Then
-            Directory.CreateDirectory(Path.GetDirectoryName(service.LogPath))
-            File.Create(service.LogPath, FileOptions.None).Dispose()
+        If Not File.Exists(refService.LogPath) Then
+            Directory.CreateDirectory(Path.GetDirectoryName(refService.LogPath))
+            File.Create(refService.LogPath, FileOptions.None).Dispose()
         End If
 
-        Dim driver As New ChromeDriver(service, options)
+        Dim driver As New ChromeDriver(refService, options)
         Return driver
     End Function
 
@@ -311,7 +315,7 @@ Public Module PluginSupport
         If Not String.IsNullOrEmpty(rmString) Then
             msg = rmString
         End If
-        UIHelper.AppendLineWithTimestamp(plugin.StatusTextBox, msg, True)
+        UIHelper.AppendLineWithTimestamp(plugin.LogTextBox, msg, True)
     End Sub
 
     ''' <summary>
@@ -344,7 +348,7 @@ Public Module PluginSupport
         If Not String.IsNullOrEmpty(rmString) Then
             msgFormat = rmString
         End If
-        UIHelper.AppendLineWithTimestamp(plugin.StatusTextBox, String.Format(msgFormat, args), True)
+        UIHelper.AppendLineWithTimestamp(plugin.LogTextBox, String.Format(msgFormat, args), True)
     End Sub
 
     ''' <summary>

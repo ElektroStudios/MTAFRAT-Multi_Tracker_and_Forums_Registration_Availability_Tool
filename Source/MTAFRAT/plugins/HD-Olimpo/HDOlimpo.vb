@@ -15,10 +15,16 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
     Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
         Return Await Task.Run(
             Function()
-                Using driver As ChromeDriver = CreateChromeDriver(Me, headless:=True)
+                Dim registerUrl As String = Me.Url
+                Dim applicationUrl As String = "https://hd-olimpo.club/application"
+                Dim regStatus As RegistrationStatus = RegistrationStatus.Unknown
+
+                Using service As ChromeDriverService = Nothing,
+                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless:=True)
                     Try
+                        ' Registration form check.
                         LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-                        NavigateTo(driver, Me.Url)
+                        NavigateTo(driver, registerUrl)
 
                         WaitForPageReady(driver, TimeSpan.FromSeconds(10))
                         LogMessage(Me, "StatusMsg_RegisterPageLoaded")
@@ -34,11 +40,33 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
                         LogMessage(Me, "StatusMsg_AnalyzingPageContent")
                         If pageSource.Contains("Registro libre cerrado", StringComparison.InvariantCultureIgnoreCase) Then
                             LogMessage(Me, "StatusMsg_DetectedRegClosed")
-                            Return RegistrationStatus.Closed
+                            regStatus = RegistrationStatus.Closed
                         Else
                             LogMessage(Me, "StatusMsg_DetectedRegOpen")
                             NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxRegOpenFormat", Me.Name)
-                            Return RegistrationStatus.Open
+                            regStatus = RegistrationStatus.Open
+                        End If
+
+                        If regStatus = RegistrationStatus.Open Then
+                            Exit Try
+                        End If
+
+                        ' Application form check.
+                        LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
+                        NavigateTo(driver, applicationUrl)
+
+                        WaitForPageReady(driver, TimeSpan.FromSeconds(10))
+                        LogMessage(Me, "StatusMsg_ApplicationPageLoaded")
+
+                        Dim applicationPageSource As String = driver.PageSource
+                        LogMessage(Me, "StatusMsg_AnalyzingPageContent")
+                        If applicationPageSource.Contains("Vuelve más tarde", StringComparison.OrdinalIgnoreCase) Then
+                            LogMessage(Me, "StatusMsg_DetectedApplicationClosed")
+                            regStatus = RegistrationStatus.Closed
+                        Else
+                            LogMessage(Me, "StatusMsg_DetectedApplicationOpen")
+                            NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxApplicationOpenFormat", Me.Name)
+                            regStatus = RegistrationStatus.Open
                         End If
 
                     Catch ex As Exception
@@ -51,7 +79,7 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
                     End Try
                 End Using
 
-                Return RegistrationStatus.Unknown
+                Return regStatus
             End Function)
     End Function
 

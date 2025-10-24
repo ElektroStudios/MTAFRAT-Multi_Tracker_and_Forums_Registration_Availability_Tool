@@ -470,6 +470,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
         Me.CheckedListBox_AutoPluginRun.Enabled = cb.Checked
         Me.DarkCheckBox_ParalellExecution.Enabled = cb.Checked
         Me.Label_AutoRunPluginCheckedCount.Enabled = cb.Checked
+        Me.DarkButton_RunAllSelectedPluginsNow.Enabled = cb.Checked AndAlso (Me.CheckedListBox_AutoPluginRun.CheckedItems.Count <> 0)
 
         ApplicationHelper.ResetRemainingAutoPluginRunInterval()
 
@@ -485,6 +486,24 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
                 UIHelper.UpdateStatusLabelText(My.Resources.Strings.AutoPluginRunTimerEnabled)
             End If
         End If
+    End Sub
+
+    ''' <summary>
+    ''' Handles the ItemCheck and Click events 
+    ''' of the <see cref="DarkButton_RunAllSelectedPluginsNow"/> control.
+    ''' </summary>
+    ''' 
+    ''' <param name="sender">
+    ''' The source of the event.
+    ''' </param>
+    ''' 
+    ''' <param name="e">
+    ''' The <see cref="EventArgs"/> instance containing the event data.
+    ''' </param>
+    <DebuggerStepThrough>
+    Private Sub DarkButtonRunAllSelectedPluginsNow_Click(sender As Object, e As EventArgs) Handles DarkButton_RunAllSelectedPluginsNow.Click
+
+        Me.RemainingAutoPluginRunInterval = TimeSpan.FromSeconds(-1)
     End Sub
 
     ''' <summary>
@@ -541,6 +560,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
             End If
         End If
 
+        Me.DarkButton_RunAllSelectedPluginsNow.Enabled = checkedCount <> 0
     End Sub
 
     ''' <summary>
@@ -628,7 +648,6 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     ''' otherwise, <see langword="False"/> to allow further processing.
     ''' </returns>
     <DebuggerStepThrough>
-    <SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification:="Code readability")>
     Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
 
         Dim activeControl As Control = Me.ActiveControl

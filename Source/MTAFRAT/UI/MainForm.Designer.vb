@@ -29,6 +29,7 @@ Partial Public Class MainForm
         Me.TabPage_Settings = New TabPage()
         Me.DarkSectionPanel_Settings = New DarkUI.Controls.DarkSectionPanel()
         Me.DarkGroupBox_Application = New DarkUI.Controls.DarkGroupBox()
+        Me.DarkCheckBox_ClearPreviousLogEntries = New DarkUI.Controls.DarkCheckBox()
         Me.DarkCheckBox_RunAppMinimized = New DarkUI.Controls.DarkCheckBox()
         Me.DarkButtonImageAllignFix_ClearCache = New DarkButtonImageAllignFix()
         Me.Label_Language = New Label()
@@ -36,6 +37,7 @@ Partial Public Class MainForm
         Me.DarkGroupBox_OS = New DarkUI.Controls.DarkGroupBox()
         Me.DarkCheckBox_SystemSleep = New DarkUI.Controls.DarkCheckBox()
         Me.DarkGroupBox_AutoPluginRun = New DarkUI.Controls.DarkGroupBox()
+        Me.DarkButton_RunAllSelectedPluginsNow = New DarkButtonImageAllignFix()
         Me.Label_AutoRunPluginCheckedCount = New Label()
         Me.DarkCheckBox_ParalellExecution = New DarkUI.Controls.DarkCheckBox()
         Me.CheckedListBox_AutoPluginRun = New PersistableCheckedListBox()
@@ -137,21 +139,31 @@ Partial Public Class MainForm
         ' DarkGroupBox_Application
         ' 
         Me.DarkGroupBox_Application.BorderColor = Color.FromArgb(CByte(51), CByte(51), CByte(51))
+        Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_ClearPreviousLogEntries)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_RunAppMinimized)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkButtonImageAllignFix_ClearCache)
         Me.DarkGroupBox_Application.Controls.Add(Me.Label_Language)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkComboBox_Language)
         Me.DarkGroupBox_Application.Location = New Point(8, 309)
         Me.DarkGroupBox_Application.Name = "DarkGroupBox_Application"
-        Me.DarkGroupBox_Application.Size = New Size(565, 108)
+        Me.DarkGroupBox_Application.Size = New Size(565, 136)
         Me.DarkGroupBox_Application.TabIndex = 2
         Me.DarkGroupBox_Application.TabStop = False
         Me.DarkGroupBox_Application.Text = "Application"
         ' 
+        ' DarkCheckBox_ClearPreviousLogEntries
+        ' 
+        Me.DarkCheckBox_ClearPreviousLogEntries.Cursor = Cursors.Hand
+        Me.DarkCheckBox_ClearPreviousLogEntries.Location = New Point(6, 28)
+        Me.DarkCheckBox_ClearPreviousLogEntries.Name = "DarkCheckBox_ClearPreviousLogEntries"
+        Me.DarkCheckBox_ClearPreviousLogEntries.Size = New Size(443, 25)
+        Me.DarkCheckBox_ClearPreviousLogEntries.TabIndex = 4
+        Me.DarkCheckBox_ClearPreviousLogEntries.Text = "Clear previous log entries on plugin execution"
+        ' 
         ' DarkCheckBox_RunAppMinimized
         ' 
         Me.DarkCheckBox_RunAppMinimized.Cursor = Cursors.Hand
-        Me.DarkCheckBox_RunAppMinimized.Location = New Point(6, 28)
+        Me.DarkCheckBox_RunAppMinimized.Location = New Point(6, 59)
         Me.DarkCheckBox_RunAppMinimized.Name = "DarkCheckBox_RunAppMinimized"
         Me.DarkCheckBox_RunAppMinimized.Size = New Size(443, 25)
         Me.DarkCheckBox_RunAppMinimized.TabIndex = 0
@@ -159,13 +171,13 @@ Partial Public Class MainForm
         ' 
         ' DarkButtonImageAllignFix_ClearCache
         ' 
-        Me.DarkButtonImageAllignFix_ClearCache.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        Me.DarkButtonImageAllignFix_ClearCache.Anchor = AnchorStyles.None
         Me.DarkButtonImageAllignFix_ClearCache.Cursor = Cursors.Hand
-        Me.DarkButtonImageAllignFix_ClearCache.Location = New Point(455, 16)
+        Me.DarkButtonImageAllignFix_ClearCache.Location = New Point(455, 59)
         Me.DarkButtonImageAllignFix_ClearCache.Name = "DarkButtonImageAllignFix_ClearCache"
         Me.DarkButtonImageAllignFix_ClearCache.Padding = New Padding(5)
         Me.DarkButtonImageAllignFix_ClearCache.ResizedImage = My.Resources.Resources.clean
-        Me.DarkButtonImageAllignFix_ClearCache.Size = New Size(107, 88)
+        Me.DarkButtonImageAllignFix_ClearCache.Size = New Size(107, 71)
         Me.DarkButtonImageAllignFix_ClearCache.TabIndex = 3
         Me.DarkButtonImageAllignFix_ClearCache.Text = "Clear cache"
         Me.DarkButtonImageAllignFix_ClearCache.TextImageRelation = TextImageRelation.ImageAboveText
@@ -175,7 +187,7 @@ Partial Public Class MainForm
         Me.Label_Language.AutoSize = True
         Me.Label_Language.BackColor = Color.FromArgb(CByte(60), CByte(63), CByte(65))
         Me.Label_Language.ForeColor = Color.Gainsboro
-        Me.Label_Language.Location = New Point(6, 69)
+        Me.Label_Language.Location = New Point(6, 97)
         Me.Label_Language.Name = "Label_Language"
         Me.Label_Language.Size = New Size(78, 21)
         Me.Label_Language.TabIndex = 1
@@ -187,7 +199,7 @@ Partial Public Class MainForm
         Me.DarkComboBox_Language.DrawMode = DrawMode.OwnerDrawVariable
         Me.DarkComboBox_Language.FormattingEnabled = True
         Me.DarkComboBox_Language.Items.AddRange(New Object() {"English", "Spanish"})
-        Me.DarkComboBox_Language.Location = New Point(90, 66)
+        Me.DarkComboBox_Language.Location = New Point(90, 94)
         Me.DarkComboBox_Language.Name = "DarkComboBox_Language"
         Me.DarkComboBox_Language.Size = New Size(102, 30)
         Me.DarkComboBox_Language.TabIndex = 2
@@ -215,6 +227,7 @@ Partial Public Class MainForm
         ' DarkGroupBox_AutoPluginRun
         ' 
         Me.DarkGroupBox_AutoPluginRun.BorderColor = Color.FromArgb(CByte(51), CByte(51), CByte(51))
+        Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.DarkButton_RunAllSelectedPluginsNow)
         Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.Label_AutoRunPluginCheckedCount)
         Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.DarkCheckBox_ParalellExecution)
         Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.CheckedListBox_AutoPluginRun)
@@ -225,6 +238,19 @@ Partial Public Class MainForm
         Me.DarkGroupBox_AutoPluginRun.TabIndex = 0
         Me.DarkGroupBox_AutoPluginRun.TabStop = False
         Me.DarkGroupBox_AutoPluginRun.Text = "Automatic Plugin Execution"
+        ' 
+        ' DarkButton_RunAllSelectedPluginsNow
+        ' 
+        Me.DarkButton_RunAllSelectedPluginsNow.Cursor = Cursors.Hand
+        Me.DarkButton_RunAllSelectedPluginsNow.Enabled = False
+        Me.DarkButton_RunAllSelectedPluginsNow.Location = New Point(397, 27)
+        Me.DarkButton_RunAllSelectedPluginsNow.Name = "DarkButton_RunAllSelectedPluginsNow"
+        Me.DarkButton_RunAllSelectedPluginsNow.Padding = New Padding(5)
+        Me.DarkButton_RunAllSelectedPluginsNow.ResizedImage = My.Resources.Resources.execute
+        Me.DarkButton_RunAllSelectedPluginsNow.Size = New Size(160, 25)
+        Me.DarkButton_RunAllSelectedPluginsNow.TabIndex = 4
+        Me.DarkButton_RunAllSelectedPluginsNow.Text = "Run now"
+        Me.DarkButton_RunAllSelectedPluginsNow.TextImageRelation = TextImageRelation.ImageBeforeText
         ' 
         ' Label_AutoRunPluginCheckedCount
         ' 
@@ -294,7 +320,7 @@ Partial Public Class MainForm
         Me.DarkCheckBox_AutoPluginRun.Cursor = Cursors.Hand
         Me.DarkCheckBox_AutoPluginRun.Location = New Point(6, 28)
         Me.DarkCheckBox_AutoPluginRun.Name = "DarkCheckBox_AutoPluginRun"
-        Me.DarkCheckBox_AutoPluginRun.Size = New Size(551, 25)
+        Me.DarkCheckBox_AutoPluginRun.Size = New Size(385, 25)
         Me.DarkCheckBox_AutoPluginRun.TabIndex = 0
         Me.DarkCheckBox_AutoPluginRun.Text = "Run selected plugins every hour:"
         ' 
@@ -517,5 +543,7 @@ Partial Public Class MainForm
     Friend WithEvents ToolStripMenuItem_ClearSelectedPlugins As ToolStripMenuItem
     Friend WithEvents Label_AutoRunPluginCheckedCount As Label
     Friend WithEvents DarkCheckBox_RunAppMinimized As DarkUI.Controls.DarkCheckBox
+    Friend WithEvents DarkButton_RunAllSelectedPluginsNow As DarkButtonImageAllignFix
+    Friend WithEvents DarkCheckBox_ClearPreviousLogEntries As DarkUI.Controls.DarkCheckBox
 
 End Class

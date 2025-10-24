@@ -137,6 +137,7 @@ Friend Module JotHelper
         JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_ParalellExecution)
         JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_SystemSleep)
         JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
+        JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
     End Sub
 
     ''' <summary>
@@ -169,6 +170,7 @@ Friend Module JotHelper
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_ParalellExecution)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_SystemSleep)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
+            JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.CheckedListBox_AutoPluginRun)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkComboBox_Language)
 
@@ -177,6 +179,7 @@ Friend Module JotHelper
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_ParalellExecution)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_SystemSleep)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
+            JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.CheckedListBox_AutoPluginRun)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkComboBox_Language)
 
@@ -185,6 +188,7 @@ Friend Module JotHelper
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_ParalellExecution)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_SystemSleep)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
+            JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.CheckedListBox_AutoPluginRun)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkComboBox_Language)
 
@@ -194,6 +198,7 @@ Friend Module JotHelper
             store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_ParalellExecution))
             store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_SystemSleep))
             store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_RunAppMinimized))
+            store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries))
             store.ClearData(JotHelper.checkedListBoxTrackingConfig.GetStoreId(My.Forms.MainForm.CheckedListBox_AutoPluginRun))
             store.ClearData(JotHelper.comboBoxLanguageTrackingConfig.GetStoreId(My.Forms.MainForm.DarkComboBox_Language))
         Catch ex As DirectoryNotFoundException

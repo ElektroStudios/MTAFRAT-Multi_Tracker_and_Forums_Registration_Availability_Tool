@@ -102,7 +102,7 @@ Public Class DynamicPlugin : Inherits PluginBase
     ''' <para></para>
     ''' Used to create and identify the control at runtime.
     ''' </summary>
-    Protected Friend ReadOnly StatusTextBoxName As String
+    Protected Friend ReadOnly LogTextBoxName As String
 
     ''' <summary>
     ''' The dynamic name assigned to the label used for displaying the last status message in the plugin's section panel.
@@ -366,15 +366,15 @@ Public Class DynamicPlugin : Inherits PluginBase
     ''' Gets the -dynamically created- <see cref="DarkTextBox"/> 
     ''' associated with this plugin to log messages in the plugin's section panel.
     ''' </summary>
-    Public ReadOnly Property StatusTextBox As DarkTextBox
+    Public ReadOnly Property LogTextBox As DarkTextBox
         Get
-            If Me._statusTextBox Is Nothing Then
+            If Me._logTextBox Is Nothing Then
                 Dim f As MainForm = AppGlobals.MainFormInstance
                 Dim act As Action =
                     Sub()
-                        Me._statusTextBox =
+                        Me._logTextBox =
                             Me.SectionPanel.Controls.OfType(Of DarkTextBox).Where(
-                                Function(tb As DarkTextBox) tb.Name.Equals(Me.StatusTextBoxName)).SingleOrDefault()
+                                Function(tb As DarkTextBox) tb.Name.Equals(Me.LogTextBoxName)).SingleOrDefault()
                     End Sub
 
                 If Me.SectionPanel.InvokeRequired Then
@@ -383,16 +383,16 @@ Public Class DynamicPlugin : Inherits PluginBase
                     act()
                 End If
             End If
-            Return Me._statusTextBox
+            Return Me._LogTextBox
         End Get
     End Property
     ''' <summary>
-    ''' ( Backing field of <see cref="StatusTextBox"/> property. )
+    ''' ( Backing field of <see cref="LogTextBox"/> property. )
     ''' <para></para>
     ''' The -dynamically created- <see cref="DarkTextBox"/> 
     ''' associated with this plugin to log messages in the plugin's section panel.
     ''' </summary>
-    Private _statusTextBox As DarkTextBox
+    Private _logTextBox As DarkTextBox
 
     ''' <summary>
     ''' Gets the -dynamically created- <see cref="Label"/> 
@@ -470,7 +470,7 @@ Public Class DynamicPlugin : Inherits PluginBase
         Me.ButtonRunPluginName = $"{NameOf(DarkButtonImageAllignFix)}_RunPlugin_{Me.UIMemberBaseName}"
         Me.ButtonOpenWebsiteName = $"{NameOf(DarkButtonImageAllignFix)}_OpenWebsite_{Me.UIMemberBaseName}"
         Me.ButtonClearCacheName = $"{NameOf(DarkButtonImageAllignFix)}_ClearCache_{Me.UIMemberBaseName}"
-        Me.StatusTextBoxName = $"{NameOf(DarkTextBox)}_Status_{Me.UIMemberBaseName}"
+        Me.LogTextBoxName = $"{NameOf(DarkTextBox)}_Log_{Me.UIMemberBaseName}"
         Me.StatusLabelName = $"{NameOf(Label)}_Status_{Me.UIMemberBaseName}"
     End Sub
 
@@ -512,7 +512,7 @@ Public Class DynamicPlugin : Inherits PluginBase
         target._buttonRunPlugin = Me._buttonRunPlugin
         target._buttonOpenWebsite = Me._buttonOpenWebsite
         target._buttonClearCache = Me._buttonClearCache
-        target._statusTextBox = Me._statusTextBox
+        target._logTextBox = Me._logTextBox
         target._statusLabel = Me._statusLabel
     End Sub
 
@@ -520,7 +520,7 @@ Public Class DynamicPlugin : Inherits PluginBase
     ''' Asynchronously executes the plugin's main logic.
     ''' </summary>
     ''' 
-    ''' <param name="statusTextBox">
+    ''' <param name="logTextBox">
     ''' A <see cref="TextBox"/> control where status messages can be logged during execution.
     ''' </param>
     ''' 
@@ -528,9 +528,9 @@ Public Class DynamicPlugin : Inherits PluginBase
     ''' A <see cref="Task(Of RegistrationStatus)"/> representing the asynchronous operation.
     ''' </returns>
     <DebuggerStepThrough>
-    Public Overrides Async Function RunAsync(statusTextBox As TextBox) As Task(Of RegistrationStatus)
+    Public Overrides Async Function RunAsync(logTextBox As TextBox) As Task(Of RegistrationStatus)
 
-        Dim assembly As Assembly = Me.CompileAssembly(Me.VbCode, Me, statusTextBox)
+        Dim assembly As Assembly = Me.CompileAssembly(Me.VbCode, Me, logTextBox)
 
         If assembly IsNot Nothing Then
             Dim pluginType As Type =
@@ -557,10 +557,18 @@ Public Class DynamicPlugin : Inherits PluginBase
                     PluginSupport.LogMessage(Me, My.Resources.Strings.MissingRunAsyncMethod)
                 Else
                     Try
-                        Return Await CType(runAsyncMethod.Invoke(pluginInstance, Nothing), Task(Of RegistrationStatus))
+                        Dim regStatus As RegistrationStatus =
+                            Await CType(runAsyncMethod.Invoke(pluginInstance, Nothing), Task(Of RegistrationStatus))
+                        Return regStatus
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, My.Resources.Strings.DynamicCodeExecutionErrorFormat, ex.Message)
+
+                    Finally
+                        pluginInstance = Nothing
+                        GC.Collect()
+                        GC.WaitForPendingFinalizers()
+                        GC.Collect()
 
                     End Try
                 End If
@@ -624,7 +632,7 @@ Public Class DynamicPlugin : Inherits PluginBase
     ''' The plugin instance initiating the compilation.
     ''' </param>
     ''' 
-    ''' <param name="statusTextBox">
+    ''' <param name="logTextBox">
     ''' A <see cref="TextBox"/> used to report compilation status or errors.
     ''' </param>
     ''' 
@@ -632,7 +640,7 @@ Public Class DynamicPlugin : Inherits PluginBase
     ''' The resulting <see cref="Assembly"/> if the compilation succeeds; otherwise, <see langword="Nothing"/>.
     ''' </returns>
     <DebuggerStepThrough>
-    Private Function CompileAssembly(vbCode As String, instance As Object, statusTextBox As TextBox) As Assembly
+    Private Function CompileAssembly(vbCode As String, instance As Object, logTextBox As TextBox) As Assembly
 
         Try
             Dim syntaxTree As SyntaxTree = VisualBasicSyntaxTree.ParseText(vbCode)
@@ -655,7 +663,8 @@ Public Class DynamicPlugin : Inherits PluginBase
                 End If
 
                 ms.Seek(0, SeekOrigin.Begin)
-                Dim assembly As Assembly = Assembly.Load(ms.ToArray())
+
+                Dim assembly As Assembly = AppGlobals.PluginLoadContext.LoadFromStream(ms)
                 Return assembly
             End Using
 
@@ -665,6 +674,29 @@ Public Class DynamicPlugin : Inherits PluginBase
 
         End Try
     End Function
+
+#End Region
+
+#Region " Dispose Method "
+
+    ''' <summary>
+    ''' Releases the resources used by this <see cref="DynamicPlugin"/> instance.
+    ''' </summary>
+    Public Overrides Sub Dispose()
+
+        Me.ButtonPane?.Dispose()
+        Me.TabPage?.Dispose()
+        Me.SectionPanel?.Dispose()
+        Me.DescriptionTextBox?.Dispose()
+        Me.ButtonRunPlugin?.Dispose()
+        Me.ButtonOpenWebsite?.Dispose()
+        Me.ButtonClearCache?.Dispose()
+        Me.LogTextBox?.Dispose()
+        Me.StatusLabel?.Dispose()
+
+        MyBase.Dispose()
+        GC.SuppressFinalize(Me)
+    End Sub
 
 #End Region
 

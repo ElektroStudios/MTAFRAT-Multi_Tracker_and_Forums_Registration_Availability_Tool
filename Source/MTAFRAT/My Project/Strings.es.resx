@@ -160,13 +160,13 @@
     <value>⏳ Analizando el contenido de la página...</value>
   </data>
   <data name="StatusMsg_DetectedRegClosed" xml:space="preserve">
-    <value>🚫 Se detectó el mensaje de registro cerrado.</value>
+    <value>🚫 Se ha detectado que el formulario de registro está cerrado.</value>
   </data>
   <data name="StatusMsg_DetectedRegOpen" xml:space="preserve">
-    <value>🎉 No se detectó el mensaje de registro cerrado.</value>
+    <value>🎉 Se ha detectado que el formulario de registro está abierto.</value>
   </data>
   <data name="StatusMsg_MsgboxRegOpenFormat" xml:space="preserve">
-    <value>🎉 ¡Registro libre abierto en {0}! Puedes crear una cuenta ahora. 😃</value>
+    <value>🎉 ¡El formulario de registro está abierto en {0}! Puedes crear una cuenta ahora. 😃</value>
   </data>
   <data name="StatusMsg_ExceptionFormat" xml:space="preserve">
     <value>❌ Error: {0}</value>
@@ -175,7 +175,7 @@
     <value>❌ Hubo un error durante la última ejecución del plugin: {0}</value>
   </data>
   <data name="StatusMsg_OperationCompleted" xml:space="preserve">
-    <value>🧹 Conexión finalizada. Operación completada.</value>
+    <value>🧹 Cerrando el navegador. Operación completada.</value>
   </data>
   <data name="StatusMsg_RegisterPageLoaded" xml:space="preserve">
     <value>✅ Página de registro cargada.</value>
@@ -300,5 +300,23 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
   </data>
   <data name="RunAppMinimized" xml:space="preserve">
     <value>Iniciar aplicación minimizada en la bandeja del sistema</value>
+  </data>
+  <data name="RunAllSelectedPluginsNow" xml:space="preserve">
+    <value>Ejecutar ahora</value>
+  </data>
+  <data name="ClearPreviousLogEntries" xml:space="preserve">
+    <value>Borrar entradas previas del registro al ejecutar un plugin</value>
+  </data>
+  <data name="StatusMsg_ApplicationPageLoaded" xml:space="preserve">
+    <value>✅ Página de solicitud cargada.</value>
+  </data>
+  <data name="StatusMsg_DetectedApplicationClosed" xml:space="preserve">
+    <value>🚫 Se ha detectado que el formulario de solicitud está cerrado.</value>
+  </data>
+  <data name="StatusMsg_DetectedApplicationOpen" xml:space="preserve">
+    <value>🎉 Se ha detectado que el formulario de solicitud está abierto.</value>
+  </data>
+  <data name="StatusMsg_MsgboxApplicationOpenFormat" xml:space="preserve">
+    <value>🎉 ¡El formulario de solicitudes está abierto en {0}! Puedes solicitar el registro ahora. 😃</value>
   </data>
 </root>

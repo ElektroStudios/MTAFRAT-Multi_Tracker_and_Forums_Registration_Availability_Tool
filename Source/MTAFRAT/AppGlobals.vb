@@ -12,9 +12,10 @@ Imports System.Collections.ObjectModel
 Imports System.Globalization
 Imports System.IO
 Imports System.Resources
-
+Imports System.Runtime.Loader
 
 #End Region
+
 ''' <summary>
 ''' Provides global constants, read-only fields and properties for this application.
 ''' </summary>
@@ -33,7 +34,7 @@ Public Module AppGlobals
     ''' <para></para>
     ''' ⚠️ Adjusted value to run plugins in a short interval when in DEBUG mode for testing purposes.
     ''' </summary>
-    Public ReadOnly AutomaticPluginRunInterval As TimeSpan = TimeSpan.FromSeconds(30)
+    Public ReadOnly AutomaticPluginRunInterval As TimeSpan = TimeSpan.FromSeconds(60)
 #Else
     ''' <summary>
     ''' Default time interval between automatic plugin executions.
@@ -102,6 +103,11 @@ Public Module AppGlobals
     ''' </summary>
     Friend StringsResourceManager As New ResourceManager($"{My.Application.Info.AssemblyName}.Strings", GetType(DynamicPlugin).Assembly)
 
+    ''' <summary>
+    ''' The <see cref="AssemblyLoadContext"/> instance used to load and isolate dynamically compiled plugin assemblies.
+    ''' </summary>
+    Friend PluginLoadContext As New PluginLoadContext()
+
 #End Region
 
 #Region " Properties "
@@ -132,7 +138,7 @@ Public Module AppGlobals
         <DebuggerStepThrough>
         Get
             If AppGlobals._mainSplashScreen Is Nothing Then
-                AppGlobals._mainSplashScreen = Application.OpenForms().OfType(Of MainSplashScreen)().Single()
+                AppGlobals._mainSplashScreen = Application.OpenForms().OfType(Of MainSplashScreen)().SingleOrDefault()
             End If
             Return AppGlobals._mainSplashScreen
         End Get
