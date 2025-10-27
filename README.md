@@ -128,11 +128,11 @@ All plugins are located in the `plugins` folder. If you don't find one of them u
 
 ## 🖼️ Screenshots
 
-![screenshot](/Images/Screenshot01.png)
+![screenshot](/Images/Screenshot_01.png)
 
-![screenshot](/Images/Screenshot02.png)
+![screenshot](/Images/Screenshot_02.png)
 
-![screenshot](/Images/Screenshot03.png)
+![screenshot](/Images/Screenshot_03.png)
 
 ## 📝 Requirements
 
