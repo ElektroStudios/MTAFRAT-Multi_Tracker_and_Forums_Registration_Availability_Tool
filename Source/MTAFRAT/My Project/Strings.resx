@@ -160,10 +160,10 @@
     <value>⏳ Analyzing page content...</value>
   </data>
   <data name="StatusMsg_DetectedRegClosed" xml:space="preserve">
-    <value>🚫 Registration form has been detected as closed.</value>
+    <value>🚫 Registration form is closed.</value>
   </data>
   <data name="StatusMsg_DetectedRegOpen" xml:space="preserve">
-    <value>🎉 Registration form has been detected as open.</value>
+    <value>🎉 Registration form is open.</value>
   </data>
   <data name="StatusMsg_MsgboxRegOpenFormat" xml:space="preserve">
     <value>🎉 The registration form is now open on {0}! You can create an account now. 😃</value>
@@ -311,15 +311,36 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
     <value>✅ Application page loaded.</value>
   </data>
   <data name="StatusMsg_DetectedApplicationClosed" xml:space="preserve">
-    <value>🚫 Application form has been detected as closed.</value>
+    <value>🚫 Application form is closed.</value>
   </data>
   <data name="StatusMsg_DetectedApplicationOpen" xml:space="preserve">
-    <value>🎉 Application form has been detected as open.</value>
+    <value>🎉 Application form is open.</value>
   </data>
   <data name="StatusMsg_MsgboxApplicationOpenFormat" xml:space="preserve">
     <value>🎉 The application form is now open on {0}! You can apply for an account now. 😃</value>
   </data>
   <data name="AboutDescriptionText" xml:space="preserve">
     <value>A multi-tracker and forums registration availability tool through Selenium API.</value>
+  </data>
+  <data name="AllowPluginsToCheckApplicationForms" xml:space="preserve">
+    <value>Allow plugins to notify about open application forms</value>
+  </data>
+  <data name="StatusMsg_TriggerRegEmpty" xml:space="preserve">
+    <value>The trigger phrase for the registration form is empty.</value>
+  </data>
+  <data name="StatusMsg_TriggerAppEmpty" xml:space="preserve">
+    <value>The trigger phrase for the application form is empty.</value>
+  </data>
+  <data name="StatusMsg_PageSourceEmptyFormat" xml:space="preserve">
+    <value>The page source code is empty: "{0}"</value>
+  </data>
+  <data name="LoginPageMenuItem" xml:space="preserve">
+    <value>Login Page</value>
+  </data>
+  <data name="RegistrationPageMenuItem" xml:space="preserve">
+    <value>Registration Page</value>
+  </data>
+  <data name="ApplicationPageMenuItem" xml:space="preserve">
+    <value>Application Page</value>
   </data>
 </root>

@@ -12,74 +12,40 @@ Imports OpenQA.Selenium.Chrome
 <DebuggerStepThrough>
 Class HDOlimpoPlugin : Inherits DynamicPlugin
 
-    Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
+    ReadOnly headless As Boolean = True
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+
+    Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
+        Dim regFlags As RegistrationFlags = RegistrationFlags.Null
+
         Return Await Task.Run(
             Function()
-                Dim registerUrl As String = Me.Url
-                Dim applicationUrl As String = "https://hd-olimpo.club/application"
-                Dim regStatus As RegistrationStatus = RegistrationStatus.Unknown
-
                 Using service As ChromeDriverService = Nothing,
-                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless:=True)
+                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
+
+                    Const triggerRegistration As String = "Registro libre cerrado"
+                    Const triggerApplication As String = "No se aceptan nuevos usuarios"
                     Try
-                        ' Registration form check.
-                        LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-                        NavigateTo(driver, registerUrl)
+                        regFlags = regFlags Or
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
+                                                                                                   isOpenTrigger:=False)
 
-                        WaitForPageReady(driver, TimeSpan.FromSeconds(10))
-                        LogMessage(Me, "StatusMsg_RegisterPageLoaded")
-
-                        Dim registerButton As IWebElement = WaitForElement(driver, By.CssSelector("a[href*='/register']"))
-                        LogMessage(Me, "StatusMsg_RegisterButtonFound")
-
-                        registerButton.Click()
-                        LogMessage(Me, "StatusMsg_RegisterButtonClicked")
-                        WaitForPageReady(driver, TimeSpan.FromSeconds(10))
-
-                        Dim pageSource As String = driver.PageSource
-                        LogMessage(Me, "StatusMsg_AnalyzingPageContent")
-                        If pageSource.Contains("Registro libre cerrado", StringComparison.InvariantCultureIgnoreCase) Then
-                            LogMessage(Me, "StatusMsg_DetectedRegClosed")
-                            regStatus = RegistrationStatus.Closed
-                        Else
-                            LogMessage(Me, "StatusMsg_DetectedRegOpen")
-                            NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxRegOpenFormat", Me.Name)
-                            regStatus = RegistrationStatus.Open
-                        End If
-
-                        If regStatus = RegistrationStatus.Open Then
-                            Exit Try
-                        End If
-
-                        ' Application form check.
-                        LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-                        NavigateTo(driver, applicationUrl)
-
-                        WaitForPageReady(driver, TimeSpan.FromSeconds(10))
-                        LogMessage(Me, "StatusMsg_ApplicationPageLoaded")
-
-                        Dim applicationPageSource As String = driver.PageSource
-                        LogMessage(Me, "StatusMsg_AnalyzingPageContent")
-                        If applicationPageSource.Contains("Vuelve más tarde", StringComparison.OrdinalIgnoreCase) Then
-                            LogMessage(Me, "StatusMsg_DetectedApplicationClosed")
-                            regStatus = RegistrationStatus.Closed
-                        Else
-                            LogMessage(Me, "StatusMsg_DetectedApplicationOpen")
-                            NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxApplicationOpenFormat", Me.Name)
-                            regStatus = RegistrationStatus.Open
-                        End If
+                        regFlags = regFlags Or
+                                   PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerApplication,
+                                                                                                  isOpenTrigger:=False)
 
                     Catch ex As Exception
-                        LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
-                        ' NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
+                        PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
+                        ' PluginSupport.NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
 
                     Finally
                         driver?.Quit()
-                        LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.PrintMessage(Me, String.Empty)
                     End Try
                 End Using
 
-                Return regStatus
+                Return regFlags
             End Function)
     End Function
 

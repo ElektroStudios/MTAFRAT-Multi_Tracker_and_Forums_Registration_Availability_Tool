@@ -3,6 +3,8 @@ Imports System.Diagnostics
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
 
+Imports Jot.Configuration
+
 Imports MTAFRAT
 Imports MTAFRAT.PluginSupport
 
@@ -12,42 +14,56 @@ Imports OpenQA.Selenium.Chrome
 <DebuggerStepThrough>
 Class FemdomcultPlugin : Inherits DynamicPlugin
 
-    Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
+    ReadOnly headless As Boolean = True
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+
+    Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
+        Dim regFlags As RegistrationFlags = RegistrationFlags.Null
+
         Return Await Task.Run(
             Function()
                 Using service As ChromeDriverService = Nothing,
-                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless:=True)
-                    Try
-                        LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-                        NavigateTo(driver, Me.Url)
-                        
-                        WaitForPageReady(driver, TimeSpan.FromSeconds(10))
-                        LogMessage(Me, "StatusMsg_RegisterPageLoaded")
+                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                        Dim pageSource As String = driver.PageSource
-                        LogMessage(Me, "StatusMsg_AnalyzingPageContent")
-                        ' Note: https://web.archive.org/web/20230401030035/https://femdomcult.org/register.php
-                        If Not pageSource.Contains("register.php", StringComparison.InvariantCultureIgnoreCase) Then
-                            LogMessage(Me, "StatusMsg_DetectedRegClosed")
-                            Return RegistrationStatus.Closed
-                        Else
-                            LogMessage(Me, "StatusMsg_DetectedRegOpen")
-                            NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxRegOpenFormat", Me.Name)
-                            Return RegistrationStatus.Open
-                        End If
+                    Try
+                        regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
 
                     Catch ex As Exception
-                        LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
-                        ' NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
+                        PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
+                        ' PluginSupport.NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
 
                     Finally
                         driver?.Quit()
-                        LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.PrintMessage(Me, String.Empty)
                     End Try
                 End Using
 
-                Return RegistrationStatus.Unknown
+                Return regFlags
             End Function)
+    End Function
+
+    Private Function CustomRegistrationCheck(driver As ChromeDriver) As RegistrationFlags
+
+        ' Note that the registration page (register.php) does not exists,
+        ' returning a 404 ("Not found") error status code on an HTTP request.
+        '
+        ' However, when registrations are open, the registration page exists,
+        ' and the main and login pages (index.php, login.php)
+        ' contains a link pointing to the page:
+        ' https://web.archive.org/web/20230401030035/https://femdomcult.org/register.php
+        '
+        ' So we check the login page instead the registration page. 👇
+
+        Const triggerRegistration As String = "register.php"
+
+        PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
+        PluginSupport.LogMessage(Me, $"➜ {Me.UrlLogin}")
+        PluginSupport.NavigateTo(driver, Me.UrlLogin)
+        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(Me, "StatusMsg_LoginPageLoaded")
+
+        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=True)
     End Function
 
 End Class

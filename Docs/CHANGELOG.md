@@ -1,6 +1,31 @@
 # MTAFRAT Change Log 📋
 
-## v1.0.5 *(current)* 🆕
+## v1.1.0 *(current)* 🆕
+
+#### 🌟 Improvements:
+ - Refactored all plugin JSON files to include three URLs: login page, registration page, and application page.
+ - Added a context menu to the 'Open Website' button in each plugin panel, allowing users to choose which URL to open.
+ - Reworked all plugin VB source code files to simplify overall logic and structure.
+ - All eligible plugins (websites) now also checks too for whether an application form is open.
+ - Added a new option in the `Settings` panel to allow UI notifications when a plugin detects an open application form.
+ - Minor adjustments were made to improve the clarity and descriptiveness of log messages.
+ - Added an application manifest file to require Administrator privileges, which should avoid previous issues related to cache folders creation at runtime.
+ - Added six new helper methods for plugin developers:
+   - `PrintMessage`
+   - `PrintMessageFormat`
+   - `DefaultRegistrationFormCheckProcedure`
+   - `DefaultApplicationFormCheckProcedure`
+   - `EvaluateRegistrationFormState`
+   - `EvaluateApplicationFormState`
+     Note that the `Evaluate*Formstate` functions are more intended for internal use, so they are not documented in the included README file.
+ - Updated Selenium nuget package to version 4.38.0
+
+#### 🛠️ Fixes:
+ - The `Settings` panel loses focus during automatic plugin execution.
+ - The "Remember Current Settings" button position was misaligned.
+ - Automatic scrolling in the log TextBox of each plugin panel stopped working properly when the panel lost focus.
+
+## v1.0.5 🔄
 
 #### 🌟 Improvements:
  - Added a link in the 'About' dialog window pointing to the GitHub's application repository page.

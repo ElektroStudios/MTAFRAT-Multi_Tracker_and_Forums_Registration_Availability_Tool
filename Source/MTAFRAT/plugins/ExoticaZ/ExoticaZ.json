@@ -1,7 +1,9 @@
 {
     "Name": "ExoticaZ",
     "Description": "ExoticaZ is a Asian Porn private tracker for XXX releases.",
-    "Url": "https://exoticaz.to/register",
+    "UrlLogin": "https://exoticaz.to/login",
+    "UrlRegistration": "https://exoticaz.to/register",
+    "UrlApplication": "",
     "IconPath": ".\\ExoticaZ.png",
     "VbCodeFile": ".\\ExoticaZ.vb"
 }

@@ -1,7 +1,9 @@
 {
     "Name": "Hebits",
     "Description": "Hebits (HB) is an ISRAELI Private Torrent Tracker for MOVIES / TV / GENERAL.",
-    "Url": "https://hebits.net/register.php",
+    "UrlLogin": "https://hebits.net/login.php",
+    "UrlRegistration": "https://hebits.net/register.php",
+    "UrlApplication": "https://hebits.net/inviteapplication.php",
     "IconPath": ".\\Hebits.png",
     "VbCodeFile": ".\\Hebits.vb"
 }

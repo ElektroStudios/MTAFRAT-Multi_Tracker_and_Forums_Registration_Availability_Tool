@@ -9,6 +9,7 @@ Option Infer Off
 #Region " Imports "
 
 Imports System.Collections.ObjectModel
+Imports System.DirectoryServices.ActiveDirectory
 Imports System.Globalization
 Imports System.Runtime.InteropServices
 Imports System.Text
@@ -55,6 +56,7 @@ Public Module UIHelper
         f.DarkCheckBox_ParalellExecution.Text = My.Resources.Strings.EnableParalellExecution
         f.DarkCheckBox_RunAppMinimized.Text = My.Resources.Strings.RunAppMinimized
         f.DarkCheckBox_ClearPreviousLogEntries.Text = My.Resources.Strings.ClearPreviousLogEntries
+        f.DarkCheckBox_AllowPluginApplicationFormCheck.Text = My.Resources.Strings.AllowPluginsToCheckApplicationForms
         f.ToolStripMenuItem_ClearSelectedPlugins.Text = My.Resources.Strings.ClearSelectedPlugins
         f.ToolStripMenuItem_SelectAllPlugins.Text = My.Resources.Strings.SelectAllPlugins
         f.ToolStripMenuItem_ShowWindow.Text = My.Resources.Strings.ShowWindow
@@ -223,6 +225,34 @@ Public Module UIHelper
 #Region " Restricted Methods "
 
     ''' <summary>
+    ''' Appends a line to the specified <see cref="TextBox"/>.
+    ''' </summary>
+    ''' 
+    ''' <param name="logTextBox">
+    ''' The textbox to append the message to.
+    ''' </param>
+    ''' 
+    ''' <param name="message">
+    ''' The message string to log.
+    ''' </param>
+    ''' 
+    ''' <param name="addNewLine">
+    ''' Optional. A value indicating whether to add a new line after the message.
+    ''' <para></para>
+    ''' Default is <see langword="True"/>.
+    ''' </param>
+    <DebuggerStepThrough>
+    Friend Sub AppendLine(tb As TextBox, line As String, Optional addNewLine As Boolean = True)
+
+        line = $"{line}{If(addNewLine, Environment.NewLine, Nothing)}"
+        If tb.InvokeRequired Then
+            tb.Invoke(Sub() tb.AppendText(line))
+        Else
+            tb.AppendText(line)
+        End If
+    End Sub
+
+    ''' <summary>
     ''' Appends a line to the specified <see cref="TextBox"/> with a timestamp at the start of the line.
     ''' </summary>
     ''' 
@@ -260,7 +290,7 @@ Public Module UIHelper
         Dim f As MainForm = AppGlobals.MainFormInstance
         Dim act As New Action(
             Sub()
-                If f.pluginWorkInProgress Then
+                If f.PluginWorkInProgress Then
                     Exit Sub
                 End If
 
@@ -304,14 +334,18 @@ Public Module UIHelper
 
     ''' <summary>
     ''' Updates the status labels of both the specified <see cref="DynamicPlugin"/> 
-    ''' and the main form's <see cref="StatusStrip"/> label according to the current plugin execution state.
+    ''' and the main form's <see cref="StatusStrip"/> label according to the given <see cref="RegistrationFlags"/> value.
     ''' </summary>
     ''' 
     ''' <param name="plugin">
     ''' The <see cref="DynamicPlugin"/> instance whose status label needs to be updated.
     ''' </param>
+    ''' 
+    ''' <param name="regFlags">
+    ''' The <see cref="RegistrationFlags"/> value.
+    ''' </param>
     <DebuggerStepThrough>
-    Friend Sub UpdateStatusLabelText(plugin As DynamicPlugin, status As RegistrationStatus)
+    Friend Sub UpdateStatusLabelText(plugin As DynamicPlugin, regFlags As RegistrationFlags)
 
         Dim f As MainForm = AppGlobals.MainFormInstance
 
@@ -322,16 +356,22 @@ Public Module UIHelper
                     plugin.StatusLabel.Parent.Refresh()
                     f.ToolStripStatusLabel1.Text = $"{My.Resources.Strings.ExecutingPlugin} ({plugin.Name})"
                     f.StatusStrip1.Refresh()
+
                 Else
-                    Dim prefix As String = If(status = RegistrationStatus.Unknown, "❌ ", "✔️ ")
-                    Select Case status
-                        Case RegistrationStatus.Open
-                            prefix = "🎉 "
-                        Case RegistrationStatus.Unknown
-                            prefix = "⚠️ "
-                        Case Else ' Closed
-                            prefix = "✔️ "
-                    End Select
+                    Dim prefix As String = Nothing
+                    If regFlags = RegistrationFlags.Null OrElse
+                       regFlags.HasFlag(RegistrationFlags.RegistrationUnknown) OrElse
+                       regFlags.HasFlag(RegistrationFlags.ApplicationUnknown) Then
+                        prefix = "⚠️ "
+
+                    ElseIf regFlags.HasFlag(RegistrationFlags.RegistrationOpen) OrElse
+                           regFlags.HasFlag(RegistrationFlags.ApplicationOpen) Then
+                        prefix = "🎉 "
+
+                    Else
+                        prefix = "✔️ "
+
+                    End If
 
                     plugin.StatusLabel.Text = String.Format(prefix & My.Resources.Strings.LastPluginRunMsgFormat, Date.Now.ToShortDateString(), Date.Now.ToLongTimeString())
                     plugin.StatusLabel.Parent?.Refresh()
@@ -371,19 +411,37 @@ Public Module UIHelper
 
         Dim act As New Action(
             Sub()
-                f.DarkSectionPanel_Settings.Enabled = enabled
+                f.DarkGroupBox_AutoPluginRun.Enabled = enabled
+                f.DarkButtonImageAllignFix_ClearCache.Enabled = enabled
+                f.Label_Language.Enabled = enabled
+                f.DarkComboBox_Language.Enabled = enabled
+
+                If f.DarkSectionPanel_Settings.Contains(f.ActiveControl) Then
+                    f.DarkSectionPanel_Settings.Update()
+                End If
 
                 For Each tb As TabPage In f.TabControlNoBorder_Main.TabPages
+                    If tb.Equals(f.TabPage_Settings) Then
+                        Continue For
+                    End If
+
                     Dim sectionPanel As DarkSectionPanel = tb.Controls.OfType(Of DarkSectionPanel).SingleOrDefault()
                     If sectionPanel IsNot Nothing AndAlso sectionPanel.Controls.Count <> 0 Then
                         For Each ctrl As Control In sectionPanel.Controls
-                            If (TypeOf ctrl Is DarkButton) OrElse
-                               (TypeOf ctrl Is DarkTextBox AndAlso ctrl.Name.Contains("_Description")) Then
-                                ctrl.Enabled = enabled
+                            If (TypeOf ctrl Is DarkButton) AndAlso Not enabled Then
+                                ctrl.Enabled = Not (ctrl.Name.Contains("_RunPlugin_") OrElse ctrl.Name.Contains("_ClearCache_"))
+
+                            Else
+                                ctrl.Enabled = True
                             End If
                         Next
                     End If
+
+                    If sectionPanel.Contains(f.ActiveControl) Then
+                        sectionPanel.Update()
+                    End If
                 Next
+
             End Sub)
 
         If f.InvokeRequired() Then
@@ -449,7 +507,7 @@ Public Module UIHelper
         Dim f As MainForm = AppGlobals.MainFormInstance
 
         ' Initialize dynamic plugin objects.
-        AppGlobals.LoadedDynamicPlugins = PluginSupport.LoadAllPluginsFromJson()
+        AppGlobals.LoadedDynamicPlugins = ApplicationHelper.LoadAllPluginsFromJson()
         Dim uniqueDynamicPlugins As New HashSet(Of DynamicPlugin)
         For Each plugin As DynamicPlugin In AppGlobals.LoadedDynamicPlugins
             uniqueDynamicPlugins.Add(plugin)
@@ -624,6 +682,7 @@ Public Module UIHelper
                 .Name = plugin.LogTextBoxName,
                 .Multiline = True,
                 .[ReadOnly] = True,
+                .MaxLength = 0,
                 .Height = (sectionPanel.ClientSize.Height - sectionPanelBorderMargin) - (buttonRunPlugin.Bottom + sectionPanelBorderMargin) - statusLabel.Height,
                 .Width = tp.ClientSize.Width - (sectionPanelBorderMargin * 2),
                 .Location = New Point(buttonRunPlugin.Left, buttonRunPlugin.Bottom + sectionPanelBorderMargin),
@@ -659,28 +718,22 @@ Public Module UIHelper
                         End Sub
                 End Sub
 
+            AddHandler tp.Enter,
+                Sub(sender As Object, e As EventArgs)
+                    logTextBox.BeginInvoke(Sub() logTextBox.ScrollToCaret())
+                End Sub
+
             AddHandler btPane.LostFocus,
                 Sub(sender As Object, e As EventArgs)
                     f.lastFocusedButtonPane = btPane
                 End Sub
 
             AddHandler buttonRunPlugin.Click,
-                        Async Sub(sender As Object, e As EventArgs) Await UIHelper.RunPluginFromButtonAsync(plugin)
+                        Async Sub(sender As Object, e As EventArgs)
+                            Await UIHelper.RunPluginFromButtonAsync(plugin)
+                        End Sub
 
-            AddHandler buttonOpenWebsite.Click,
-                         Sub(sender As Object, e As EventArgs)
-                             Try
-                                 Using p As New Process
-                                     p.StartInfo.FileName = plugin.Url
-                                     p.StartInfo.UseShellExecute = True
-
-                                     p.Start()
-                                 End Using
-                             Catch ex As Exception
-                                 MessageBox.Show(f, $"Error: {ex.Message}", My.Application.Info.ProductName,
-                                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
-                             End Try
-                         End Sub
+            UIHelper.CreateAndAttachPluginUrlsContextMenu(plugin, buttonOpenWebsite)
 
             AddHandler buttonClearCache.Click,
                         Async Sub(sender As Object, e As EventArgs) Await ApplicationHelper.ClearCache(plugin)
@@ -797,7 +850,7 @@ Public Module UIHelper
     ''' A <see cref="Task"/> representing the asynchronous operation.
     ''' </returns>
     <DebuggerStepThrough>
-    Friend Async Function RunPluginFromButtonAsync(plugin As DynamicPlugin) As Task(Of RegistrationStatus)
+    Friend Async Function RunPluginFromButtonAsync(plugin As DynamicPlugin) As Task(Of RegistrationFlags)
 
         Dim f As MainForm = AppGlobals.MainFormInstance
         f.UseWaitCursor = True
@@ -812,16 +865,16 @@ Public Module UIHelper
         End If
 
         UIHelper.UpdateStatusLabelText(plugin, Nothing)
-        Dim status As RegistrationStatus
+        Dim flags As RegistrationFlags
         Try
-            f.pluginWorkInProgress = True
-            status = Await plugin.RunAsync(plugin.LogTextBox)
-            Return status
+            f.PluginWorkInProgress = True
+            flags = Await plugin.RunAsync(plugin.LogTextBox)
+            Return flags
 
         Finally
-            f.pluginWorkInProgress = False
+            f.PluginWorkInProgress = False
             UIHelper.ToggleControlsEnabledState(enabled:=True)
-            UIHelper.UpdateStatusLabelText(plugin, status)
+            UIHelper.UpdateStatusLabelText(plugin, flags)
             f.UseWaitCursor = False
             Cursor.Current = Cursors.Default
 
@@ -833,8 +886,94 @@ Public Module UIHelper
 
         End Try
 
-        Return RegistrationStatus.Unknown
+        Return RegistrationFlags.Null
     End Function
+
+    ''' <summary>
+    ''' Creates and attaches a dynamic context menu to the specified button 
+    ''' for opening the plugin-related URLs for Login, Registration, and Application pages.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> containing the URLs to open.
+    ''' </param>
+    ''' 
+    ''' <param name="button">
+    ''' The <see cref="DarkButton"/> to which the context menu will be attached.
+    ''' </param>
+    <DebuggerStepThrough>
+    Private Sub CreateAndAttachPluginUrlsContextMenu(plugin As DynamicPlugin, button As DarkButton)
+
+        Const TagLoginPage As String = "Login Page"
+        Const TagRegistrationPage As String = "Registration Page"
+        Const TagApplicationPage As String = "Application Page"
+
+        Dim openUrlAction As Action(Of String) =
+            Sub(url As String)
+                Try
+                    Using p As New Process
+                        p.StartInfo.FileName = url
+                        p.StartInfo.UseShellExecute = True
+
+                        p.Start()
+                    End Using
+
+                Catch ex As Exception
+                    Dim f As MainForm = AppGlobals.MainFormInstance
+                    MessageBox.Show(f, $"Error: {ex.Message}", My.Application.Info.ProductName,
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End Sub
+
+        Dim cms As New ContextMenuStrip()
+        Dim urls As New Dictionary(Of String, String) From {
+            {TagLoginPage, plugin.UrlLogin},
+            {TagRegistrationPage, plugin.UrlRegistration},
+            {TagApplicationPage, plugin.UrlApplication}
+        }
+
+        For Each kvp As KeyValuePair(Of String, String) In urls
+            Dim item As New ToolStripMenuItem(kvp.Key) With {
+                .Enabled = Not String.IsNullOrWhiteSpace(kvp.Value),
+                .Image = My.Resources.website,
+                .Tag = kvp.Key
+            }
+
+            AddHandler item.Click, Sub(sender As Object, e As EventArgs) openUrlAction(kvp.Value)
+            cms.Items.Add(item)
+        Next
+
+        AddHandler cms.Opening,
+            Sub(sender As Object, e As System.ComponentModel.CancelEventArgs)
+
+                For Each item As ToolStripMenuItem In cms.Items
+
+                    Select Case item.Tag.ToString()
+
+                        Case TagLoginPage
+                            item.Text = My.Resources.Strings.LoginPageMenuItem
+
+                        Case TagRegistrationPage
+                            item.Text = My.Resources.Strings.RegistrationPageMenuItem
+
+                        Case TagApplicationPage
+                            item.Text = My.Resources.Strings.ApplicationPageMenuItem
+
+                    End Select
+                Next
+            End Sub
+
+        AddHandler button.MouseUp,
+            Sub(sender As Object, e As MouseEventArgs)
+                If e.Button = MouseButtons.Left Then
+                    If button.ClientRectangle.Contains(e.Location) Then
+                        cms.Show(button, e.Location)
+                    End If
+                End If
+            End Sub
+
+        AddHandler button.Disposed, Sub(sender As Object, e As EventArgs) cms.Dispose()
+    End Sub
 
 #End Region
 

@@ -121,6 +121,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
             Interaction.AppActivate(Environment.ProcessId)
         Else
             UIHelper.ToggleMainFormVisibility()
+            Me.ActiveControl = Me.DarkSectionPanel_Program
             Me.ShowInTaskbar = True
         End If
         Me.Opacity = 1
@@ -503,7 +504,8 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     <DebuggerStepThrough>
     Private Sub DarkButtonRunAllSelectedPluginsNow_Click(sender As Object, e As EventArgs) Handles DarkButton_RunAllSelectedPluginsNow.Click
 
-        Me.RemainingAutoPluginRunInterval = TimeSpan.FromSeconds(-1)
+        Me.RemainingAutoPluginRunInterval = TimeSpan.Zero
+        Me.TimerAutoRunPlugins_Tick(Me.Timer_AutoRunPlugins, EventArgs.Empty)
     End Sub
 
     ''' <summary>
@@ -601,19 +603,19 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
                                                 Return New ValueTask(
                                                     Task.Run(
                                                     Async Function()
-                                                        Dim status As RegistrationStatus =
+                                                        Dim regFlags As RegistrationFlags =
                                                             Await UIHelper.RunPluginFromButtonAsync(plugin)
-                                                        UIHelper.UpdateStatusLabelText(plugin, status)
-                                                        Me.pluginWorkInProgress = True
+                                                        UIHelper.UpdateStatusLabelText(plugin, regFlags)
+                                                        Me.PluginWorkInProgress = True
                                                     End Function, ct))
                                             End Function)
                 Me.pluginWorkInProgress = False
                 Me.TableLayoutPanel_Main.Enabled = True
             Else
                 For Each plugin As DynamicPlugin In pluginsToRun
-                    Dim status As RegistrationStatus =
+                    Dim regFlags As RegistrationFlags =
                         Await UIHelper.RunPluginFromButtonAsync(plugin)
-                    UIHelper.UpdateStatusLabelText(plugin, status)
+                    UIHelper.UpdateStatusLabelText(plugin, regFlags)
                 Next
 
             End If

@@ -1,7 +1,9 @@
 {
     "Name": "Digital Core",
     "Description": "DigitalCore (DC) is a Private Torrent Tracker for 0DAY / GENERAL.",
-    "Url": "https://digitalcore.club/signup/",
+    "UrlLogin": "https://digitalcore.club/login",
+    "UrlRegistration": "https://digitalcore.club/signup/",
+    "UrlApplication": "",
     "IconPath": ".\\DigitalCore.png",
     "VbCodeFile": ".\\DigitalCore.vb"
 }

@@ -1,7 +1,9 @@
 {
     "Name": "ReelFlix",
     "Description": "ReelFliX (RFX) is a Private Torrent Tracker for HD MOVIES.",
-    "Url": "https://reelflix.xyz/register",
+    "UrlLogin": "https://reelflix.cc/login",
+    "UrlRegistration": "https://reelflix.xyz/register",
+    "UrlApplication": "https://reelflix.cc/application",
     "IconPath": ".\\ReelFlix.png",
     "VbCodeFile": ".\\ReelFlix.vb"
 }

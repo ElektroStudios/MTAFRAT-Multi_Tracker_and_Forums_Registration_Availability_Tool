@@ -1,7 +1,9 @@
 {
     "Name": "Torrent Day",
     "Description": "TorrentDay is a general tracker with very good pretimes, nice variety of contents and great speed.",
-    "Url": "https://www.torrentday.me/register.php",
+    "UrlLogin": "https://www.torrentday.me/login.php",
+    "UrlRegistration": "https://www.torrentday.me/register.php",
+    "UrlApplication": "",
     "IconPath": ".\\TorrentDay.png",
     "VbCodeFile": ".\\TorrentDay.vb"
 }

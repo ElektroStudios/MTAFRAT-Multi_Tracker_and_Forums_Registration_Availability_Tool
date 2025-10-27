@@ -1,7 +1,9 @@
 {
     "Name": "HD-Olimpo",
     "Description": "HD-Olimpo is a SPANISH Private Torrent Tracker for HD MOVIES / TV.",
-    "Url": "https://hd-olimpo.club/login",
+    "UrlLogin": "https://hd-olimpo.club/login",
+    "UrlRegistration": "https://hd-olimpo.club/register",
+    "UrlApplication": "https://hd-olimpo.club/application",
     "IconPath": ".\\HDOlimpo.png",
     "VbCodeFile": ".\\HDOlimpo.vb"
 }

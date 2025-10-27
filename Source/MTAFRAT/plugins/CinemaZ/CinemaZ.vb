@@ -13,45 +13,53 @@ Imports OpenQA.Selenium.Chrome
 <DebuggerStepThrough>
 Class CinemaZPlugin : Inherits DynamicPlugin
 
-    Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
+    ReadOnly headless As Boolean = False
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+
+    Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
+        Dim regFlags As RegistrationFlags = RegistrationFlags.Null
+
         Return Await Task.Run(
             Function()
                 Using service As ChromeDriverService = Nothing,
-                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless:=False)
+                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
+
                     Try
-                        LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-                        NavigateTo(driver, Me.Url)
-
-                        LogMessage(Me, "StatusMsg_CloudflareTrialWait")
-                        WaitForPageReady(driver, TimeSpan.FromSeconds(10))
-                        Thread.Sleep(5000)
-                        Dim selector As By = By.CssSelector("#content-area")
-                        WaitForElement(driver, selector, 30)
-                        LogMessage(Me, "StatusMsg_CloudflareTrialCompleted")
-
-                        Dim pageSource As String = driver.PageSource
-                        LogMessage(Me, "StatusMsg_AnalyzingPageContent")
-                        If pageSource.Contains("We sometimes open registration", StringComparison.InvariantCultureIgnoreCase) Then
-                            LogMessage(Me, "StatusMsg_DetectedRegClosed")
-                            Return RegistrationStatus.Closed
-                        Else
-                            LogMessage(Me, "StatusMsg_DetectedRegOpen")
-                            NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxRegOpenFormat", Me.Name)
-                            Return RegistrationStatus.Open
-                        End If
+                        regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
 
                     Catch ex As Exception
-                        LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
-                        ' NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
+                        PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
+                        ' PluginSupport.NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
 
                     Finally
                         driver?.Quit()
-                        LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.PrintMessage(Me, String.Empty)
                     End Try
                 End Using
 
-                Return RegistrationStatus.Unknown
+                Return regFlags
             End Function)
+    End Function
+
+    Private Function CustomRegistrationCheck(driver As ChromeDriver) As RegistrationFlags
+
+        Const triggerRegistration As String = "We sometimes open registration"
+
+        PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
+        PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
+        PluginSupport.NavigateTo(driver, Me.UrlRegistration)
+
+        PluginSupport.LogMessage(Me, "StatusMsg_CloudflareTrialWait")
+        PluginSupport.WaitForPageReady(driver)
+        Thread.Sleep(5000)
+        Dim selector As By = By.CssSelector("#content-area")
+        PluginSupport.WaitForElement(driver, selector)
+        PluginSupport.LogMessage(Me, "StatusMsg_CloudflareTrialCompleted")
+        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
+
+        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)
     End Function
 
 End Class

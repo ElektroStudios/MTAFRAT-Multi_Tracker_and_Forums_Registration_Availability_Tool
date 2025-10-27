@@ -1,10 +1,9 @@
----------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
 🧩 Multi-Tracker and Forums Registration Availability Tool (MTAFRAT)
 
 Author: ElektroStudios
-Version: 1.0.3
-Release Date: October 18, 2025
----------------------------------------------------------------------
+Website: https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool
+----------------------------------------------------------------------------------------------------------
 
 MTAFRAT is a tool designed to automatically check 
 registration availability across multiple trackers and forums.

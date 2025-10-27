@@ -160,10 +160,10 @@
     <value>⏳ Analizando el contenido de la página...</value>
   </data>
   <data name="StatusMsg_DetectedRegClosed" xml:space="preserve">
-    <value>🚫 Se ha detectado que el formulario de registro está cerrado.</value>
+    <value>🚫 El formulario de registro está cerrado.</value>
   </data>
   <data name="StatusMsg_DetectedRegOpen" xml:space="preserve">
-    <value>🎉 Se ha detectado que el formulario de registro está abierto.</value>
+    <value>🎉 El formulario de registro está abierto.</value>
   </data>
   <data name="StatusMsg_MsgboxRegOpenFormat" xml:space="preserve">
     <value>🎉 ¡El formulario de registro está abierto en {0}! Puedes crear una cuenta ahora. 😃</value>
@@ -308,18 +308,39 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
     <value>Borrar entradas previas del registro al ejecutar un plugin</value>
   </data>
   <data name="StatusMsg_ApplicationPageLoaded" xml:space="preserve">
-    <value>✅ Página de solicitud cargada.</value>
+    <value>✅ Página de solicitud de inscripción cargada.</value>
   </data>
   <data name="StatusMsg_DetectedApplicationClosed" xml:space="preserve">
-    <value>🚫 Se ha detectado que el formulario de solicitud está cerrado.</value>
+    <value>🚫 El formulario de solicitud de inscripción está cerrado.</value>
   </data>
   <data name="StatusMsg_DetectedApplicationOpen" xml:space="preserve">
-    <value>🎉 Se ha detectado que el formulario de solicitud está abierto.</value>
+    <value>🎉 El formulario de solicitud de inscripción está abierto.</value>
   </data>
   <data name="StatusMsg_MsgboxApplicationOpenFormat" xml:space="preserve">
-    <value>🎉 ¡El formulario de solicitudes está abierto en {0}! Puedes solicitar el registro ahora. 😃</value>
+    <value>🎉 ¡El formulario de solicitud de inscripción está abierto en {0}! Puedes solicitar una cuenta ahora. 😃</value>
   </data>
   <data name="AboutDescriptionText" xml:space="preserve">
     <value>Una herramienta para verificar la disponibilidad de registro en trackers de torrents y foros usando la API de Selenium.</value>
+  </data>
+  <data name="AllowPluginsToCheckApplicationForms" xml:space="preserve">
+    <value>Permitir que los plugins notifiquen sobre formularios de solicitud de inscripción (application forms) abiertos</value>
+  </data>
+  <data name="StatusMsg_TriggerRegEmpty" xml:space="preserve">
+    <value>La frase de activación para el formulario de registro está vacía.</value>
+  </data>
+  <data name="StatusMsg_TriggerAppEmpty" xml:space="preserve">
+    <value>La frase de activación para el formulario de solicitud de inscripción está vacía.</value>
+  </data>
+  <data name="StatusMsg_PageSourceEmptyFormat" xml:space="preserve">
+    <value>El código fuente de la página está vacío: "{0}"</value>
+  </data>
+  <data name="LoginPageMenuItem" xml:space="preserve">
+    <value>Página de Inicio de Sesión</value>
+  </data>
+  <data name="RegistrationPageMenuItem" xml:space="preserve">
+    <value>Página de Registro</value>
+  </data>
+  <data name="ApplicationPageMenuItem" xml:space="preserve">
+    <value>Página de Solicitud de Inscripción</value>
   </data>
 </root>

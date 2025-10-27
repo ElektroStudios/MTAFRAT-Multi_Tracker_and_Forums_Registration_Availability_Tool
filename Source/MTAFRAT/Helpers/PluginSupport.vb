@@ -187,7 +187,7 @@ Public Module PluginSupport
             timeout = New TimeSpan(hours:=0, minutes:=0, seconds:=30)
         End If
         Dim drvWait As New WebDriverWait(drv, timeout) With {
-                .PollingInterval = TimeSpan.FromMilliseconds(250)
+                .PollingInterval = TimeSpan.FromMilliseconds(500)
             }
 
         Dim js As IJavaScriptExecutor = TryCast(drv, IJavaScriptExecutor)
@@ -310,12 +310,7 @@ Public Module PluginSupport
     <DebuggerStepThrough>
     Public Sub LogMessage(plugin As DynamicPlugin, msg As String)
 
-        Dim rm As ResourceManager = AppGlobals.StringsResourceManager
-        Dim rmString As String = rm.GetString(msg, CultureInfo.CurrentUICulture)
-        If Not String.IsNullOrEmpty(rmString) Then
-            msg = rmString
-        End If
-        UIHelper.AppendLineWithTimestamp(plugin.LogTextBox, msg, True)
+        UIHelper.AppendLineWithTimestamp(plugin.LogTextBox, ResolveLocalizedString(msg), addNewLine:=True)
     End Sub
 
     ''' <summary>
@@ -339,16 +334,51 @@ Public Module PluginSupport
     <DebuggerStepThrough>
     Public Sub LogMessageFormat(plugin As DynamicPlugin, msgFormat As String, ParamArray args As Object())
 
-        Dim rm As ResourceManager = AppGlobals.StringsResourceManager
-        Dim rmString As String = Nothing
-        Try
-            rmString = rm.GetString(msgFormat, CultureInfo.CurrentUICulture)
-        Catch
-        End Try
-        If Not String.IsNullOrEmpty(rmString) Then
-            msgFormat = rmString
-        End If
-        UIHelper.AppendLineWithTimestamp(plugin.LogTextBox, String.Format(msgFormat, args), True)
+        UIHelper.AppendLineWithTimestamp(plugin.LogTextBox, ResolveLocalizedString(msgFormat, args), addNewLine:=True)
+    End Sub
+
+    ''' <summary>
+    ''' Prints a message to the plugin's associated status textbox.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance.
+    ''' </param>
+    ''' 
+    ''' <param name="msg">
+    ''' The message string to log. 
+    ''' <para></para>
+    ''' This can be either a plain string or a key from the application resource file (<c>MTAFRAT.Strings</c>) 
+    ''' to automatically retrieve the localized text according to the current UI culture.
+    ''' </param>
+    <DebuggerStepThrough>
+    Public Sub PrintMessage(plugin As DynamicPlugin, msg As String)
+
+        UIHelper.AppendLine(plugin.LogTextBox, ResolveLocalizedString(msg), addNewLine:=True)
+    End Sub
+
+    ''' <summary>
+    ''' Prints a formatted message to the plugin's associated status textbox.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance.
+    ''' </param>
+    ''' 
+    ''' <param name="msgFormat">
+    ''' The message format string to log. 
+    ''' <para></para>
+    ''' This can be either a composite format string or a key from the application resource file (<c>MTAFRAT.Strings</c>) 
+    ''' to automatically retrieve the localized text according to the current UI culture.
+    ''' </param>
+    ''' 
+    ''' <param name="args">
+    ''' An array of objects to format according to <paramref name="msgFormat"/>.
+    ''' </param>
+    <DebuggerStepThrough>
+    Public Sub PrintMessageFormat(plugin As DynamicPlugin, msgFormat As String, ParamArray args As Object())
+
+        UIHelper.AppendLine(plugin.LogTextBox, ResolveLocalizedString(msgFormat, args), addNewLine:=True)
     End Sub
 
     ''' <summary>
@@ -432,6 +462,213 @@ Public Module PluginSupport
                      MessageBox.Show(f, String.Format(msgFormat, args), title, MessageBoxButtons.OK, icon)
                  End Sub)
     End Sub
+
+    ''' <summary>
+    ''' A common utility function used by multiple plugins that encapsulates the default steps to navigate 
+    ''' to a registration form page, check and return its current state, and handle message logging and UI notifications.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance calling this method.
+    ''' </param>
+    ''' 
+    ''' <param name="driver">
+    ''' The <see cref="ChromeDriver"/> instance associated to the plugin.
+    ''' </param>
+    ''' 
+    ''' <param name="trigger">
+    ''' The trigger phrase that indicates the registration form is open or closed.
+    ''' </param>
+    ''' 
+    ''' <param name="isOpenTrigger">
+    ''' If <see langword="True"/>, the <paramref name="trigger"/> phrase indicates that the form is open;
+    ''' if <see langword="False"/>, the <paramref name="trigger"/> phrase indicates that the form is closed.
+    ''' </param>
+    ''' 
+    ''' <returns>
+    ''' A <see cref="RegistrationFlags"/> value indicating whether the registration form is open or closed.
+    ''' </returns>
+    <DebuggerStepThrough>
+    Public Function DefaultRegistrationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
+                                                          trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+
+        PluginSupport.LogMessageFormat(plugin, "StatusMsg_ConnectingFormat", plugin.Name)
+        PluginSupport.LogMessage(plugin, $"➜ {plugin.UrlRegistration}")
+        PluginSupport.NavigateTo(driver, plugin.UrlRegistration)
+        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(plugin, "StatusMsg_RegisterPageLoaded")
+
+        Return PluginSupport.EvaluateRegistrationFormState(plugin, driver, trigger, isOpenTrigger)
+    End Function
+
+    ''' <summary>
+    ''' A common utility function used by multiple plugins that encapsulates the default steps to navigate 
+    ''' to an application form page, check and return its current state, and handle message logging and UI notifications.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance calling this method.
+    ''' </param>
+    ''' 
+    ''' <param name="driver">
+    ''' The <see cref="ChromeDriver"/> instance associated to the plugin.
+    ''' </param>
+    ''' 
+    ''' <param name="trigger">
+    ''' A trigger phrase that indicates the application form is open or closed.
+    ''' </param>
+    ''' 
+    ''' <param name="isOpenTrigger">
+    ''' If <see langword="True"/>, the <paramref name="trigger"/> phrase indicates that the application form is open;
+    ''' if <see langword="False"/>, the <paramref name="trigger"/> phrase indicates that the application form is closed.
+    ''' </param>
+    ''' 
+    ''' <returns>
+    ''' A <see cref="RegistrationFlags"/> value indicating whether the application form is open or closed.
+    ''' </returns>
+    <DebuggerStepThrough>
+    Public Function DefaultApplicationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
+                                                         trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+
+        PluginSupport.LogMessageFormat(plugin, "StatusMsg_ConnectingFormat", plugin.Name)
+        PluginSupport.LogMessage(plugin, $"➜ {plugin.UrlApplication}")
+        PluginSupport.NavigateTo(driver, plugin.UrlApplication)
+        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(plugin, "StatusMsg_ApplicationPageLoaded")
+
+        Return PluginSupport.EvaluateApplicationFormState(plugin, driver, trigger, isOpenTrigger)
+    End Function
+
+    ''' <summary>
+    ''' Evaluates a registration form state based on source page content.
+    ''' <para></para>
+    ''' It logs the result message and optionally displays a notification if registration form is open.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance calling this method.
+    ''' </param>
+    ''' 
+    ''' <param name="driver">
+    ''' The <see cref="ChromeDriver"/> instance containing the page source.
+    ''' </param>
+    ''' 
+    ''' <param name="trigger">
+    ''' The trigger phrase that indicates the registration form is open or closed.
+    ''' </param>
+    ''' 
+    ''' <param name="isOpenTrigger">
+    ''' If <see langword="True"/>, the <paramref name="trigger"/> phrase indicates that the form is open;
+    ''' if <see langword="False"/>, the <paramref name="trigger"/> phrase indicates that the form is closed.
+    ''' </param>
+    ''' 
+    ''' <returns>
+    ''' A <see cref="RegistrationFlags"/> value indicating whether the registration form is open or closed.
+    ''' </returns>
+    <DebuggerStepThrough>
+    Public Function EvaluateRegistrationFormState(plugin As DynamicPlugin, driver As ChromeDriver,
+                                                  trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+
+        PluginSupport.LogMessage(plugin, "StatusMsg_AnalyzingPageContent")
+
+        If String.IsNullOrWhiteSpace(trigger) Then
+            PluginSupport.LogMessage(plugin, "StatusMsg_TriggerRegEmpty")
+            Return RegistrationFlags.RegistrationUnknown
+        End If
+
+        Dim pageSource As String = driver.PageSource
+        If String.IsNullOrWhiteSpace(pageSource) OrElse
+            pageSource.Equals("<html><head></head><body></body></html>", StringComparison.InvariantCultureIgnoreCase) Then
+
+            PluginSupport.LogMessageFormat(plugin, "StatusMsg_PageSourceEmptyFormat", {pageSource})
+            Return RegistrationFlags.RegistrationUnknown
+        End If
+
+        Dim triggerFound As Boolean = pageSource.Contains(trigger, StringComparison.InvariantCultureIgnoreCase)
+
+        Dim result As RegistrationFlags =
+            If(isOpenTrigger,
+               If(triggerFound, RegistrationFlags.RegistrationOpen, RegistrationFlags.RegistrationClosed),
+               If(triggerFound, RegistrationFlags.RegistrationClosed, RegistrationFlags.RegistrationOpen))
+
+        Select Case result
+            Case RegistrationFlags.RegistrationOpen
+                PluginSupport.LogMessage(plugin, "StatusMsg_DetectedRegOpen")
+                PluginSupport.NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxRegOpenFormat", plugin.Name)
+            Case RegistrationFlags.RegistrationClosed
+                PluginSupport.LogMessage(plugin, "StatusMsg_DetectedRegClosed")
+        End Select
+
+        Return result
+    End Function
+
+    ''' <summary>
+    ''' Evaluates an application form state based on source page content.
+    ''' <para></para>
+    ''' It logs the result message and optionally displays a notification if application form is open.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance calling this method.
+    ''' </param>
+    ''' 
+    ''' <param name="driver">
+    ''' The <see cref="ChromeDriver"/> instance containing the page source.
+    ''' </param>
+    ''' 
+    ''' <param name="trigger">
+    ''' A trigger phrase that indicates the application form is open or closed.
+    ''' </param>
+    ''' 
+    ''' <param name="isOpenTrigger">
+    ''' If <see langword="True"/>, the <paramref name="trigger"/> phrase indicates that the application form is open;
+    ''' if <see langword="False"/>, the <paramref name="trigger"/> phrase indicates that the application form is closed.
+    ''' </param>
+    ''' 
+    ''' <returns>
+    ''' A <see cref="RegistrationFlags"/> value indicating whether the application form is open or closed.
+    ''' </returns>
+    <DebuggerStepThrough>
+    Public Function EvaluateApplicationFormState(plugin As DynamicPlugin, driver As ChromeDriver,
+                                                 trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+
+        PluginSupport.LogMessage(plugin, "StatusMsg_AnalyzingPageContent")
+
+        If String.IsNullOrWhiteSpace(trigger) Then
+            PluginSupport.LogMessage(plugin, "StatusMsg_TriggerAppEmpty")
+            Return RegistrationFlags.ApplicationUnknown
+        End If
+
+        Dim pageSource As String = driver.PageSource
+        If String.IsNullOrWhiteSpace(pageSource) OrElse
+            pageSource.Equals("<html><head></head><body></body></html>", StringComparison.InvariantCultureIgnoreCase) Then
+
+            PluginSupport.LogMessageFormat(plugin, "StatusMsg_PageSourceEmptyFormat", {pageSource})
+            Return RegistrationFlags.ApplicationUnknown
+        End If
+
+        Dim triggerFound As Boolean = pageSource.Contains(trigger, StringComparison.InvariantCultureIgnoreCase)
+
+        Dim result As RegistrationFlags =
+            If(isOpenTrigger,
+               If(triggerFound, RegistrationFlags.ApplicationOpen, RegistrationFlags.ApplicationClosed),
+               If(triggerFound, RegistrationFlags.ApplicationClosed, RegistrationFlags.ApplicationOpen))
+
+        Select Case result
+            Case RegistrationFlags.ApplicationOpen
+                PluginSupport.LogMessage(plugin, "StatusMsg_DetectedApplicationOpen")
+
+                Dim f As MainForm = AppGlobals.MainFormInstance
+                If f.DarkCheckBox_AllowPluginApplicationFormCheck.Checked Then
+                    PluginSupport.NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxApplicationOpenFormat", plugin.Name)
+                End If
+
+            Case RegistrationFlags.ApplicationClosed
+                PluginSupport.LogMessage(plugin, "StatusMsg_DetectedApplicationClosed")
+        End Select
+
+        Return result
+    End Function
 
     ''' <summary>
     ''' Analyzes the browser log entries since the specified date 
@@ -555,7 +792,7 @@ Public Module PluginSupport
     <DebuggerStepThrough>
     Public Sub ThrowIfStatusCode(driver As IWebDriver, statusCode As HttpStatusCode, afterDate As Date)
 
-        ThrowIfStatusCode(driver, CInt(statusCode), afterDate)
+        PluginSupport.ThrowIfStatusCode(driver, CInt(statusCode), afterDate)
     End Sub
 
 #End Region
@@ -563,43 +800,44 @@ Public Module PluginSupport
 #Region " Restricted Methods "
 
     ''' <summary>
-    ''' Loads all dynamic plugins from the plugins directory 
-    ''' and returns a list of <see cref="DynamicPlugin"/> objects.
+    ''' Resolves the specified string as either a direct text value 
+    ''' or a key from the application's localized string resources (<see cref="AppGlobals.StringsResourceManager"/>),
+    ''' automatically applying localization based on the current UI culture. 
+    ''' <para></para>
+    ''' If formatting arguments are provided, the resulting text will be formatted accordingly.
     ''' </summary>
     ''' 
+    ''' <param name="keyOrText">
+    ''' A plain string or a resource key to look up in the application's localized string resources.
+    ''' <para></para>
+    ''' If the provided string does not exist as a resource key, it will be used as-is.
+    ''' </param>
+    ''' 
+    ''' <param name="args">
+    ''' Optional formatting arguments to be applied if <paramref name="keyOrText"/> (or its localized value)
+    ''' contains composite format placeholders.
+    ''' </param>
+    ''' 
     ''' <returns>
-    ''' A list of <see cref="DynamicPlugin"/> objects representign each initialized plugin.
+    ''' A localized and optionally formatted string suitable for display to the user.
     ''' </returns>
     <DebuggerStepThrough>
-    Friend Function LoadAllPluginsFromJson() As ReadOnlyCollection(Of DynamicPlugin)
+    Private Function ResolveLocalizedString(keyOrText As String, ParamArray args As Object()) As String
 
-        Dim plugins As New List(Of DynamicPlugin)
+        Dim rm As ResourceManager = AppGlobals.StringsResourceManager
+        Dim localized As String = rm.GetString(keyOrText, CultureInfo.CurrentUICulture)
 
-        If Not Directory.Exists(AppGlobals.PluginsDirectoryPath) Then
-            Directory.CreateDirectory(AppGlobals.PluginsDirectoryPath)
+        ' If the string exists in the resource file, use the localized version.
+        If Not String.IsNullOrEmpty(localized) Then
+            keyOrText = localized
         End If
 
-        Dim options As New EnumerationOptions With {
-            .AttributesToSkip = FileAttributes.None,
-            .MatchCasing = MatchCasing.CaseInsensitive,
-            .MatchType = MatchType.Simple,
-            .RecurseSubdirectories = True
-        }
-        For Each file As String In Directory.GetFiles(AppGlobals.PluginsDirectoryPath, "*.json", options)
-            Try
-                plugins.Add(New DynamicPlugin(file))
-            Catch ex As Exception
-                Dim f As MainForm = AppGlobals.MainFormInstance
-                If f.IsHandleCreated Then
-                    f.Invoke(Sub() My.Forms.MainSplashScreen.Visible = False)
-                End If
-                MessageBox.Show(String.Format(My.Resources.Strings.ErrorLoadingPluginFormat, file, ex.Message),
-                                My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                f.Close()
-            End Try
-        Next
+        ' If formatting arguments are provided, apply them.
+        If args IsNot Nothing AndAlso args.Length > 0 Then
+            keyOrText = String.Format(keyOrText, args)
+        End If
 
-        Return New ReadOnlyCollection(Of DynamicPlugin)(plugins)
+        Return keyOrText
     End Function
 
     ''' <summary>

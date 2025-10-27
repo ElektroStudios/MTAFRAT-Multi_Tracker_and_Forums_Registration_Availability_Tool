@@ -10,20 +10,22 @@ The structure of the plugin configuration JSON file is as follows:
 
 ```json
 {
-  "Name":        "PLUGIN NAME",
-  "Description": "DESCRIPTION OR CATEGORY",
-  "Url":         "LOGIN OR SIGNUP URL",
-  "IconPath":    "RELATIVE PATH TO IMAGE FILE",
-  "VbCodeFile":  "RELATIVE PATH TO VB.NET SOURCE CODE FILE"
+  "Name":           "PLUGIN NAME",
+  "Description":    "TRACKER/FORUM DESCRIPTION OR CATEGORY",
+  "UrlLogin":       "ACCOUNT LOGIN URL",
+  "UrlRegister":    "ACCOUNT REGISTRATION URL",
+  "UrlApplication": "ACCOUNT APPLICATION URL",
+  "IconPath":       "RELATIVE PATH TO IMAGE/ICON FILE",
+  "VbCodeFile":     "RELATIVE PATH TO VB.NET SOURCE CODE FILE"
 }
 ```
 
-A plugin is implemented through a VB.NET class inheriting from **MTAFRAT.DynamicPlugin** and overloading the asynchronous function `RunAsync()`, which returns a value of type `Task(Of RegistrationStatus)`, as shown in the following simplified example:
+A plugin is implemented through a VB.NET class inheriting from **MTAFRAT.DynamicPlugin** and overloading the asynchronous function `RunAsync()`, which returns a value of type `Task(Of RegistrationFlags)`, as shown in the following simplified example:
 
 ```vbnet
 Class MyPlugin : Inherits DynamicPlugin
 
-    Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
+    Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
       
       ' Plugin's logic here.
     End Function
@@ -31,11 +33,15 @@ Class MyPlugin : Inherits DynamicPlugin
 End Class
 ```
 
-Note that `RegistrationStatus` is an enumeration used to indicate the status of the asynchronous operation. Its values are as follows:
+Note that `RegistrationFlags` is an enumeration used to indicate the state of the asynchronous operation. The values are as follows:
 
- - **Open**:    Indicates that user registration on the website is open to the public.  
- - **Closed**:  Indicates that user registration on the website is closed to the public.  
- - **Unknown**: Registration status unknown. Can be used as an auxiliary value when the check cannot be determined.
+ - **RegistrationClosed**:  Indicates that registration form is closed.
+ - **RegistrationOpen**:    Indicates that registration form is open.
+ - **RegistrationUnknown**: Registration form state is unknown. Can be used as an auxiliary value when the state cannot be determined.
+ - **ApplicationClosed**:  Indicates that application form is closed.
+ - **ApplicationOpen**:    Indicates that application form is open.
+ - **ApplicationUnknown**: Application form state is unknown. Can be used as an auxiliary value when the state cannot be determined.
+ - **Null**: No flags. Can be used as an auxiliary value when an error or unexpected condition occurs.
 
 It is the developer's responsibility to implement the logic for interacting with the website, error handling, and logging messages in the **MTAFRAT** user interface.
 
@@ -45,14 +51,14 @@ You can use any of the multiple built-in plugins found in the "plugins" folder a
 
 Plugin developers have at their disposal the **MTAFRAT.PluginSupport** module, designed with helper methods to simplify common tasks in development:
 
- - `CreateChromeDriver`
+ - `CreateChromeDriver` As `ChromeDriver`
 ```vbnet
 plugin As DynamicPlugin
 ByRef refService As ChromeDriverService
 headless As Boolean
 ParamArray arguments As String()
 ```
-Create an instance of type `ChromeDriver`, preconfigured with security and performance arguments. 
+Create and return an instance of type `ChromeDriver`, preconfigured with security and performance arguments. 
 
  - `NavigateTo`
 ```vbnet
@@ -99,6 +105,21 @@ ParamArray args As Object()
 ```
 Works similarly to `LogMessage`, but allows using formatted strings to dynamically construct the message, like `String.Format()`.
 
+ - `PrintMessage`
+```vbnet
+plugin As DynamicPlugin
+msg As String
+```
+Same as `LogMessage` fucntion, but it prints the message as-is, without a timestamp.
+
+ - `PrintMessageFormat`
+```vbnet
+plugin As DynamicPlugin
+msgFormat As String
+ParamArray args As Object()
+```
+Same as `LogMessageFormat` fucntion, but it prints the message as-is, without a timestamp.
+
  - `NotifyMessage`
 ```vbnet
 title As String
@@ -135,3 +156,23 @@ Analyzes the browser log entries since the specified date to find any entry cont
 It also analyzes the current page source, applying special handling for Cloudflare-protected pages.
 
 This method helps determine whether the currently loaded page returned an HTTP error status code.
+
+ - `DefaultRegistrationFormCheckProcedure` As `RegistrationFlags`
+```vbnet
+plugin As DynamicPlugin
+driver As ChromeDriver
+trigger As String
+isOpenTrigger As Boolean
+```
+A common utility function used by multiple plugins that encapsulates the default steps to navigate 
+to a registration form page, check and return its current state, and handle message logging and UI notifications.
+
+ - `DefaultApplicationFormCheckProcedure` As `RegistrationFlags`
+```vbnet
+plugin As DynamicPlugin
+driver As ChromeDriver
+trigger As String
+isOpenTrigger As Boolean
+```
+A common utility function used by multiple plugins that encapsulates the default steps to navigate 
+to an application form page, check and return its current state, and handle message logging and UI notifications.

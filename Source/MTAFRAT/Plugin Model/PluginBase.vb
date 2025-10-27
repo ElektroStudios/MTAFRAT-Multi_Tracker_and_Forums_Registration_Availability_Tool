@@ -24,9 +24,19 @@ Public MustInherit Class PluginBase : Implements IEquatable(Of PluginBase), IDis
     Public Property Description As String
 
     ''' <summary>
-    ''' Gets or sets the URL related to this plugin (typically the login or register webpage).
+    ''' Gets or sets the login page URL associated with this plugin.
     ''' </summary>
-    Public Property Url As String
+    Public Property UrlLogin As String
+
+    ''' <summary>
+    ''' Gets or sets the registration page URL associated with this plugin.
+    ''' </summary>
+    Public Property UrlRegistration As String
+
+    ''' <summary>
+    ''' Gets or sets the application page URL associated with this plugin.
+    ''' </summary>
+    Public Property UrlApplication As String
 
     ''' <summary>
     ''' Gets or sets the image associated with this plugin.
@@ -56,9 +66,9 @@ Public MustInherit Class PluginBase : Implements IEquatable(Of PluginBase), IDis
     ''' </param>
     ''' 
     ''' <returns>
-    ''' A <see cref="Task(Of RegistrationStatus)"/> representing the asynchronous operation.
+    ''' A <see cref="Task(Of RegistrationFlags)"/> representing the asynchronous operation.
     ''' </returns>
-    Public MustOverride Async Function RunAsync(logTextBox As TextBox) As Task(Of RegistrationStatus)
+    Public MustOverride Async Function RunAsync(logTextBox As TextBox) As Task(Of RegistrationFlags)
 
     ''' <summary>
     ''' Returns a <see cref="String" /> that represents this instance.

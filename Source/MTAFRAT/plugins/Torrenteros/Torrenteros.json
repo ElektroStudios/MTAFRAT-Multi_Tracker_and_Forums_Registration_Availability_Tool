@@ -1,7 +1,9 @@
 {
     "Name": "Torrenteros",
     "Description": "Torrenteros is a SPANISH Private Torrent Tracker for DVD-R / BLURAY MOVIES / TV.",
-    "Url": "https://torrenteros.org/application",
+    "UrlLogin": "https://torrenteros.org/login",
+    "UrlRegistration": "https://torrenteros.org/register",
+    "UrlApplication": "https://torrenteros.org/application",
     "IconPath": ".\\Torrenteros.png",
     "VbCodeFile": ".\\Torrenteros.vb"
 }

@@ -1,7 +1,9 @@
 {
     "Name": "Old Toons World",
     "Description": "Old Toons World (OTW) is a Private Torrent Tracker for ANIMATED MOVIES / TV",
-    "Url": "https://oldtoons.world/register",
+    "UrlLogin": "https://oldtoons.world/login",
+    "UrlRegistration": "https://oldtoons.world/register",
+    "UrlApplication": "https://oldtoons.world/application",
     "IconPath": ".\\Oldtoons.png",
     "VbCodeFile": ".\\Oldtoons.vb"
 }

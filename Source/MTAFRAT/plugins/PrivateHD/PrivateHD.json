@@ -1,7 +1,9 @@
 {
     "Name": "PrivateHD",
     "Description": "PrivateHD is a Private Torrent Tracker for HD MOVIES / TV.",
-    "Url": "https://privatehd.to/auth/register",
+    "UrlLogin": "https://privatehd.to/auth/login",
+    "UrlRegistration": "https://privatehd.to/auth/register",
+    "UrlApplication": "",
     "IconPath": ".\\PrivateHD.png",
     "VbCodeFile": ".\\PrivateHD.vb"
 }

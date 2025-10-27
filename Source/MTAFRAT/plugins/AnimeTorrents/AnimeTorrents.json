@@ -1,7 +1,9 @@
 {
     "Name": "AnimeTorrents",
     "Description": "AnimeTorrents is a private torrent tracker specializing in Anime Movies, Anime TV Series, OVA (Original Video Animation), Manga, Light Novels and Hentai in DVDRIP, BDRip, Blu-Ray and HD (720p/1080p).",
-    "Url": "https://animetorrents.me/register.php",
+    "UrlLogin": "https://animetorrents.me/login.php",
+    "UrlRegistration": "https://animetorrents.me/register.php",
+    "UrlApplication": "",
     "IconPath": ".\\AnimeTorrents.png",
     "VbCodeFile": ".\\AnimeTorrents.vb"
 }

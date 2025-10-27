@@ -8,6 +8,7 @@ Option Infer Off
 
 #Region " Imports "
 
+Imports System.Collections.ObjectModel
 Imports System.IO
 Imports System.Reflection
 
@@ -28,6 +29,46 @@ Public Module ApplicationHelper
 
         AppGlobals.MainFormInstance.RemainingAutoPluginRunInterval = AppGlobals.AutomaticPluginRunInterval
     End Sub
+
+    ''' <summary>
+    ''' Loads all dynamic plugins from the plugins directory 
+    ''' and returns a list of <see cref="DynamicPlugin"/> objects.
+    ''' </summary>
+    ''' 
+    ''' <returns>
+    ''' A list of <see cref="DynamicPlugin"/> objects representign each initialized plugin.
+    ''' </returns>
+    <DebuggerStepThrough>
+    Friend Function LoadAllPluginsFromJson() As ReadOnlyCollection(Of DynamicPlugin)
+
+        Dim plugins As New List(Of DynamicPlugin)
+
+        If Not Directory.Exists(AppGlobals.PluginsDirectoryPath) Then
+            Directory.CreateDirectory(AppGlobals.PluginsDirectoryPath)
+        End If
+
+        Dim options As New EnumerationOptions With {
+            .AttributesToSkip = FileAttributes.None,
+            .MatchCasing = MatchCasing.CaseInsensitive,
+            .MatchType = MatchType.Simple,
+            .RecurseSubdirectories = True
+        }
+        For Each file As String In Directory.GetFiles(AppGlobals.PluginsDirectoryPath, "*.json", options)
+            Try
+                plugins.Add(New DynamicPlugin(file))
+            Catch ex As Exception
+                Dim f As MainForm = AppGlobals.MainFormInstance
+                If f.IsHandleCreated Then
+                    f.Invoke(Sub() My.Forms.MainSplashScreen.Visible = False)
+                End If
+                MessageBox.Show(String.Format(My.Resources.Strings.ErrorLoadingPluginFormat, file, ex.Message),
+                                My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                f.Close()
+            End Try
+        Next
+
+        Return New ReadOnlyCollection(Of DynamicPlugin)(plugins)
+    End Function
 
     ''' <summary>
     ''' Clears cached data for the entire application or for a specific plugin.

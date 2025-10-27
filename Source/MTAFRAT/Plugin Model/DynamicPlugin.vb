@@ -452,7 +452,9 @@ Public Class DynamicPlugin : Inherits PluginBase
         Dim config As JsonPluginConfig = JsonSerializer.Deserialize(Of JsonPluginConfig)(json, DynamicPlugin.JsonOptions)
         Me.Name = config.Name
         Me.Description = config.Description
-        Me.Url = config.Url
+        Me.UrlLogin = config.UrlLogin
+        Me.UrlRegistration = config.UrlRegistration
+        Me.UrlApplication = config.UrlApplication
 
         Me.UIMemberBaseName = UIHelper.ConvertStringToNetMemberName(Me.Name)
         Me.PluginCachePath = $"{AppGlobals.ChromeUserCachePath}\{Me.UIMemberBaseName}"
@@ -501,7 +503,9 @@ Public Class DynamicPlugin : Inherits PluginBase
 
         target.Name = Me.Name
         target.Description = Me.Description
-        target.Url = Me.Url
+        target.UrlLogin = Me.UrlLogin
+        target.UrlRegistration = Me.UrlRegistration
+        target.UrlApplication = Me.UrlApplication
         target.Image = Me.Image
         target.VbCode = Me.VbCode
 
@@ -525,10 +529,10 @@ Public Class DynamicPlugin : Inherits PluginBase
     ''' </param>
     ''' 
     ''' <returns>
-    ''' A <see cref="Task(Of RegistrationStatus)"/> representing the asynchronous operation.
+    ''' A <see cref="Task(Of RegistrationFlags)"/> representing the asynchronous operation.
     ''' </returns>
     <DebuggerStepThrough>
-    Public Overrides Async Function RunAsync(logTextBox As TextBox) As Task(Of RegistrationStatus)
+    Public Overrides Async Function RunAsync(logTextBox As TextBox) As Task(Of RegistrationFlags)
 
         Dim assembly As Assembly = Me.CompileAssembly(Me.VbCode, Me, logTextBox)
 
@@ -557,9 +561,9 @@ Public Class DynamicPlugin : Inherits PluginBase
                     PluginSupport.LogMessage(Me, My.Resources.Strings.MissingRunAsyncMethod)
                 Else
                     Try
-                        Dim regStatus As RegistrationStatus =
-                            Await CType(runAsyncMethod.Invoke(pluginInstance, Nothing), Task(Of RegistrationStatus))
-                        Return regStatus
+                        Dim regFlags As RegistrationFlags =
+                            Await CType(runAsyncMethod.Invoke(pluginInstance, Nothing), Task(Of RegistrationFlags))
+                        Return regFlags
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, My.Resources.Strings.DynamicCodeExecutionErrorFormat, ex.Message)
@@ -575,7 +579,7 @@ Public Class DynamicPlugin : Inherits PluginBase
             End If
         End If
 
-        Return RegistrationStatus.Unknown
+        Return RegistrationFlags.Null
     End Function
 
 #End Region

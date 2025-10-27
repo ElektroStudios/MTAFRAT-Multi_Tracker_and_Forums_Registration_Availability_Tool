@@ -83,11 +83,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Allow plugins to notify about open application forms.
+        '''</summary>
+        Friend Shared ReadOnly Property AllowPluginsToCheckApplicationForms() As String
+            Get
+                Return ResourceManager.GetString("AllowPluginsToCheckApplicationForms", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Application cache has been fully cleaned..
         '''</summary>
         Friend Shared ReadOnly Property ApplicationCacheHasBeenCleaned() As String
             Get
                 Return ResourceManager.GetString("ApplicationCacheHasBeenCleaned", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Application Page.
+        '''</summary>
+        Friend Shared ReadOnly Property ApplicationPageMenuItem() As String
+            Get
+                Return ResourceManager.GetString("ApplicationPageMenuItem", resourceCulture)
             End Get
         End Property
         
@@ -357,6 +375,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Login Page.
+        '''</summary>
+        Friend Shared ReadOnly Property LoginPageMenuItem() As String
+            Get
+                Return ResourceManager.GetString("LoginPageMenuItem", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to ❌ Error: No class of type DynamicPlugin was found in the plugin&apos;s source code..
         '''</summary>
         Friend Shared ReadOnly Property MissingDynamicPluginClass() As String
@@ -416,6 +443,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property Program() As String
             Get
                 Return ResourceManager.GetString("Program", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Registration Page.
+        '''</summary>
+        Friend Shared ReadOnly Property RegistrationPageMenuItem() As String
+            Get
+                Return ResourceManager.GetString("RegistrationPageMenuItem", resourceCulture)
             End Get
         End Property
         
@@ -535,36 +571,36 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_ConnectingFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to 🚫 Application form has been detected as closed..
+        '''  Looks up a localized string similar to 🚫 Application form is closed..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_DetectedApplicationClosed() As String
             Get
                 Return ResourceManager.GetString("StatusMsg_DetectedApplicationClosed", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to 🎉 Application form has been detected as open..
+        '''  Looks up a localized string similar to 🎉 Application form is open..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_DetectedApplicationOpen() As String
             Get
                 Return ResourceManager.GetString("StatusMsg_DetectedApplicationOpen", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to 🚫 Registration form has been detected as closed..
+        '''  Looks up a localized string similar to 🚫 Registration form is closed..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_DetectedRegClosed() As String
             Get
                 Return ResourceManager.GetString("StatusMsg_DetectedRegClosed", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to 🎉 Registration form has been detected as open..
+        '''  Looks up a localized string similar to 🎉 Registration form is open..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_DetectedRegOpen() As String
             Get
@@ -627,6 +663,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The page source code is empty: &quot;{0}&quot;.
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_PageSourceEmptyFormat() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_PageSourceEmptyFormat", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to ➡️ Register button clicked..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_RegisterButtonClicked() As String
@@ -650,6 +695,24 @@ Namespace My.Resources
         Friend Shared ReadOnly Property StatusMsg_RegisterPageLoaded() As String
             Get
                 Return ResourceManager.GetString("StatusMsg_RegisterPageLoaded", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The trigger phrase for the application form is empty..
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_TriggerAppEmpty() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_TriggerAppEmpty", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The trigger phrase for the registration form is empty..
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_TriggerRegEmpty() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_TriggerRegEmpty", resourceCulture)
             End Get
         End Property
         

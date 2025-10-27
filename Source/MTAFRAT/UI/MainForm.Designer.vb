@@ -29,6 +29,7 @@ Partial Public Class MainForm
         Me.TabPage_Settings = New TabPage()
         Me.DarkSectionPanel_Settings = New DarkUI.Controls.DarkSectionPanel()
         Me.DarkGroupBox_Application = New DarkUI.Controls.DarkGroupBox()
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck = New DarkUI.Controls.DarkCheckBox()
         Me.DarkCheckBox_ClearPreviousLogEntries = New DarkUI.Controls.DarkCheckBox()
         Me.DarkCheckBox_RunAppMinimized = New DarkUI.Controls.DarkCheckBox()
         Me.DarkButtonImageAllignFix_ClearCache = New DarkButtonImageAllignFix()
@@ -139,6 +140,7 @@ Partial Public Class MainForm
         ' DarkGroupBox_Application
         ' 
         Me.DarkGroupBox_Application.BorderColor = Color.FromArgb(CByte(51), CByte(51), CByte(51))
+        Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_AllowPluginApplicationFormCheck)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_ClearPreviousLogEntries)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_RunAppMinimized)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkButtonImageAllignFix_ClearCache)
@@ -151,33 +153,42 @@ Partial Public Class MainForm
         Me.DarkGroupBox_Application.TabStop = False
         Me.DarkGroupBox_Application.Text = "Application"
         ' 
+        ' DarkCheckBox_AllowPluginApplicationFormCheck
+        ' 
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck.Cursor = Cursors.Hand
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck.Location = New Point(6, 59)
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck.Name = "DarkCheckBox_AllowPluginApplicationFormCheck"
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck.Size = New Size(440, 40)
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck.TabIndex = 5
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck.Text = "Allow plugins to notify about open application forms"
+        ' 
         ' DarkCheckBox_ClearPreviousLogEntries
         ' 
         Me.DarkCheckBox_ClearPreviousLogEntries.Cursor = Cursors.Hand
         Me.DarkCheckBox_ClearPreviousLogEntries.Location = New Point(6, 28)
         Me.DarkCheckBox_ClearPreviousLogEntries.Name = "DarkCheckBox_ClearPreviousLogEntries"
-        Me.DarkCheckBox_ClearPreviousLogEntries.Size = New Size(443, 25)
+        Me.DarkCheckBox_ClearPreviousLogEntries.Size = New Size(440, 25)
         Me.DarkCheckBox_ClearPreviousLogEntries.TabIndex = 0
         Me.DarkCheckBox_ClearPreviousLogEntries.Text = "Clear previous log entries on plugin execution"
         ' 
         ' DarkCheckBox_RunAppMinimized
         ' 
         Me.DarkCheckBox_RunAppMinimized.Cursor = Cursors.Hand
-        Me.DarkCheckBox_RunAppMinimized.Location = New Point(6, 59)
+        Me.DarkCheckBox_RunAppMinimized.Location = New Point(6, 105)
         Me.DarkCheckBox_RunAppMinimized.Name = "DarkCheckBox_RunAppMinimized"
-        Me.DarkCheckBox_RunAppMinimized.Size = New Size(443, 25)
+        Me.DarkCheckBox_RunAppMinimized.Size = New Size(440, 25)
         Me.DarkCheckBox_RunAppMinimized.TabIndex = 1
-        Me.DarkCheckBox_RunAppMinimized.Text = "Run application minimized"
+        Me.DarkCheckBox_RunAppMinimized.Text = "Run application minimized to system-tray"
         ' 
         ' DarkButtonImageAllignFix_ClearCache
         ' 
         Me.DarkButtonImageAllignFix_ClearCache.Anchor = AnchorStyles.None
         Me.DarkButtonImageAllignFix_ClearCache.Cursor = Cursors.Hand
-        Me.DarkButtonImageAllignFix_ClearCache.Location = New Point(455, 59)
+        Me.DarkButtonImageAllignFix_ClearCache.Location = New Point(452, 20)
         Me.DarkButtonImageAllignFix_ClearCache.Name = "DarkButtonImageAllignFix_ClearCache"
         Me.DarkButtonImageAllignFix_ClearCache.Padding = New Padding(5)
         Me.DarkButtonImageAllignFix_ClearCache.ResizedImage = My.Resources.Resources.clean
-        Me.DarkButtonImageAllignFix_ClearCache.Size = New Size(107, 71)
+        Me.DarkButtonImageAllignFix_ClearCache.Size = New Size(107, 53)
         Me.DarkButtonImageAllignFix_ClearCache.TabIndex = 4
         Me.DarkButtonImageAllignFix_ClearCache.Text = "Clear cache"
         Me.DarkButtonImageAllignFix_ClearCache.TextImageRelation = TextImageRelation.ImageAboveText
@@ -187,7 +198,7 @@ Partial Public Class MainForm
         Me.Label_Language.AutoSize = True
         Me.Label_Language.BackColor = Color.FromArgb(CByte(60), CByte(63), CByte(65))
         Me.Label_Language.ForeColor = Color.Gainsboro
-        Me.Label_Language.Location = New Point(6, 97)
+        Me.Label_Language.Location = New Point(452, 76)
         Me.Label_Language.Name = "Label_Language"
         Me.Label_Language.Size = New Size(78, 21)
         Me.Label_Language.TabIndex = 2
@@ -199,9 +210,9 @@ Partial Public Class MainForm
         Me.DarkComboBox_Language.DrawMode = DrawMode.OwnerDrawVariable
         Me.DarkComboBox_Language.FormattingEnabled = True
         Me.DarkComboBox_Language.Items.AddRange(New Object() {"English", "Spanish"})
-        Me.DarkComboBox_Language.Location = New Point(90, 94)
+        Me.DarkComboBox_Language.Location = New Point(452, 100)
         Me.DarkComboBox_Language.Name = "DarkComboBox_Language"
-        Me.DarkComboBox_Language.Size = New Size(102, 30)
+        Me.DarkComboBox_Language.Size = New Size(107, 30)
         Me.DarkComboBox_Language.TabIndex = 3
         ' 
         ' DarkGroupBox_OS
@@ -327,9 +338,9 @@ Partial Public Class MainForm
         ' DarkCheckBox_RememberCurrentSettings
         ' 
         Me.DarkCheckBox_RememberCurrentSettings.Cursor = Cursors.Hand
-        Me.DarkCheckBox_RememberCurrentSettings.Location = New Point(8, 451)
+        Me.DarkCheckBox_RememberCurrentSettings.Location = New Point(14, 451)
         Me.DarkCheckBox_RememberCurrentSettings.Name = "DarkCheckBox_RememberCurrentSettings"
-        Me.DarkCheckBox_RememberCurrentSettings.Size = New Size(565, 25)
+        Me.DarkCheckBox_RememberCurrentSettings.Size = New Size(385, 25)
         Me.DarkCheckBox_RememberCurrentSettings.TabIndex = 3
         Me.DarkCheckBox_RememberCurrentSettings.Text = "Remember Current Settings"
         ' 
@@ -545,5 +556,6 @@ Partial Public Class MainForm
     Friend WithEvents DarkCheckBox_RunAppMinimized As DarkUI.Controls.DarkCheckBox
     Friend WithEvents DarkButton_RunAllSelectedPluginsNow As DarkButtonImageAllignFix
     Friend WithEvents DarkCheckBox_ClearPreviousLogEntries As DarkUI.Controls.DarkCheckBox
+    Friend WithEvents DarkCheckBox_AllowPluginApplicationFormCheck As DarkUI.Controls.DarkCheckBox
 
 End Class

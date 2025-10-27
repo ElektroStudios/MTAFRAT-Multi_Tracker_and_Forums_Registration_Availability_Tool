@@ -13,41 +13,43 @@ Imports OpenQA.Selenium.Chrome
 <DebuggerStepThrough>
 Class _3DTorrentsPlugin : Inherits DynamicPlugin
 
-    Overloads Async Function RunAsync() As Task(Of RegistrationStatus)
+    ' 📝 Notes
+    ' ━━━━━━━━
+    '
+    ' VIP / Paid account registration URL: http://www.3dtorrents.org/index.php?page=vip /
+    '                                      http://www.3dtorrents.org/index.php?page=becomemember
+
+    ReadOnly headless As Boolean = True
+    ReadOnly additionalArgs As String() = {
+        $"--unsafely-treat-insecure-origin-as-secure=http://www.3dtorrents.org/"
+    } ' Required to avoid error 'net::ERR_SSL_PROTOCOL_ERROR'
+
+    Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
+        Dim regFlags As RegistrationFlags = RegistrationFlags.Null
+
         Return Await Task.Run(
             Function()
                 Using service As ChromeDriverService = Nothing,
-                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless:=True,
-                                                                  $"--unsafely-treat-insecure-origin-as-secure={Me.Url}")
+                      driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
+
+                    Const triggerRegistration As String = "registrations are closed"
                     Try
-                        LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-                        NavigateTo(driver, Me.Url)
-
-                        WaitForPageReady(driver, TimeSpan.FromSeconds(10))
-                        LogMessage(Me, "StatusMsg_RegisterPageLoaded")
-
-                        Dim pageSource As String = driver.PageSource
-                        LogMessage(Me, "StatusMsg_AnalyzingPageContent")
-                        If pageSource.Contains("registrations are closed", StringComparison.InvariantCultureIgnoreCase) Then
-                            LogMessage(Me, "StatusMsg_DetectedRegClosed")
-                            Return RegistrationStatus.Closed
-                        Else
-                            LogMessage(Me, "StatusMsg_DetectedRegOpen")
-                            NotifyMessageFormat("😄🎉🎉🎉", MessageBoxIcon.Information, "StatusMsg_MsgboxRegOpenFormat", Me.Name)
-                            Return RegistrationStatus.Open
-                        End If
+                        regFlags = regFlags Or
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
+                                                                                                   isOpenTrigger:=False)
 
                     Catch ex As Exception
-                        LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
-                        ' NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
+                        PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
+                        ' PluginSupport.NotifyMessageFormat("Error", MessageBoxIcon.Error, "StatusMsg_ExceptionFormat", ex.Message)
 
                     Finally
                         driver?.Quit()
-                        LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.LogMessage(Me, "StatusMsg_OperationCompleted")
+                        PluginSupport.PrintMessage(Me, String.Empty)
                     End Try
                 End Using
 
-                Return RegistrationStatus.Unknown
+                Return regFlags
             End Function)
     End Function
 

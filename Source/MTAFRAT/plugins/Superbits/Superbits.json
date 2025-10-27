@@ -1,7 +1,9 @@
 {
     "Name": "Superbits",
     "Description": "SuperBits (SBS) is a SWEDISH Private Torrent Tracker for MOVIES / TV / GENERAL.",
-    "Url": "https://login.superbits.org/signup/",
+    "UrlLogin": "https://login.superbits.org/login",
+    "UrlRegistration": "https://login.superbits.org/signup/",
+    "UrlApplication": "",
     "IconPath": ".\\Superbits.png",
     "VbCodeFile": ".\\Superbits.vb"
 }

@@ -1,7 +1,9 @@
 {
     "Name": "More Than TV",
     "Description": "MoreThanTV (MTV) is a ratioless Private Torrent Tracker for TV / MOVIES.",
-    "Url": "https://www.morethantv.me/application",
+    "UrlLogin": "https://www.morethantv.me/login",
+    "UrlRegistration": "",
+    "UrlApplication": "https://www.morethantv.me/application",
     "IconPath": ".\\MoreThanTV.png",
     "VbCodeFile": ".\\MoreThanTV.vb"
 }

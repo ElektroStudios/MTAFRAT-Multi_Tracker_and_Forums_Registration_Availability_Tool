@@ -14,27 +14,37 @@ Public NotInheritable Class JsonPluginConfig
 #Region " Properties "
 
     ''' <summary>
-    ''' Gets or sets the user-friendly name of this plugin.
+    ''' Gets or sets the user-friendly name associated to this plugin.
     ''' </summary>
     Public Property Name As String
 
     ''' <summary>
-    ''' Gets or sets the description of this plugin.
+    ''' Gets or sets the description associated to this plugin.
     ''' </summary>
     Public Property Description As String
 
     ''' <summary>
-    ''' Gets or sets the URL related to this plugin (typically the login or register webpage).
+    ''' Gets or sets the login URL associated to this plugin.
     ''' </summary>
-    Public Property Url As String
+    Public Property UrlLogin As String
 
     ''' <summary>
-    ''' Gets or sets the path to the icon or logo file representing this plugin.
+    ''' Gets or sets the registration URL associated to this plugin.
+    ''' </summary>
+    Public Property UrlRegistration As String
+
+    ''' <summary>
+    ''' Gets or sets the application URL associated to this plugin.
+    ''' </summary>
+    Public Property UrlApplication As String
+
+    ''' <summary>
+    ''' Gets or sets the path to the icon or banner image file representing this plugin.
     ''' </summary>
     Public Property IconPath As String
 
     ''' <summary>
-    ''' Gets or sets the path to the VisualBasic.NET code file associated with this plugin.
+    ''' Gets or sets the path to the VisualBasic.NET code file associated to this plugin.
     ''' </summary>
     Public Property VbCodeFile As String
 

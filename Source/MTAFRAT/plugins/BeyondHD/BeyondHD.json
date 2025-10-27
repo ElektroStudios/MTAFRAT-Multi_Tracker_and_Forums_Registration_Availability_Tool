@@ -1,7 +1,9 @@
 {
     "Name": "BeyondHD",
     "Description": "BeyondHD (BHD) is a Private Torrent Tracker for HD MOVIES / TV",
-    "Url": "https://beyond-hd.me/login",
+    "UrlLogin": "https://beyond-hd.me/login",
+    "UrlRegistration": "https://beyond-hd.me/register",
+    "UrlApplication": "",
     "IconPath": ".\\BeyondHD.png",
     "VbCodeFile": ".\\BeyondHD.vb"
 }
