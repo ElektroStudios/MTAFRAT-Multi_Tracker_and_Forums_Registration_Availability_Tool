@@ -1,6 +1,11 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.1 *(current)* 🆕
+## v1.1.2 *(current)* 🆕
+
+#### 🌟 Improvements:
+ - Optimized memory usage by resizing and compressing various resource images, reducing memory consumption from ~500 MB to ~160 MB at application startup.
+
+## v1.1.1 🔄
 
 #### 🌟 Improvements:
  - Optimized memory usage by reutilizing a single shared context menu for the "Open Website" button of all dynamic plugins instead of creating one context menu per each plugin, reducing memory consumption from ~620 MB to ~500 MB at application startup.
