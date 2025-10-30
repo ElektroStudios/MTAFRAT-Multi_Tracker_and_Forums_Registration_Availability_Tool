@@ -3,7 +3,7 @@
 ## v1.1.2 *(current)* 🆕
 
 #### 🌟 Improvements:
- - Optimized memory usage by resizing and compressing various resource images, reducing memory consumption from ~500 MB to ~160 MB at application startup.
+ - Optimized memory usage by resizing and compressing all image resources, reducing memory consumption from ~500 MB to ~150 MB at application startup.
 
 ## v1.1.1 🔄
 
