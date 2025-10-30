@@ -18,8 +18,8 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Product>Multi-Tracker and Forums Registration Availability Tool</Product>
     <UseApplicationFramework>true</UseApplicationFramework>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
+    <AssemblyVersion>1.1.1</AssemblyVersion>
+    <FileVersion>1.1.1</FileVersion>
     <RepositoryUrl>https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool</RepositoryUrl>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -258,6 +258,12 @@
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Update="plugins %28disabled%29\LÉEME.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugins %28disabled%29\README.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="plugins\Add Plugins to VBPROJ file.ps1">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -595,5 +601,8 @@
     <None Update="plugins\iPtorrents\iPtorrents.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="plugins %28disabled%29\" />
   </ItemGroup>
 </Project>

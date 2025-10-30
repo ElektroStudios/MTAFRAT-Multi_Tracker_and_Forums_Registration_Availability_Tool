@@ -14,7 +14,7 @@ La estructura del archivo JSON de configuración del plugin, es la siguiente:
   "Description":    "DESCRIPCIÓN O CATEGORIA DEL TRACKER/FORO",
   "UrlLogin":       "URL DE INICIO DE SESIÓN",
   "UrlRegister":    "URL DE REGISTRO DE CUENTA",
-  "UrlApplication": "URL DE SOLICITUD DE INSCRIPCIÓN DE CUENTA",
+  "UrlApplication": "URL DE SOLICITUD DE MEMBRESÍA",
   "IconPath":       "RUTA RELATIVA DEL ARCHIVO DE IMAGEN/ICONO",
   "VbCodeFile":     "RUTA RELATIVA DEL ARCHIVO DE CÓDIGO FUENTE VB.NET"
 }
@@ -38,9 +38,9 @@ Nótese que `RegistrationFlags` es una enumeración utilizada para indicar el es
  - **RegistrationClosed**:  Indica que el formulario de registro está cerrado.
  - **RegistrationOpen**:    Indica que el formulario de registro está abierto.
  - **RegistrationUnknown**: El estado del formulario de registro es desconocido. Se puede usar como valor auxiliar cuando no se puede determinar el estado.
- - **ApplicationClosed**:  Indica que el formulario de solicitud de inscripción está cerrado.
- - **ApplicationOpen**:    Indica que el formulario de solicitud de inscripción está abierto.
- - **ApplicationUnknown**: El estado del formulario de solicitud de inscripción es desconocido. Se puede usar como valor auxiliar cuando no se puede determinar el estado.
+ - **ApplicationClosed**:  Indica que el formulario de solicitud de membresía está cerrado.
+ - **ApplicationOpen**:    Indica que el formulario de solicitud de membresía está abierto.
+ - **ApplicationUnknown**: El estado del formulario de solicitud de membresía es desconocido. Se puede usar como valor auxiliar cuando no se puede determinar el estado.
  - **Null**: Valor "nulo". Se puede usar como valor auxiliar cuando se produce un error o una condición inesperada.
   
 Es responsabilidad del programador implementar la lógica de interacción con el sitio web, control de errores y registro de mensajes en la interfaz de usuario de **MTAFRAT**.
@@ -173,4 +173,4 @@ driver As ChromeDriver
 trigger As String
 isOpenTrigger As Boolean
 ```
-Una función de utilidad común utilizada por varios plugins, que encapsula los procedimientos predeterminados para navegar a una página de formulario de solicitud de inscripción, verificar y devolver su estado actual, y manejar el registro de mensajes y las notificaciones en la interfaz de usuario.
+Una función de utilidad común utilizada por varios plugins, que encapsula los procedimientos predeterminados para navegar a una página de formulario de solicitud de membresía, verificar y devolver su estado actual, y manejar el registro de mensajes y las notificaciones en la interfaz de usuario.

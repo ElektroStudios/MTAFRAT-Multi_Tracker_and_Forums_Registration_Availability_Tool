@@ -335,12 +335,12 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
     <value>The page source code is empty: "{0}"</value>
   </data>
   <data name="LoginPageMenuItem" xml:space="preserve">
-    <value>Login Page</value>
+    <value>Login page</value>
   </data>
   <data name="RegistrationPageMenuItem" xml:space="preserve">
-    <value>Registration Page</value>
+    <value>Registration page</value>
   </data>
   <data name="ApplicationPageMenuItem" xml:space="preserve">
-    <value>Application Page</value>
+    <value>Application page</value>
   </data>
 </root>

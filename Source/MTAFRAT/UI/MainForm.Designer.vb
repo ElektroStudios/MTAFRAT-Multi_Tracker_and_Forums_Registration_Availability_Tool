@@ -61,6 +61,10 @@ Partial Public Class MainForm
         Me.Timer_AutoRunPlugins = New Timer(Me.components)
         Me.StatusStrip1 = New StatusStrip()
         Me.ToolStripStatusLabel1 = New ToolStripStatusLabel()
+        Me.DarkContextMenu_PluginUrls = New DarkUI.Controls.DarkContextMenu()
+        Me.ToolStripMenuItem_PluginUrlLogin = New ToolStripMenuItem()
+        Me.ToolStripMenuItem_PluginUrlRegistration = New ToolStripMenuItem()
+        Me.ToolStripMenuItem_PluginUrlApplication = New ToolStripMenuItem()
         Me.TableLayoutPanel_Main.SuspendLayout()
         Me.TabControlNoBorder_Main.SuspendLayout()
         Me.TabPage_Settings.SuspendLayout()
@@ -74,6 +78,7 @@ Partial Public Class MainForm
         Me.TableLayoutPanel2.SuspendLayout()
         Me.DarkContextMenu_NotifyIcon.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        Me.DarkContextMenu_PluginUrls.SuspendLayout()
         Me.SuspendLayout()
         ' 
         ' TableLayoutPanel_Main
@@ -483,6 +488,44 @@ Partial Public Class MainForm
         Me.ToolStripStatusLabel1.Size = New Size(16, 17)
         Me.ToolStripStatusLabel1.Text = "..."
         ' 
+        ' DarkContextMenu_PluginUrls
+        ' 
+        Me.DarkContextMenu_PluginUrls.BackColor = Color.FromArgb(CByte(60), CByte(63), CByte(65))
+        Me.DarkContextMenu_PluginUrls.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
+        Me.DarkContextMenu_PluginUrls.Items.AddRange(New ToolStripItem() {Me.ToolStripMenuItem_PluginUrlLogin, Me.ToolStripMenuItem_PluginUrlRegistration, Me.ToolStripMenuItem_PluginUrlApplication})
+        Me.DarkContextMenu_PluginUrls.Name = "DarkContextMenu_PluginUrls"
+        Me.DarkContextMenu_PluginUrls.Size = New Size(181, 92)
+        ' 
+        ' ToolStripMenuItem_PluginUrlLogin
+        ' 
+        Me.ToolStripMenuItem_PluginUrlLogin.BackColor = Color.FromArgb(CByte(60), CByte(63), CByte(65))
+        Me.ToolStripMenuItem_PluginUrlLogin.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
+        Me.ToolStripMenuItem_PluginUrlLogin.Image = My.Resources.Resources.website
+        Me.ToolStripMenuItem_PluginUrlLogin.Name = "ToolStripMenuItem_PluginUrlLogin"
+        Me.ToolStripMenuItem_PluginUrlLogin.Size = New Size(180, 22)
+        Me.ToolStripMenuItem_PluginUrlLogin.Tag = "Login URL"
+        Me.ToolStripMenuItem_PluginUrlLogin.Text = "Login URL"
+        ' 
+        ' ToolStripMenuItem_PluginUrlRegistration
+        ' 
+        Me.ToolStripMenuItem_PluginUrlRegistration.BackColor = Color.FromArgb(CByte(60), CByte(63), CByte(65))
+        Me.ToolStripMenuItem_PluginUrlRegistration.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
+        Me.ToolStripMenuItem_PluginUrlRegistration.Image = My.Resources.Resources.website
+        Me.ToolStripMenuItem_PluginUrlRegistration.Name = "ToolStripMenuItem_PluginUrlRegistration"
+        Me.ToolStripMenuItem_PluginUrlRegistration.Size = New Size(180, 22)
+        Me.ToolStripMenuItem_PluginUrlRegistration.Tag = "Registration URL"
+        Me.ToolStripMenuItem_PluginUrlRegistration.Text = "Registration URL"
+        ' 
+        ' ToolStripMenuItem_PluginUrlApplication
+        ' 
+        Me.ToolStripMenuItem_PluginUrlApplication.BackColor = Color.FromArgb(CByte(60), CByte(63), CByte(65))
+        Me.ToolStripMenuItem_PluginUrlApplication.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
+        Me.ToolStripMenuItem_PluginUrlApplication.Image = My.Resources.Resources.website
+        Me.ToolStripMenuItem_PluginUrlApplication.Name = "ToolStripMenuItem_PluginUrlApplication"
+        Me.ToolStripMenuItem_PluginUrlApplication.Size = New Size(180, 22)
+        Me.ToolStripMenuItem_PluginUrlApplication.Tag = "Application URL"
+        Me.ToolStripMenuItem_PluginUrlApplication.Text = "Application URL"
+        ' 
         ' MainForm
         ' 
         Me.AutoScaleDimensions = New SizeF(9F, 21F)
@@ -516,6 +559,7 @@ Partial Public Class MainForm
         Me.DarkContextMenu_NotifyIcon.ResumeLayout(False)
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.DarkContextMenu_PluginUrls.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
     End Sub
@@ -557,5 +601,9 @@ Partial Public Class MainForm
     Friend WithEvents DarkButton_RunAllSelectedPluginsNow As DarkButtonImageAllignFix
     Friend WithEvents DarkCheckBox_ClearPreviousLogEntries As DarkUI.Controls.DarkCheckBox
     Friend WithEvents DarkCheckBox_AllowPluginApplicationFormCheck As DarkUI.Controls.DarkCheckBox
+    Friend WithEvents DarkContextMenu_PluginUrls As DarkUI.Controls.DarkContextMenu
+    Friend WithEvents ToolStripMenuItem_PluginUrlLogin As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem_PluginUrlRegistration As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem_PluginUrlApplication As ToolStripMenuItem
 
 End Class

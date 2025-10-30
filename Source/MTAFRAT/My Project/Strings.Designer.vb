@@ -99,16 +99,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ApplicationCacheHasBeenCleaned", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to Application Page.
+        '''  Looks up a localized string similar to Application page.
         '''</summary>
         Friend Shared ReadOnly Property ApplicationPageMenuItem() As String
             Get
                 Return ResourceManager.GetString("ApplicationPageMenuItem", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Automatic Plugin Execution.
         '''</summary>
@@ -117,7 +117,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("AutoPluginRunGroupBox", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Run selected plugins every hour:.
         '''</summary>
@@ -126,7 +126,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("AutoPluginRunMsg", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ⛔ Automatic plugins execution timer disabled..
         '''</summary>
@@ -135,7 +135,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("AutoPluginRunTimerDisabled", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ✔️ Automatic plugins execution timer enabled..
         '''</summary>
@@ -144,7 +144,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("AutoPluginRunTimerEnabled", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ⬛ {0} of {1}.
         '''</summary>
@@ -153,7 +153,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("AutoRunPluginCheckedAllFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 🗹 {0} of {1}.
         '''</summary>
@@ -162,7 +162,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("AutoRunPluginCheckedCountFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ☐ 0 of {0}.
         '''</summary>
@@ -171,7 +171,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("AutoRunPluginCheckedNoneFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Cannot navigate to the specified URL. Reason: {0}.
         '''</summary>
@@ -180,7 +180,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("CantNavigateToUrlFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Cannot establish a connection to the specified URL. HTTP Status Code: {0}.
         '''</summary>
@@ -189,7 +189,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("CantStablishConnectionFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Clear cache.
         '''</summary>
@@ -198,7 +198,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ClearCache", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 🧹  Clearing application cache....
         '''</summary>
@@ -207,7 +207,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ClearingApplicationCacheMsg", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 🧹  Clearing plugin&apos;s cache....
         '''</summary>
@@ -216,7 +216,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ClearingPluginCacheMsg", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Clear previous log entries on plugin execution.
         '''</summary>
@@ -225,7 +225,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ClearPreviousLogEntries", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Clear selection.
         '''</summary>
@@ -234,7 +234,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ClearSelectedPlugins", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Close application.
         '''</summary>
@@ -243,7 +243,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("CloseApplication", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Computer.
         '''</summary>
@@ -252,7 +252,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ComputerGroupBox", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Duplicated plugins with the same name have been found. Only the first plugin will be loaded..
         '''</summary>
@@ -261,7 +261,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("DuplicatedPluginsDetected", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ❌ Error executing dynamic code: {0}.
         '''</summary>
@@ -270,7 +270,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("DynamicCodeExecutionErrorFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ❌ Dynamic Code Compilation Errors:.
         '''</summary>
@@ -279,7 +279,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("DynamicCompilationErrors", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Enable paralell execution.
         '''</summary>
@@ -288,7 +288,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("EnableParalellExecution", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ❌ Error loading plugin file &apos;{0}&apos;: {1}.
         '''</summary>
@@ -297,7 +297,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ErrorLoadingPluginFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ⚙️ Running plugin....
         '''</summary>
@@ -306,7 +306,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ExecutingPlugin", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ⚙️ Running plugins....
         '''</summary>
@@ -315,7 +315,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ExecutingPluginsTooltip", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to A plugin is currently running. Do you really want to exit now?. 
         '''
@@ -328,7 +328,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("FormCloseWarningPluginWorkInProgress", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Application.
         '''</summary>
@@ -337,7 +337,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("GroupBoxApplication", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Hide window.
         '''</summary>
@@ -346,7 +346,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("HideWindow", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Language.
         '''</summary>
@@ -355,7 +355,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("LanguageLabel", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 💡 Press the main button to run the plugin..
         '''</summary>
@@ -364,7 +364,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("LastPluginRunInitialText", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Last plugin execution on {0} at {1} hours..
         '''</summary>
@@ -373,16 +373,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("LastPluginRunMsgFormat", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to Login Page.
+        '''  Looks up a localized string similar to Login page.
         '''</summary>
         Friend Shared ReadOnly Property LoginPageMenuItem() As String
             Get
                 Return ResourceManager.GetString("LoginPageMenuItem", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ❌ Error: No class of type DynamicPlugin was found in the plugin&apos;s source code..
         '''</summary>
@@ -391,7 +391,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("MissingDynamicPluginClass", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ❌ Error: No method with name RunAsync was found in the plugin&apos;s source code..
         '''</summary>
@@ -400,7 +400,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("MissingRunAsyncMethod", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ❌ Error: No plugins are available inside the &apos;plugins&apos; folder..
         '''</summary>
@@ -409,7 +409,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("NoPluginsAvailable", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Open Website.
         '''</summary>
@@ -418,7 +418,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("OpenWebsiteButton", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Plugin&apos;s cache has been fully cleaned..
         '''</summary>
@@ -427,7 +427,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("PluginCacheHasBeenCleaned", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Plugins.
         '''</summary>
@@ -436,7 +436,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("Plugins", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Program.
         '''</summary>
@@ -445,16 +445,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("Program", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to Registration Page.
+        '''  Looks up a localized string similar to Registration page.
         '''</summary>
         Friend Shared ReadOnly Property RegistrationPageMenuItem() As String
             Get
                 Return ResourceManager.GetString("RegistrationPageMenuItem", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Remember current settings.
         '''</summary>
@@ -463,7 +463,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("RememberSettings", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Run now.
         '''</summary>
@@ -472,7 +472,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("RunAllSelectedPluginsNow", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Run application minimized to system-tray.
         '''</summary>
@@ -481,7 +481,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("RunAppMinimized", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Run plugin.
         '''</summary>
@@ -490,7 +490,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("RunPluginButton", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Select all.
         '''</summary>
@@ -499,7 +499,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("SelectAllPlugins", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Settings.
         '''</summary>
@@ -508,7 +508,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("Settings", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Show window.
         '''</summary>
@@ -517,7 +517,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("ShowWindow", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Only one instance of the program is allowed..
         '''</summary>
@@ -526,7 +526,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("SingleInstanceMsg", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ⏳ Analyzing page content....
         '''</summary>
@@ -535,7 +535,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_AnalyzingPageContent", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ✅ Application page loaded..
         '''</summary>
@@ -544,7 +544,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_ApplicationPageLoaded", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ✅ Cloudflare trial completed..
         '''</summary>
@@ -553,7 +553,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_CloudflareTrialCompleted", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to ⌛ Waiting to complete Cloudflare trial....
         '''</summary>
@@ -562,7 +562,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_CloudflareTrialWait", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to 🌐 Connecting to {0} website....
         '''</summary>

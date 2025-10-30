@@ -1,6 +1,12 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.0 *(current)* 🆕
+## v1.1.1 *(current)* 🆕
+
+#### 🌟 Improvements:
+ - Optimized memory usage by reutilizing a single shared context menu for the "Open Website" button of all dynamic plugins instead of creating one context menu per each plugin, reducing memory consumption from ~620 MB to ~500 MB at application startup.
+ - Replaced the spanish terms "solicitud de inscripción" with "solicitud de membresía" to improve clarity and user understanding.
+
+## v1.1.0 🔄
 
 #### 🌟 Improvements:
  - Refactored all plugin JSON files to include three URLs: login page, registration page, and application page.

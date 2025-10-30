@@ -308,39 +308,39 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
     <value>Borrar entradas previas del registro al ejecutar un plugin</value>
   </data>
   <data name="StatusMsg_ApplicationPageLoaded" xml:space="preserve">
-    <value>✅ Página de solicitud de inscripción cargada.</value>
+    <value>✅ Página de solicitud de membresía cargada.</value>
   </data>
   <data name="StatusMsg_DetectedApplicationClosed" xml:space="preserve">
-    <value>🚫 El formulario de solicitud de inscripción está cerrado.</value>
+    <value>🚫 El formulario de solicitud de membresía está cerrado.</value>
   </data>
   <data name="StatusMsg_DetectedApplicationOpen" xml:space="preserve">
-    <value>🎉 El formulario de solicitud de inscripción está abierto.</value>
+    <value>🎉 El formulario de solicitud de membresía está abierto.</value>
   </data>
   <data name="StatusMsg_MsgboxApplicationOpenFormat" xml:space="preserve">
-    <value>🎉 ¡El formulario de solicitud de inscripción está abierto en {0}! Puedes solicitar una cuenta ahora. 😃</value>
+    <value>🎉 ¡El formulario de solicitud de membresía está abierto en {0}! Puedes solicitar una cuenta ahora. 😃</value>
   </data>
   <data name="AboutDescriptionText" xml:space="preserve">
     <value>Una herramienta para verificar la disponibilidad de registro en trackers de torrents y foros usando la API de Selenium.</value>
   </data>
   <data name="AllowPluginsToCheckApplicationForms" xml:space="preserve">
-    <value>Permitir que los plugins notifiquen sobre formularios de solicitud de inscripción (application forms) abiertos</value>
+    <value>Permitir que los plugins notifiquen sobre formularios de solicitud de membresía (application forms) abiertos</value>
   </data>
   <data name="StatusMsg_TriggerRegEmpty" xml:space="preserve">
     <value>La frase de activación para el formulario de registro está vacía.</value>
   </data>
   <data name="StatusMsg_TriggerAppEmpty" xml:space="preserve">
-    <value>La frase de activación para el formulario de solicitud de inscripción está vacía.</value>
+    <value>La frase de activación para el formulario de solicitud de membresía está vacía.</value>
   </data>
   <data name="StatusMsg_PageSourceEmptyFormat" xml:space="preserve">
     <value>El código fuente de la página está vacío: "{0}"</value>
   </data>
   <data name="LoginPageMenuItem" xml:space="preserve">
-    <value>Página de Inicio de Sesión</value>
+    <value>Página de inicio de sesión</value>
   </data>
   <data name="RegistrationPageMenuItem" xml:space="preserve">
-    <value>Página de Registro</value>
+    <value>Página del formulario de registro</value>
   </data>
   <data name="ApplicationPageMenuItem" xml:space="preserve">
-    <value>Página de Solicitud de Inscripción</value>
+    <value>Página de la solicitud de membresía</value>
   </data>
 </root>

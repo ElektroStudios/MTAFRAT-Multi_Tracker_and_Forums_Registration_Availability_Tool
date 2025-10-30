@@ -148,6 +148,53 @@ Public Module ApplicationHelper
         End Try
     End Function
 
+    ''' <summary>
+    ''' Opens a plugin-related URL (Login, Registration, or Application) using the system's default web browser.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance that contains the URLs to open.
+    ''' </param>
+    ''' 
+    ''' <param name="tagUrl">
+    ''' The tag identifier specifying which URL to open.
+    ''' <para></para>
+    ''' Valid values are <see cref="AppGlobals.TagLoginUrl"/>, 
+    ''' <see cref="AppGlobals.TagRegistrationUrl"/>, and 
+    ''' <see cref="AppGlobals.TagApplicationUrl"/>.
+    ''' </param>
+    <DebuggerStepThrough>
+    Friend Sub OpenPluginUrl(plugin As DynamicPlugin, tagUrl As String)
+
+        Dim url As String = Nothing
+        Select Case tagUrl
+
+            Case AppGlobals.TagLoginUrl
+                url = plugin.UrlLogin
+
+            Case AppGlobals.TagRegistrationUrl
+                url = plugin.UrlRegistration
+
+            Case AppGlobals.TagApplicationUrl
+                url = plugin.UrlApplication
+
+        End Select
+
+        Try
+            Using p As New Process
+                p.StartInfo.FileName = url
+                p.StartInfo.UseShellExecute = True
+
+                p.Start()
+            End Using
+
+        Catch ex As Exception
+            Dim f As MainForm = AppGlobals.MainFormInstance
+            MessageBox.Show(f, $"Error: {ex.Message}", My.Application.Info.ProductName,
+                               MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
 #End Region
 
 End Module

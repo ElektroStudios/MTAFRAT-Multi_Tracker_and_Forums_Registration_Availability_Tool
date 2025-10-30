@@ -647,7 +647,9 @@ Public Module UIHelper
                 .Location = New Point(buttonRunPlugin.Right + sectionPanelBorderMargin, buttonRunPlugin.Top),
                 .Font = f.Font,
                 .Cursor = Cursors.Hand,
-                .ResizedImage = My.Resources.website
+                .ResizedImage = My.Resources.website,
+                .Tag = plugin,
+                .ContextMenuStrip = f.DarkContextMenu_PluginUrls
             }
             sectionPanel.Controls.Add(buttonOpenWebsite)
 
@@ -728,12 +730,19 @@ Public Module UIHelper
                     f.lastFocusedButtonPane = btPane
                 End Sub
 
+            AddHandler buttonOpenWebsite.MouseUp,
+                Sub(sender As Object, e As MouseEventArgs)
+                    If e.Button = MouseButtons.Left Then
+                        If buttonOpenWebsite.ClientRectangle.Contains(e.Location) Then
+                            f.DarkContextMenu_PluginUrls.Show(buttonOpenWebsite, e.Location)
+                        End If
+                    End If
+                End Sub
+
             AddHandler buttonRunPlugin.Click,
                         Async Sub(sender As Object, e As EventArgs)
                             Await UIHelper.RunPluginFromButtonAsync(plugin)
                         End Sub
-
-            UIHelper.CreateAndAttachPluginUrlsContextMenu(plugin, buttonOpenWebsite)
 
             AddHandler buttonClearCache.Click,
                         Async Sub(sender As Object, e As EventArgs) Await ApplicationHelper.ClearCache(plugin)
@@ -888,92 +897,6 @@ Public Module UIHelper
 
         Return RegistrationFlags.Null
     End Function
-
-    ''' <summary>
-    ''' Creates and attaches a dynamic context menu to the specified button 
-    ''' for opening the plugin-related URLs for Login, Registration, and Application pages.
-    ''' </summary>
-    ''' 
-    ''' <param name="plugin">
-    ''' The <see cref="DynamicPlugin"/> containing the URLs to open.
-    ''' </param>
-    ''' 
-    ''' <param name="button">
-    ''' The <see cref="DarkButton"/> to which the context menu will be attached.
-    ''' </param>
-    <DebuggerStepThrough>
-    Private Sub CreateAndAttachPluginUrlsContextMenu(plugin As DynamicPlugin, button As DarkButton)
-
-        Const TagLoginPage As String = "Login Page"
-        Const TagRegistrationPage As String = "Registration Page"
-        Const TagApplicationPage As String = "Application Page"
-
-        Dim openUrlAction As Action(Of String) =
-            Sub(url As String)
-                Try
-                    Using p As New Process
-                        p.StartInfo.FileName = url
-                        p.StartInfo.UseShellExecute = True
-
-                        p.Start()
-                    End Using
-
-                Catch ex As Exception
-                    Dim f As MainForm = AppGlobals.MainFormInstance
-                    MessageBox.Show(f, $"Error: {ex.Message}", My.Application.Info.ProductName,
-                                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Sub
-
-        Dim cms As New ContextMenuStrip()
-        Dim urls As New Dictionary(Of String, String) From {
-            {TagLoginPage, plugin.UrlLogin},
-            {TagRegistrationPage, plugin.UrlRegistration},
-            {TagApplicationPage, plugin.UrlApplication}
-        }
-
-        For Each kvp As KeyValuePair(Of String, String) In urls
-            Dim item As New ToolStripMenuItem(kvp.Key) With {
-                .Enabled = Not String.IsNullOrWhiteSpace(kvp.Value),
-                .Image = My.Resources.website,
-                .Tag = kvp.Key
-            }
-
-            AddHandler item.Click, Sub(sender As Object, e As EventArgs) openUrlAction(kvp.Value)
-            cms.Items.Add(item)
-        Next
-
-        AddHandler cms.Opening,
-            Sub(sender As Object, e As System.ComponentModel.CancelEventArgs)
-
-                For Each item As ToolStripMenuItem In cms.Items
-
-                    Select Case item.Tag.ToString()
-
-                        Case TagLoginPage
-                            item.Text = My.Resources.Strings.LoginPageMenuItem
-
-                        Case TagRegistrationPage
-                            item.Text = My.Resources.Strings.RegistrationPageMenuItem
-
-                        Case TagApplicationPage
-                            item.Text = My.Resources.Strings.ApplicationPageMenuItem
-
-                    End Select
-                Next
-            End Sub
-
-        AddHandler button.MouseUp,
-            Sub(sender As Object, e As MouseEventArgs)
-                If e.Button = MouseButtons.Left Then
-                    If button.ClientRectangle.Contains(e.Location) Then
-                        cms.Show(button, e.Location)
-                    End If
-                End If
-            End Sub
-
-        AddHandler button.Disposed, Sub(sender As Object, e As EventArgs) cms.Dispose()
-    End Sub
 
 #End Region
 

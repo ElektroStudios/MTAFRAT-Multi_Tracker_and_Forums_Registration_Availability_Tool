@@ -156,6 +156,21 @@ Public Module AppGlobals
     ''' </summary>
     Private _mainSplashScreen As MTAFRAT.MainSplashScreen
 
+    ''' <summary>
+    ''' Tag identifier associated with a context menu item for the login page URL of a plugin.
+    ''' </summary>
+    Friend Const TagLoginUrl As String = "Login URL"
+
+    ''' <summary>
+    ''' Tag identifier associated with a context menu item for the registration page URL of a plugin.
+    ''' </summary>
+    Friend Const TagRegistrationUrl As String = "Registration URL"
+
+    ''' <summary>
+    ''' Tag identifier associated with a context menu item for the application page URL of a plugin.
+    ''' </summary>
+    Friend Const TagApplicationUrl As String = "Application URL"
+
 #End Region
 
 End Module

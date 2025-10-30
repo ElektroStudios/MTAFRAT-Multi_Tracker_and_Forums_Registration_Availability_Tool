@@ -11,20 +11,18 @@ Get-ChildItem -Path $basePath -Filter "*.json" -Recurse | ForEach-Object {
         if ($json -isnot [System.Collections.IEnumerable]) { $json = @($json) }
 
         foreach ($item in $json) {
-            if ($item.PSObject.Properties.Name -contains 'Name' -and $item.PSObject.Properties.Name -contains 'Url') {
                 $null = $items.Add([PSCustomObject]@{
-                    Índice = (++$i).ToString("00")
-                    Nombre = $item.Name
-                    Url  = $item.Url
+                    Count = (++$i).ToString("00")
+                    Name = $item.Name
+                    LoginUrl  = $item.UrlLogin
                 })
-            }
         }
     } catch {
         Write-Warning "Error procesando $($_.FullName)"
     }
 }
 
-$items | Format-Table -AutoSize Índice, Nombre, Url
+$items | Format-Table -AutoSize Count, Name, LoginUrl
 
 Write-Host ""
 Pause

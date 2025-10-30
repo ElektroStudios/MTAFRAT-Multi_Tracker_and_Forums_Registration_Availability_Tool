@@ -353,6 +353,75 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     End Sub
 
     ''' <summary>
+    ''' Handles the Opening event of the DarkContextMenu_PluginUrls control.
+    ''' </summary>
+    ''' 
+    ''' <param name="sender">
+    ''' The source of the event.
+    ''' </param>
+    ''' 
+    ''' <param name="e">
+    ''' The <see cref="CancelEventArgs"/> instance containing the event data.
+    ''' </param>
+    <DebuggerStepThrough>
+    Private Sub DarkContextMenuPluginUrls_Opening(sender As Object, e As CancelEventArgs) Handles DarkContextMenu_PluginUrls.Opening
+
+        Dim cms As DarkContextMenu = DirectCast(sender, DarkContextMenu)
+        Dim plugin As DynamicPlugin = DirectCast(cms.SourceControl.Tag, DynamicPlugin)
+
+        For Each item As ToolStripMenuItem In cms.Items
+
+            RemoveHandler item.Click, AddressOf Me.ToolStripMenuItemsPluginUrl_Click
+
+            Select Case item.Tag.ToString()
+
+                Case AppGlobals.TagLoginUrl
+                    item.Text = My.Resources.Strings.LoginPageMenuItem
+                    item.Enabled = Not String.IsNullOrWhiteSpace(plugin.UrlLogin)
+
+                Case AppGlobals.TagRegistrationUrl
+                    item.Text = My.Resources.Strings.RegistrationPageMenuItem
+                    item.Enabled = Not String.IsNullOrWhiteSpace(plugin.UrlRegistration)
+
+                Case AppGlobals.TagApplicationUrl
+                    item.Text = My.Resources.Strings.ApplicationPageMenuItem
+                    item.Enabled = Not String.IsNullOrWhiteSpace(plugin.UrlApplication)
+
+            End Select
+
+            AddHandler item.Click, AddressOf Me.ToolStripMenuItemsPluginUrl_Click
+        Next
+
+    End Sub
+
+    ''' <summary>
+    ''' Handles the Click event of the 
+    ''' <see cref="MainForm.ToolStripMenuItem_PluginUrlLogin"/>,
+    ''' <see cref="MainForm.ToolStripMenuItem_PluginUrlRegistration"/> 
+    ''' and <see cref="MainForm.ToolStripMenuItem_PluginUrlApplication"/> menu items.
+    ''' </summary>
+    ''' 
+    ''' <param name="sender">
+    ''' The source of the event.
+    ''' </param>
+    ''' 
+    ''' <param name="e">
+    ''' The <see cref="CancelEventArgs"/> instance containing the event data.
+    ''' </param>
+    <DebuggerStepThrough>
+    Private Sub ToolStripMenuItemsPluginUrl_Click(sender As Object, e As EventArgs) Handles _
+        ToolStripMenuItem_PluginUrlLogin.Click,
+        ToolStripMenuItem_PluginUrlRegistration.Click,
+        ToolStripMenuItem_PluginUrlApplication.Click
+
+        Dim item As ToolStripMenuItem = DirectCast(sender, ToolStripMenuItem)
+        Dim cms As DarkContextMenu = DirectCast(item.GetCurrentParent(), DarkContextMenu)
+        Dim plugin As DynamicPlugin = DirectCast(cms.SourceControl.Tag, DynamicPlugin)
+
+        ApplicationHelper.OpenPluginUrl(plugin, item.Tag.ToString())
+    End Sub
+
+    ''' <summary>
     ''' Handles the SelectedIndexChanged event of the <see cref="DarkComboBox_Language"/> control.
     ''' </summary>
     ''' 
