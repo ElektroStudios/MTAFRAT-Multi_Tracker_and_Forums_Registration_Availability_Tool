@@ -1,6 +1,19 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.2 *(current)* 🆕
+## v1.1.3 *(current)* 🆕
+
+#### 🌟 Improvements:
+ - The application now is able to handle scenarios involving network connectivity issues (an inoperative network adapter) and non-existent URLs (HTTP error code 404).
+
+#### 🛠️ Fixes:
+ - A string validation mistake was preventing the application form from being validated correctly in the following plugins: 
+   - `BitPorn`
+   - `DarkPeers`
+   - `OnlyEncodes`
+   - `Rastastugan`
+   - `UpscaleVault`
+
+## v1.1.2 🔄
 
 #### 🌟 Improvements:
  - Optimized memory usage by resizing and compressing all image resources, reducing memory consumption from ~500 MB to ~160 MB at application startup.

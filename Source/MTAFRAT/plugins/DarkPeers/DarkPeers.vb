@@ -24,7 +24,7 @@ Class DarkPeersPlugin : Inherits DynamicPlugin
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
                     Const triggerRegistration As String = "Registration Is Disabled"
-                    Const triggerAppication As String = "Proofs"
+                    Const triggerAppication As String = "profile"
                     Try
                         regFlags = regFlags Or
                                    PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,

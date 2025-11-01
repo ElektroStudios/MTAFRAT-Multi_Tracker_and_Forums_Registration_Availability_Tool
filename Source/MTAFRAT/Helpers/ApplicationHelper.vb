@@ -15,7 +15,7 @@ Imports System.Reflection
 #End Region
 
 ''' <summary>
-''' Provides helper methods for UI related operations.
+''' Provides helper members related to application-specific operations.
 ''' </summary>
 Public Module ApplicationHelper
 

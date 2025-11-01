@@ -22,7 +22,7 @@ Imports MTAFRAT.Win32
 #End Region
 
 ''' <summary>
-''' Provides helper methods for UI related operations.
+''' Provides helper members related to user-interface operations.
 ''' </summary>
 Public Module UIHelper
 

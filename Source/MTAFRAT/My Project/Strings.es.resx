@@ -343,4 +343,10 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
   <data name="ApplicationPageMenuItem" xml:space="preserve">
     <value>Página de la solicitud de membresía</value>
   </data>
+  <data name="StatusMsg_NetworkIsNotAvailable" xml:space="preserve">
+    <value>La red no está disponible.</value>
+  </data>
+  <data name="StatusMsg_UrlNotfound404" xml:space="preserve">
+    <value>No se puede navegar a la URL especificada debido a un código de error HTTP 404 (No encontrado).</value>
+  </data>
 </root>

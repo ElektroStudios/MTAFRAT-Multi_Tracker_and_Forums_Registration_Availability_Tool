@@ -23,7 +23,7 @@ Imports LogEntry = OpenQA.Selenium.LogEntry ' Not OpenQA.Selenium.DevTools.LogEn
 #End Region
 
 ''' <summary>
-''' Provides utility methods to support plugin operations.
+''' Provides helper members related to plugin operations.
 ''' </summary>
 Public Module PluginSupport
 
@@ -149,6 +149,14 @@ Public Module PluginSupport
     ''' </param>
     <DebuggerStepThrough>
     Public Sub NavigateTo(driver As IWebDriver, url As String)
+
+        If Not NetworkHelper.IsNetworkAvailable Then
+            Throw New Exception(My.Resources.Strings.StatusMsg_NetworkIsNotAvailable)
+        End If
+
+        If Not NetworkHelper.UrlExists(New Uri(url)) Then
+            Throw New Exception(My.Resources.Strings.StatusMsg_UrlNotfound404)
+        End If
 
         Dim dateBeforeNav As Date = Date.UtcNow
         Dim previousTimeout As TimeSpan = driver.Manage().Timeouts().PageLoad

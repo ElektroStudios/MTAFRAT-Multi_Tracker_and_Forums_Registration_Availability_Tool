@@ -24,7 +24,7 @@ Class OnlyEncodesPlugin : Inherits DynamicPlugin
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
                     Const triggerRegistration As String = "Registration Is Disabled"
-                    Const triggerApplication As String = "Proofs"
+                    Const triggerApplication As String = "Applications Are Closed"
                     Try
                         regFlags = regFlags Or
                                    PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
@@ -32,7 +32,7 @@ Class OnlyEncodesPlugin : Inherits DynamicPlugin
 
                         regFlags = regFlags Or
                                    PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerApplication,
-                                                                                                   isOpenTrigger:=True)
+                                                                                                   isOpenTrigger:=False)
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

@@ -13,7 +13,7 @@ Imports System.Management
 #End Region
 
 ''' <summary>
-''' Provides helper methods for selenium / selenium-manager.exe related operations.
+''' Provides helper members related to selenium / selenium-manager.exe operations.
 ''' </summary>
 Friend Module SeleniumHelper
 

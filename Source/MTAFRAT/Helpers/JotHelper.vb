@@ -21,7 +21,7 @@ Imports Jot.Storage
 #End Region
 
 ''' <summary>
-''' Provides helper methods for Jot related operations.
+''' Provides helper members related to JOT operations.
 ''' </summary>
 Friend Module JotHelper
 

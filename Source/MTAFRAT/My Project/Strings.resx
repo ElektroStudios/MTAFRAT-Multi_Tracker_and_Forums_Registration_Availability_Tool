@@ -343,4 +343,10 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
   <data name="ApplicationPageMenuItem" xml:space="preserve">
     <value>Application page</value>
   </data>
+  <data name="StatusMsg_NetworkIsNotAvailable" xml:space="preserve">
+    <value>Network is not available.</value>
+  </data>
+  <data name="StatusMsg_UrlNotfound404" xml:space="preserve">
+    <value>Cannot navigate to the specified URL due an HTTP error code 404 (Not found)</value>
+  </data>
 </root>

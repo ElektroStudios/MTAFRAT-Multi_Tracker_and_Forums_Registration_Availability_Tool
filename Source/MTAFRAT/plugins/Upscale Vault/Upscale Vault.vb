@@ -24,7 +24,7 @@ Class UpscaleVaultPlugin : Inherits DynamicPlugin
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
                     Const triggerRegistration As String = "Registration Is Disabled"
-                    Const triggerApplication As String = "Proofs"
+                    Const triggerApplication As String = "profile"
                     Try
                         regFlags = regFlags Or
                                    PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
