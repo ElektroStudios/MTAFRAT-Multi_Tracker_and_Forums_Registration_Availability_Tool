@@ -234,11 +234,11 @@
   <data name="WaitingForTheNextAutomaticExecutionFormat" xml:space="preserve">
     <value>⌛ Waiting {0} for the next automatic plugins execution...</value>
   </data>
-  <data name="StatusMsg_CloudflareTrialWait" xml:space="preserve">
-    <value>⌛ Waiting to complete Cloudflare trial...</value>
+  <data name="StatusMsg_CloudflareChallengeWait" xml:space="preserve">
+    <value>⌛ Waiting to complete Cloudflare challenge...</value>
   </data>
-  <data name="StatusMsg_CloudflareTrialCompleted" xml:space="preserve">
-    <value>✅ Cloudflare trial completed.</value>
+  <data name="StatusMsg_CloudflareChallengeCompleted" xml:space="preserve">
+    <value>✅ Cloudflare challenge completed.</value>
   </data>
   <data name="CantNavigateToUrlFormat" xml:space="preserve">
     <value>Cannot navigate to the specified URL. Reason: {0}</value>
@@ -347,6 +347,21 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
     <value>Network is not available.</value>
   </data>
   <data name="StatusMsg_UrlNotfound404" xml:space="preserve">
-    <value>Cannot navigate to the specified URL due an HTTP error code 404 (Not found)</value>
+    <value>Cannot navigate to the specified URL due an HTTP error code 404 (Not found).</value>
+  </data>
+  <data name="StatusMsg_CloudflareChallengeTimedOut" xml:space="preserve">
+    <value>Cloudflare challenge has timed out (cf_clearance cookie could not be validated).</value>
+  </data>
+  <data name="UsingHeadlessChromeForCloudflareChallengeAttempt" xml:space="preserve">
+    <value>The browser is currently running in headless mode. You must add the "--headless" argument when creating the ChromeDriver instance.</value>
+  </data>
+  <data name="IWebDriverMustSupportJavascriptExecution" xml:space="preserve">
+    <value>The IWebDriver instance must support javascript execution.</value>
+  </data>
+  <data name="TimedOutDuringDynamicDOMUpdating" xml:space="preserve">
+    <value>The page load has timed out while the DOM was being updated.</value>
+  </data>
+  <data name="CurrentBrowserUrlDiffersFromPluginUrl" xml:space="preserve">
+    <value>The current URL loaded in the web browser does not match the URL expected by the plugin</value>
   </data>
 </root>

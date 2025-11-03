@@ -17,7 +17,7 @@ Imports System.Reflection
 ''' <summary>
 ''' Provides helper members related to application-specific operations.
 ''' </summary>
-Public Module ApplicationHelper
+Friend Module ApplicationHelper
 
 #Region " Restricted Methods "
 

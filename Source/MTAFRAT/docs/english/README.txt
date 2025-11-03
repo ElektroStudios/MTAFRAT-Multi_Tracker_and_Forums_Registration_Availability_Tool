@@ -133,7 +133,7 @@ _____________
 		button in the program options.
 
 	5.  The first time you run a plugin that interacts with a website protected by Cloudflare 
-		(e.g., "AvistaZ", "CinemaZ", or "ExoticaZ"), the Cloudflare trial may fail; however, 
+		("AvistaZ", "CinemaZ", "ExoticaZ", etc), the Cloudflare challenge may fail; however, 
 		subsequent attempts should not fail. Keep in mind that if you clear the program cache, 
 		the next time you run the plugin it will be as if you are running it for the first time.
 

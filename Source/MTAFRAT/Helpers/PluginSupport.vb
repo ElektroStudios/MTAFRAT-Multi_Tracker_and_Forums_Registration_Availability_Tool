@@ -12,13 +12,16 @@ Imports System.Collections.ObjectModel
 Imports System.Globalization
 Imports System.IO
 Imports System.Net
+Imports System.Net.Http
 Imports System.Resources
+Imports System.Threading
 
 Imports OpenQA.Selenium
 Imports OpenQA.Selenium.Chrome
 Imports OpenQA.Selenium.Support.UI
 
-Imports LogEntry = OpenQA.Selenium.LogEntry ' Not OpenQA.Selenium.DevTools.LogEntry
+Imports SeleniumCookie = OpenQA.Selenium.Cookie     ' instead of System.Net.Cookie
+Imports SeleniumLogEntry = OpenQA.Selenium.LogEntry ' instead of OpenQA.Selenium.DevTools.LogEntry
 
 #End Region
 
@@ -189,18 +192,19 @@ Public Module PluginSupport
     ''' If the condition is not met within this time, a <see cref="WebDriverTimeoutException"/> is thrown.
     ''' </param>
     <DebuggerStepThrough>
-    Public Sub WaitForPageReady(drv As IWebDriver, Optional timeout As TimeSpan = Nothing)
+    Public Sub WaitForPageReady(driver As IWebDriver, Optional timeout As TimeSpan = Nothing)
 
         If timeout = Nothing Then
             timeout = New TimeSpan(hours:=0, minutes:=0, seconds:=30)
         End If
-        Dim drvWait As New WebDriverWait(drv, timeout) With {
-                .PollingInterval = TimeSpan.FromMilliseconds(500)
-            }
 
-        Dim js As IJavaScriptExecutor = TryCast(drv, IJavaScriptExecutor)
+        Dim drvWait As New WebDriverWait(driver, timeout) With {
+            .PollingInterval = TimeSpan.FromMilliseconds(500)
+        }
+
+        Dim js As IJavaScriptExecutor = TryCast(driver, IJavaScriptExecutor)
         If js Is Nothing Then
-            Throw New ArgumentException("IWebDriver must support javascript execution", NameOf(drv))
+            Throw New ArgumentException(My.Resources.Strings.IWebDriverMustSupportJavascriptExecution, NameOf(driver))
         End If
 
         drvWait.Until(
@@ -222,6 +226,7 @@ Public Module PluginSupport
 
                     End Try
                 End Function)
+
     End Sub
 
     ''' <summary>
@@ -250,7 +255,7 @@ Public Module PluginSupport
     Public Function WaitForElement(driver As IWebDriver, by As By, Optional timeoutSeconds As Integer = 30) As IWebElement
 
         Dim wait As New WebDriverWait(driver, TimeSpan.FromSeconds(timeoutSeconds)) With {
-            .PollingInterval = TimeSpan.FromMilliseconds(250)
+            .PollingInterval = TimeSpan.FromMilliseconds(500)
         }
 
         Return wait.Until(Function(d As IWebDriver)
@@ -269,15 +274,6 @@ Public Module PluginSupport
                               ' Return Nothing to continue waiting.
                               Return Nothing
                           End Function)
-
-        ' -------------------------------
-        ' Previous logic of this function
-        ' -------------------------------
-        'Return wait.Until(
-        '    Function(d As IWebDriver)
-        '        Dim element As IWebElement = d.FindElement(by)
-        '        Return If(element, Nothing)
-        '    End Function)
     End Function
 
     ''' <summary>
@@ -500,10 +496,20 @@ Public Module PluginSupport
     Public Function DefaultRegistrationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
                                                           trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
 
+        Dim pluginUrl As String = plugin.UrlRegistration
+
         PluginSupport.LogMessageFormat(plugin, "StatusMsg_ConnectingFormat", plugin.Name)
-        PluginSupport.LogMessage(plugin, $"➜ {plugin.UrlRegistration}")
-        PluginSupport.NavigateTo(driver, plugin.UrlRegistration)
+        PluginSupport.LogMessage(plugin, $"➜ {pluginUrl}")
+        PluginSupport.NavigateTo(driver, pluginUrl)
+
+        If PluginSupport.IsCloudflareChallengeRequired(pluginUrl) Then
+            PluginSupport.WaitToCompleteCloudflareChallenge(plugin, driver, timeout:=30000)
+        End If
+
         PluginSupport.WaitForPageReady(driver)
+        If Not driver.Url.Equals(pluginUrl, StringComparison.InvariantCultureIgnoreCase) Then
+            Throw New Exception(My.Resources.Strings.CurrentBrowserUrlDiffersFromPluginUrl & $" ({pluginUrl} ➜ {driver.Url})")
+        End If
         PluginSupport.LogMessage(plugin, "StatusMsg_RegisterPageLoaded")
 
         Return PluginSupport.EvaluateRegistrationFormState(plugin, driver, trigger, isOpenTrigger)
@@ -538,10 +544,20 @@ Public Module PluginSupport
     Public Function DefaultApplicationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
                                                          trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
 
+        Dim pluginUrl As String = plugin.UrlApplication
+
         PluginSupport.LogMessageFormat(plugin, "StatusMsg_ConnectingFormat", plugin.Name)
-        PluginSupport.LogMessage(plugin, $"➜ {plugin.UrlApplication}")
-        PluginSupport.NavigateTo(driver, plugin.UrlApplication)
+        PluginSupport.LogMessage(plugin, $"➜ {pluginUrl}")
+        PluginSupport.NavigateTo(driver, pluginUrl)
+
+        If PluginSupport.IsCloudflareChallengeRequired(pluginUrl) Then
+            PluginSupport.WaitToCompleteCloudflareChallenge(plugin, driver, timeout:=30000)
+        End If
+
         PluginSupport.WaitForPageReady(driver)
+        If Not driver.Url.Equals(pluginUrl, StringComparison.InvariantCultureIgnoreCase) Then
+            Throw New Exception(My.Resources.Strings.CurrentBrowserUrlDiffersFromPluginUrl & $" ({pluginUrl} ➜ {driver.Url})")
+        End If
         PluginSupport.LogMessage(plugin, "StatusMsg_ApplicationPageLoaded")
 
         Return PluginSupport.EvaluateApplicationFormState(plugin, driver, trigger, isOpenTrigger)
@@ -693,7 +709,7 @@ Public Module PluginSupport
     ''' </param>
     ''' 
     ''' <param name="afterDate">
-    ''' Only browser log entries with a <see cref="LogEntry.Timestamp"/> greater than 
+    ''' Only browser log entries with a <see cref="SeleniumLogEntry.Timestamp"/> greater than 
     ''' or equal to this date are analyzed.
     ''' <para></para>
     ''' This allows filtering out logs from previous navigations or operations.
@@ -701,8 +717,8 @@ Public Module PluginSupport
     <DebuggerStepThrough>
     Public Sub ThrowIfAnyErrorStatusCode(driver As IWebDriver, afterDate As Date)
 
-        Dim logs As ReadOnlyCollection(Of LogEntry) = driver.Manage().Logs.GetLog(LogType.Browser)
-        For Each log As LogEntry In logs.Where(
+        Dim logs As ReadOnlyCollection(Of SeleniumLogEntry) = driver.Manage().Logs.GetLog(LogType.Browser)
+        For Each log As SeleniumLogEntry In logs.Where(
                 Function(x) x.Timestamp >= afterDate AndAlso
                             x.Message.Contains("status of", StringComparison.InvariantCultureIgnoreCase) AndAlso
                             Not PluginSupport.IsResourceUrlLogEntryMessage(x.Message) AndAlso
@@ -714,7 +730,7 @@ Public Module PluginSupport
                     If driver.PageSource.Contains("cloudflare", StringComparison.InvariantCultureIgnoreCase) Then
                         ' The first time navigating to a Cloudflare-protected page,
                         ' it may return a status code of 403 (Forbidden).
-                        ' This happens before the Cloudflare trial is fully completed once.
+                        ' This happens before the Cloudflare challenge is fully completed once.
                         ' Ignore it, as we have special handling for Cloudflare-protected pages below. 👇
                         Exit Select
                     End If
@@ -755,7 +771,7 @@ Public Module PluginSupport
     ''' </param>
     ''' 
     ''' <param name="afterDate">
-    ''' Only browser log entries with a <see cref="LogEntry.Timestamp"/> greater than 
+    ''' Only browser log entries with a <see cref="SeleniumLogEntry.Timestamp"/> greater than 
     ''' or equal to this date are analyzed.
     ''' <para></para>
     ''' This allows filtering out logs from previous navigations or operations.
@@ -763,8 +779,8 @@ Public Module PluginSupport
     <DebuggerStepThrough>
     Public Sub ThrowIfStatusCode(driver As IWebDriver, statusCode As Integer, afterDate As Date)
 
-        Dim logs As ReadOnlyCollection(Of LogEntry) = driver.Manage().Logs.GetLog(LogType.Browser)
-        For Each log As LogEntry In logs.Where(
+        Dim logs As ReadOnlyCollection(Of SeleniumLogEntry) = driver.Manage().Logs.GetLog(LogType.Browser)
+        For Each log As SeleniumLogEntry In logs.Where(
                 Function(x) x.Timestamp >= afterDate AndAlso
                             x.Message.Contains($"status of {statusCode}", StringComparison.InvariantCultureIgnoreCase))
 
@@ -778,7 +794,7 @@ Public Module PluginSupport
     End Sub
 
     ''' <summary>
-    ''' If any <see cref="LogEntry"/> after the specified date
+    ''' If any <see cref="SeleniumLogEntry"/> after the specified date
     ''' in the browser logs matches the specified HTTP error status code,
     ''' throws an <see cref="Exception"/> with the log entry message.
     ''' </summary>
@@ -792,7 +808,7 @@ Public Module PluginSupport
     ''' </param>
     ''' 
     ''' <param name="afterDate">
-    ''' Only browser log entries with a <see cref="LogEntry.Timestamp"/> greater than 
+    ''' Only browser log entries with a <see cref="SeleniumLogEntry.Timestamp"/> greater than 
     ''' or equal to this date are analyzed.
     ''' <para></para>
     ''' This allows filtering out logs from previous navigations or operations.
@@ -801,6 +817,100 @@ Public Module PluginSupport
     Public Sub ThrowIfStatusCode(driver As IWebDriver, statusCode As HttpStatusCode, afterDate As Date)
 
         PluginSupport.ThrowIfStatusCode(driver, CInt(statusCode), afterDate)
+    End Sub
+
+    ''' <summary>
+    ''' Determines whether the specified web page requires to complete a Cloudflare challenge to proceed.
+    ''' </summary>
+    ''' 
+    ''' <param name="url">
+    ''' The target URL to check.
+    ''' </param>
+    ''' 
+    ''' <returns>
+    ''' <see langword="True"/> if the page requires a Cloudflare challenge to proceed; 
+    ''' otherwise, <see langword="False"/>.
+    ''' </returns>
+    <DebuggerStepThrough>
+    Public Function IsCloudflareChallengeRequired(url As String) As Boolean
+
+        Dim challengeIndicators As String() = {
+            "challenge-error-text",
+            "/cdn-cgi/challenge-platform",
+            "<title>Just a moment...</title>",
+            "window._cf_chl_opt"
+        }
+
+        Using handler As New HttpClientHandler() With {
+                .AllowAutoRedirect = True,
+                .AutomaticDecompression = DecompressionMethods.GZip Or DecompressionMethods.Deflate
+            }
+
+            Using client As New HttpClient(handler)
+                Dim resp As HttpResponseMessage = client.GetAsync(url).ConfigureAwait(False).GetAwaiter().GetResult()
+                Dim body As String = resp.Content.ReadAsStringAsync().ConfigureAwait(False).GetAwaiter().GetResult()
+
+                Return resp.StatusCode <> HttpStatusCode.OK AndAlso
+                       Not String.IsNullOrWhiteSpace(body) AndAlso
+                       challengeIndicators.Any(Function(indicator As String) body.Contains(indicator, StringComparison.InvariantCultureIgnoreCase))
+
+            End Using
+        End Using
+    End Function
+
+    ''' <summary>
+    ''' Waits for the Cloudflare challenge to complete by detecting and validating the 
+    ''' <c>cf_clearance</c> cookie within the specified timeout period.
+    ''' </summary>
+    ''' 
+    ''' <param name="plugin">
+    ''' The <see cref="DynamicPlugin"/> instance.
+    ''' </param>
+    ''' 
+    ''' <param name="driver">
+    ''' The <see cref="ChromeDriver"/> instance.
+    ''' </param>
+    ''' 
+    ''' <param name="timeout">
+    ''' Optional. The maximum time to wait, in milliseconds, for the challenge to complete. 
+    ''' <para></para>
+    ''' Default value is 30000 (30 seconds).
+    ''' </param>
+    <DebuggerStepThrough>
+    Public Sub WaitToCompleteCloudflareChallenge(plugin As DynamicPlugin, driver As ChromeDriver,
+                                                 Optional timeout As Integer = 30000)
+
+        PluginSupport.LogMessage(plugin, "StatusMsg_CloudflareChallengeWait")
+
+        Dim result As String = driver.ExecuteScript("return navigator.userAgent;").ToString()
+        Dim isHeadlessChrome As Boolean = result.Contains("HeadlessChrome", StringComparison.InvariantCultureIgnoreCase)
+        If isHeadlessChrome Then
+            Throw New InvalidOperationException(My.Resources.Strings.UsingHeadlessChromeForCloudflareChallengeAttempt)
+        End If
+
+        ' cf_clearance:
+        '   Clearance Cookie stores the proof of challenge passed.
+        '   It is used to no longer issue a challenge if present. It is required to reach an origin server.
+        ' https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/#additional-cookies-used-by-the-challenge-platform
+
+        Dim conditionFunction As Func(Of Boolean) =
+            Function()
+                Dim cfCookie As SeleniumCookie = driver.Manage().Cookies.GetCookieNamed("cf_clearance")
+                Return cfCookie IsNot Nothing AndAlso
+                       Not String.IsNullOrWhiteSpace(cfCookie.Value) AndAlso
+                       (cfCookie.Expiry.HasValue AndAlso Date.Now.AddMilliseconds(timeout) < cfCookie.Expiry.Value) AndAlso
+                       Not driver.PageSource.Contains("challenges.cloudflare")
+            End Function
+
+        Dim startTime As Date = Date.Now
+        While Not conditionFunction.Invoke()
+            If (Date.Now - startTime).TotalMilliseconds >= timeout Then
+                Throw New TimeoutException(My.Resources.Strings.StatusMsg_CloudflareChallengeTimedOut)
+            End If
+            Thread.Sleep(3000)
+        End While
+
+        PluginSupport.LogMessage(plugin, "StatusMsg_CloudflareChallengeCompleted")
     End Sub
 
 #End Region

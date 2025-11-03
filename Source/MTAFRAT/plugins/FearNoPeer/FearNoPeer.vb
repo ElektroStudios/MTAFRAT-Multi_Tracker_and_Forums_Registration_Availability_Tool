@@ -24,8 +24,15 @@ Class FearNoPeerPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
+                    Const triggerRegistration As String = "Registration Is Disabled"
+                    Const triggerApplication As String = "Applications Are Closed"
                     Try
-                        regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
+                        regFlags = regFlags Or
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
+                                                                                                   isOpenTrigger:=False)
+                        regFlags = regFlags Or
+                                   PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerApplication,
+                                                                                                  isOpenTrigger:=False)
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
@@ -40,26 +47,6 @@ Class FearNoPeerPlugin : Inherits DynamicPlugin
 
                 Return regFlags
             End Function)
-    End Function
-
-    Private Function CustomRegistrationCheck(driver As ChromeDriver) As RegistrationFlags
-
-        Const triggerRegistration As String = "Registration Is Disabled"
-
-        PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-        PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
-        PluginSupport.NavigateTo(driver, Me.UrlRegistration)
-
-        PluginSupport.LogMessage(Me, "StatusMsg_CloudflareTrialWait")
-        PluginSupport.WaitForPageReady(driver)
-        Thread.Sleep(5000)
-        Dim selector As By = By.CssSelector(".auth-form__site-logo")
-        PluginSupport.WaitForElement(driver, selector)
-        PluginSupport.LogMessage(Me, "StatusMsg_CloudflareTrialCompleted")
-        PluginSupport.WaitForPageReady(driver)
-        PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
-
-        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)
     End Function
 
 End Class

@@ -21,6 +21,8 @@ Imports MTAFRAT.Win32
 ''' </summary>
 Public Module NotifyIconExtensions
 
+#Region " Public Methods "
+
     ''' <summary>
     ''' Gets the internal <see cref="NativeWindow"/> of the <see cref="NotifyIcon"/>.
     ''' </summary>
@@ -63,6 +65,10 @@ Public Module NotifyIconExtensions
         NativeMethods.Shell_NotifyIcon(NotifyIconMessages.Modify, data)
     End Sub
 
+#End Region
+
+#Region " Restricted Methods "
+
     ''' <summary>
     ''' Gets the internal icon ID of the <see cref="NotifyIcon"/> used by <see cref="NotifyiconData.ID"/> field.
     ''' </summary>
@@ -81,5 +87,7 @@ Public Module NotifyIconExtensions
         Dim idValue As Object = idField.GetValue(icon)
         Return CUInt(idValue)
     End Function
+
+#End Region
 
 End Module

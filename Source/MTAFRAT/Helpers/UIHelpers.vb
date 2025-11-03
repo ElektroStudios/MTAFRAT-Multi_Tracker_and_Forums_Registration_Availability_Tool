@@ -9,7 +9,6 @@ Option Infer Off
 #Region " Imports "
 
 Imports System.Collections.ObjectModel
-Imports System.DirectoryServices.ActiveDirectory
 Imports System.Globalization
 Imports System.Runtime.InteropServices
 Imports System.Text

@@ -11,12 +11,9 @@ Option Infer Off
 Imports System.Net
 Imports System.Net.Http
 Imports System.Net.NetworkInformation
-Imports System.Net.Sockets
-Imports System.Security.Policy
-
-
 
 #End Region
+
 ''' <summary>
 ''' Provides helper members related to network operations.
 ''' </summary>
@@ -35,7 +32,7 @@ Public Module NetworkHelper
     Public ReadOnly Property IsNetworkAvailable As Boolean
         <DebuggerStepThrough>
         Get
-            Return NetworkHelper.Internal_NetworkIsAvailable() AndAlso
+            Return NetworkHelper.Internal_IsNetworkAvailable() AndAlso
                    NetworkHelper.NetworkAdapterCanReachConnectivityTestEndpoints(timeout:=5000)
         End Get
     End Property
@@ -110,7 +107,7 @@ Public Module NetworkHelper
     <DebuggerStepThrough>
     Public Function UrlExists(url As Uri) As Boolean
 
-        Return Task.Run(Async Function() Await GetUrlStatusCodeAsync(url)).GetAwaiter().GetResult() <> HttpStatusCode.NotFound
+        Return Task.Run(Async Function() Await NetworkHelper.GetUrlStatusCodeAsync(url)).GetAwaiter().GetResult() <> HttpStatusCode.NotFound
     End Function
 
     ''' <summary>
@@ -185,7 +182,7 @@ Public Module NetworkHelper
     ''' otherwise, <see langword="False"/>.
     ''' </returns>
     <DebuggerStepThrough>
-    Private Function Internal_NetworkIsAvailable() As Boolean
+    Private Function Internal_IsNetworkAvailable() As Boolean
 
         If NetworkInterface.GetIsNetworkAvailable() Then
             Dim interfaces As NetworkInterface() = NetworkInterface.GetAllNetworkInterfaces()

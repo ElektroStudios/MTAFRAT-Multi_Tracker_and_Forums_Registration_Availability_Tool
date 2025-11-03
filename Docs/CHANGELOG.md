@@ -1,6 +1,20 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.3 *(current)* 🆕
+## v1.1.4 *(current)* 🆕
+
+#### 🌟 Improvements:
+ - A basic detection mechanism for web pages that requires to complete a Cloudflare challenge has been integrated, allowing also to simplify plugins source-code.
+ - The Cloudflare challenge validation procedure has been rewritten to wait for the official [cf_clearance](https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/#additional-cookies-used-by-the-challenge-platform) cookie.
+ - Any plugin using a web browser in **headless** mode will now log an error message if it attempts to complete a Cloudflare challenge.
+ - Added an additional verification when navigating to a web page to verify that the URL loaded in the browser is the same URL expected by the plugin.
+ - Added two new methods for plugin developers:
+   - `IsCloudflareChallengeRequired`
+   - `WaitToCompleteCloudflareChallenge`
+
+#### 🛠️ Fixes:
+ - The combination of all the improvements mentioned above should fix unexpected false positives in the registration/application form validations performed by some plugins.
+
+## v1.1.3 🔄
 
 #### 🌟 Improvements:
  - The application now is able to handle scenarios involving network connectivity issues (an inoperative network adapter) and non-existent URLs (HTTP error code 404).

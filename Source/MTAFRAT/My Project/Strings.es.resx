@@ -234,11 +234,11 @@
   <data name="WaitingForTheNextAutomaticExecutionFormat" xml:space="preserve">
     <value>⌛ Esperando {0} para la siguiente ejecución automática de plugins...</value>
   </data>
-  <data name="StatusMsg_CloudflareTrialWait" xml:space="preserve">
-    <value>⌛ Esperando a completar la prueba de Cloudflare...</value>
+  <data name="StatusMsg_CloudflareChallengeWait" xml:space="preserve">
+    <value>⌛ Esperando a completar el desafío de Cloudflare...</value>
   </data>
-  <data name="StatusMsg_CloudflareTrialCompleted" xml:space="preserve">
-    <value>✅ Prueba de Cloudflare completada.</value>
+  <data name="StatusMsg_CloudflareChallengeCompleted" xml:space="preserve">
+    <value>✅ Desafío de Cloudflare completado.</value>
   </data>
   <data name="CantNavigateToUrlFormat" xml:space="preserve">
     <value>No fue posible navegar a la URL indicada. Motivo: {0}</value>
@@ -348,5 +348,20 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
   </data>
   <data name="StatusMsg_UrlNotfound404" xml:space="preserve">
     <value>No se puede navegar a la URL especificada debido a un código de error HTTP 404 (No encontrado).</value>
+  </data>
+  <data name="StatusMsg_CloudflareChallengeTimedOut" xml:space="preserve">
+    <value>Se ha superado el tiempo límite de espera para completar el desafío de Cloudflare (la cookie "cf_clearance" no se pudo validar dentro del tiempo).</value>
+  </data>
+  <data name="UsingHeadlessChromeForCloudflareChallengeAttempt" xml:space="preserve">
+    <value>El navegador se está ejecutando actualmente en modo headless. Debes añadir el argumento "--headless" al crear la instancia de ChromeDriver.</value>
+  </data>
+  <data name="IWebDriverMustSupportJavascriptExecution" xml:space="preserve">
+    <value>La instancia de IWebDriver debe admitir la ejecución de código JavaScript.</value>
+  </data>
+  <data name="TimedOutDuringDynamicDOMUpdating" xml:space="preserve">
+    <value>El tiempo de carga de la página se agotó mientras se realizaban cambios dinámicos en el DOM.</value>
+  </data>
+  <data name="CurrentBrowserUrlDiffersFromPluginUrl" xml:space="preserve">
+    <value>La URL actual cargada en el navegador web no coincide con la URL esperada por el plugin.</value>
   </data>
 </root>

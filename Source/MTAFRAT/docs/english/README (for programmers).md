@@ -176,3 +176,17 @@ isOpenTrigger As Boolean
 ```
 A common utility function used by multiple plugins that encapsulates the default steps to navigate 
 to an application form page, check and return its current state, and handle message logging and UI notifications.
+
+ - `IsCloudflareChallengeRequired`
+```vbnet
+url As String
+```
+Determines whether the specified web page requires to complete a Cloudflare challenge to proceed.
+
+ - `WaitToCompleteCloudflareChallengue`
+```vbnet
+plugin As DynamicPlugin
+driver As ChromeDriver
+Optional timeout As Integer
+```
+Waits for the Cloudflare challenge to complete by detecting and validating the [cf_clearance](https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/#additional-cookies-used-by-the-challenge-platform) cookie within the specified timeout period.

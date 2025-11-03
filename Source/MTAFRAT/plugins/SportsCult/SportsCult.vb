@@ -29,8 +29,11 @@ Class SportsCultPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
+                    Const triggerRegistration As String = "registrations are closed"
                     Try
-                        regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
+                        regFlags = regFlags Or
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
+                                                                                                   isOpenTrigger:=False)
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
@@ -45,26 +48,6 @@ Class SportsCultPlugin : Inherits DynamicPlugin
 
                 Return regFlags
             End Function)
-    End Function
-
-    Private Function CustomRegistrationCheck(driver As ChromeDriver) As RegistrationFlags
-
-        Const triggerRegistration As String = "registrations are closed"
-
-        PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
-        PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
-        PluginSupport.NavigateTo(driver, Me.UrlRegistration)
-
-        PluginSupport.LogMessage(Me, "StatusMsg_CloudflareTrialWait")
-        PluginSupport.WaitForPageReady(driver)
-        Thread.Sleep(5000)
-        Dim selector As By = By.CssSelector(".custom_logo")
-        PluginSupport.WaitForElement(driver, selector)
-        PluginSupport.LogMessage(Me, "StatusMsg_CloudflareTrialCompleted")
-        PluginSupport.WaitForPageReady(driver)
-        PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
-
-        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)
     End Function
 
 End Class

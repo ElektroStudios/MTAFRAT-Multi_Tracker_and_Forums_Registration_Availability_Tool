@@ -1,4 +1,4 @@
-Imports System
+﻿Imports System
 Imports System.Diagnostics
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
@@ -23,11 +23,8 @@ Class BeyondHDPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerRegistration As String = "You must be invited"
                     Try
-                        regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
-                                                                                                   isOpenTrigger:=False)
+                        regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
@@ -42,6 +39,22 @@ Class BeyondHDPlugin : Inherits DynamicPlugin
 
                 Return regFlags
             End Function)
+    End Function
+
+    Private Function CustomRegistrationCheck(driver As ChromeDriver) As RegistrationFlags
+
+        ' If the registration form is closed, the site redirects automatically to the login page,
+        ' so we check if we are in the login page.
+
+        Const triggerRegistration As String = "Login now on BeyondHD"
+
+        PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
+        PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
+        PluginSupport.NavigateTo(driver, Me.UrlRegistration)
+        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
+
+        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)
     End Function
 
 End Class

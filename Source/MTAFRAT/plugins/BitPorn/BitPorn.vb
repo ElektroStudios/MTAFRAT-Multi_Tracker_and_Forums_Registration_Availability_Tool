@@ -23,12 +23,12 @@ Class BitPornPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerRegistration As String = "Confirm Password"
+                    Const triggerRegistration As String = "Open Registration Is Disabled"
                     Const triggerAppication As String = "profile"
                     Try
                         regFlags = regFlags Or
                                    PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
-                                                                                                   isOpenTrigger:=True)
+                                                                                                   isOpenTrigger:=False)
 
                         regFlags = regFlags Or
                                    PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerAppication,

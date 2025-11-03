@@ -1,4 +1,4 @@
-Imports System
+﻿Imports System
 Imports System.Diagnostics
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
@@ -23,12 +23,9 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerRegistration As String = "Registro libre cerrado"
                     Const triggerApplication As String = "No se aceptan nuevos usuarios"
                     Try
-                        regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
-                                                                                                   isOpenTrigger:=False)
+                        regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
 
                         regFlags = regFlags Or
                                    PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerApplication,
@@ -47,6 +44,22 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
 
                 Return regFlags
             End Function)
+    End Function
+
+    Private Function CustomRegistrationCheck(driver As ChromeDriver) As RegistrationFlags
+
+        ' If the registration form is closed, the site redirects automatically to the login page,
+        ' so we check if we are in the login page.
+
+        Const triggerRegistration As String = "Iniciar sesión en HD-Olimpo"
+
+        PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
+        PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
+        PluginSupport.NavigateTo(driver, Me.UrlRegistration)
+        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
+
+        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)
     End Function
 
 End Class

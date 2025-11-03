@@ -140,8 +140,8 @@ _____________
 		simplemente pulse el botón "Borrar caché" en las opciones del programa.
 
 	5.  La primera vez que ejecute un plugin que interactúe con un sitio web protegido 
-		por Cloudflare (ej. "AvistaZ", "CinemaZ" o "ExoticaZ"), puede fallar 
-		la prueba de Cloudflare, sin embargo, las siguientes veces no debería fallar.
+		por Cloudflare ("AvistaZ", "CinemaZ", "ExoticaZ", etc), puede fallar 
+		el desafío de Cloudflare, sin embargo, las siguientes veces no debería fallar.
 		Tenga en cuenta que, si borra la caché del programa, la próxima vez que
 		ejecute el plugin será como si fuese la primera vez que lo hace. 
 
