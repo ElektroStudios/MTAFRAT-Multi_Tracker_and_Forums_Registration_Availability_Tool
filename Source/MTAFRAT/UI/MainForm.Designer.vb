@@ -38,7 +38,7 @@ Partial Public Class MainForm
         Me.DarkGroupBox_OS = New DarkUI.Controls.DarkGroupBox()
         Me.DarkCheckBox_SystemSleep = New DarkUI.Controls.DarkCheckBox()
         Me.DarkGroupBox_AutoPluginRun = New DarkUI.Controls.DarkGroupBox()
-        Me.DarkButton_RunAllSelectedPluginsNow = New DarkButtonImageAllignFix()
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow = New DarkButtonImageAllignFix()
         Me.Label_AutoRunPluginCheckedCount = New Label()
         Me.DarkCheckBox_ParalellExecution = New DarkUI.Controls.DarkCheckBox()
         Me.CheckedListBox_AutoPluginRun = New PersistableCheckedListBox()
@@ -243,7 +243,7 @@ Partial Public Class MainForm
         ' DarkGroupBox_AutoPluginRun
         ' 
         Me.DarkGroupBox_AutoPluginRun.BorderColor = Color.FromArgb(CByte(51), CByte(51), CByte(51))
-        Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.DarkButton_RunAllSelectedPluginsNow)
+        Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow)
         Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.Label_AutoRunPluginCheckedCount)
         Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.DarkCheckBox_ParalellExecution)
         Me.DarkGroupBox_AutoPluginRun.Controls.Add(Me.CheckedListBox_AutoPluginRun)
@@ -255,18 +255,18 @@ Partial Public Class MainForm
         Me.DarkGroupBox_AutoPluginRun.TabStop = False
         Me.DarkGroupBox_AutoPluginRun.Text = "Automatic Plugin Execution"
         ' 
-        ' DarkButton_RunAllSelectedPluginsNow
+        ' DarkButtonImageAllignFix_RunAllSelectedPluginsNow
         ' 
-        Me.DarkButton_RunAllSelectedPluginsNow.Cursor = Cursors.Hand
-        Me.DarkButton_RunAllSelectedPluginsNow.Enabled = False
-        Me.DarkButton_RunAllSelectedPluginsNow.Location = New Point(397, 27)
-        Me.DarkButton_RunAllSelectedPluginsNow.Name = "DarkButton_RunAllSelectedPluginsNow"
-        Me.DarkButton_RunAllSelectedPluginsNow.Padding = New Padding(5)
-        Me.DarkButton_RunAllSelectedPluginsNow.ResizedImage = My.Resources.Resources.execute
-        Me.DarkButton_RunAllSelectedPluginsNow.Size = New Size(160, 25)
-        Me.DarkButton_RunAllSelectedPluginsNow.TabIndex = 1
-        Me.DarkButton_RunAllSelectedPluginsNow.Text = "Run now"
-        Me.DarkButton_RunAllSelectedPluginsNow.TextImageRelation = TextImageRelation.ImageBeforeText
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Cursor = Cursors.Hand
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Enabled = False
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Location = New Point(397, 27)
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Name = "DarkButtonImageAllignFix_RunAllSelectedPluginsNow"
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Padding = New Padding(5)
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.ResizedImage = My.Resources.Resources.execute
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Size = New Size(160, 25)
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.TabIndex = 1
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Text = "Run now"
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.TextImageRelation = TextImageRelation.ImageBeforeText
         ' 
         ' Label_AutoRunPluginCheckedCount
         ' 
@@ -494,7 +494,7 @@ Partial Public Class MainForm
         Me.DarkContextMenu_PluginUrls.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
         Me.DarkContextMenu_PluginUrls.Items.AddRange(New ToolStripItem() {Me.ToolStripMenuItem_PluginUrlLogin, Me.ToolStripMenuItem_PluginUrlRegistration, Me.ToolStripMenuItem_PluginUrlApplication})
         Me.DarkContextMenu_PluginUrls.Name = "DarkContextMenu_PluginUrls"
-        Me.DarkContextMenu_PluginUrls.Size = New Size(181, 92)
+        Me.DarkContextMenu_PluginUrls.Size = New Size(162, 70)
         ' 
         ' ToolStripMenuItem_PluginUrlLogin
         ' 
@@ -502,7 +502,7 @@ Partial Public Class MainForm
         Me.ToolStripMenuItem_PluginUrlLogin.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
         Me.ToolStripMenuItem_PluginUrlLogin.Image = My.Resources.Resources.website
         Me.ToolStripMenuItem_PluginUrlLogin.Name = "ToolStripMenuItem_PluginUrlLogin"
-        Me.ToolStripMenuItem_PluginUrlLogin.Size = New Size(180, 22)
+        Me.ToolStripMenuItem_PluginUrlLogin.Size = New Size(161, 22)
         Me.ToolStripMenuItem_PluginUrlLogin.Tag = "Login URL"
         Me.ToolStripMenuItem_PluginUrlLogin.Text = "Login URL"
         ' 
@@ -512,7 +512,7 @@ Partial Public Class MainForm
         Me.ToolStripMenuItem_PluginUrlRegistration.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
         Me.ToolStripMenuItem_PluginUrlRegistration.Image = My.Resources.Resources.website
         Me.ToolStripMenuItem_PluginUrlRegistration.Name = "ToolStripMenuItem_PluginUrlRegistration"
-        Me.ToolStripMenuItem_PluginUrlRegistration.Size = New Size(180, 22)
+        Me.ToolStripMenuItem_PluginUrlRegistration.Size = New Size(161, 22)
         Me.ToolStripMenuItem_PluginUrlRegistration.Tag = "Registration URL"
         Me.ToolStripMenuItem_PluginUrlRegistration.Text = "Registration URL"
         ' 
@@ -522,7 +522,7 @@ Partial Public Class MainForm
         Me.ToolStripMenuItem_PluginUrlApplication.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
         Me.ToolStripMenuItem_PluginUrlApplication.Image = My.Resources.Resources.website
         Me.ToolStripMenuItem_PluginUrlApplication.Name = "ToolStripMenuItem_PluginUrlApplication"
-        Me.ToolStripMenuItem_PluginUrlApplication.Size = New Size(180, 22)
+        Me.ToolStripMenuItem_PluginUrlApplication.Size = New Size(161, 22)
         Me.ToolStripMenuItem_PluginUrlApplication.Tag = "Application URL"
         Me.ToolStripMenuItem_PluginUrlApplication.Text = "Application URL"
         ' 
@@ -598,7 +598,7 @@ Partial Public Class MainForm
     Friend WithEvents ToolStripMenuItem_ClearSelectedPlugins As ToolStripMenuItem
     Friend WithEvents Label_AutoRunPluginCheckedCount As Label
     Friend WithEvents DarkCheckBox_RunAppMinimized As DarkUI.Controls.DarkCheckBox
-    Friend WithEvents DarkButton_RunAllSelectedPluginsNow As DarkButtonImageAllignFix
+    Friend WithEvents DarkButtonImageAllignFix_RunAllSelectedPluginsNow As DarkButtonImageAllignFix
     Friend WithEvents DarkCheckBox_ClearPreviousLogEntries As DarkUI.Controls.DarkCheckBox
     Friend WithEvents DarkCheckBox_AllowPluginApplicationFormCheck As DarkUI.Controls.DarkCheckBox
     Friend WithEvents DarkContextMenu_PluginUrls As DarkUI.Controls.DarkContextMenu

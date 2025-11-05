@@ -28,8 +28,11 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
                         regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
 
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerApplication,
-                                                                                                  isOpenTrigger:=False)
+                                   PluginSupport.DefaultApplicationFormCheckProcedure(
+                                       Me, driver, triggerApplication, isOpenTrigger:=False,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True,
+                                       timeout:=TimeSpan.FromSeconds(30))
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
@@ -56,7 +59,10 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
         PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
         PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
         PluginSupport.NavigateTo(driver, Me.UrlRegistration)
-        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(Me, "StatusMsg_WaitingForPageLoad")
+        PluginSupport.WaitForPageReady(driver,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True, timeout:=TimeSpan.FromSeconds(30))
         PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
 
         Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)

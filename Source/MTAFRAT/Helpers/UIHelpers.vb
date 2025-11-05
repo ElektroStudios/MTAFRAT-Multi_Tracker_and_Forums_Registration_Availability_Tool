@@ -49,7 +49,7 @@ Public Module UIHelper
         f.DarkButton_About.Text = My.Resources.Strings.About
         f.DarkGroupBox_Application.Text = My.Resources.Strings.GroupBoxApplication
         f.Label_Language.Text = My.Resources.Strings.LanguageLabel
-        f.DarkButton_RunAllSelectedPluginsNow.Text = My.Resources.Strings.RunAllSelectedPluginsNow
+        f.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Text = My.Resources.Strings.RunAllSelectedPluginsNow
         f.DarkCheckBox_RememberCurrentSettings.Text = My.Resources.Strings.RememberSettings
         f.DarkButtonImageAllignFix_ClearCache.Text = My.Resources.Strings.ClearCache
         f.DarkCheckBox_ParalellExecution.Text = My.Resources.Strings.EnableParalellExecution
@@ -404,16 +404,16 @@ Public Module UIHelper
     ''' <param name="enabled">
     ''' A value indicating whether the controls should be enabled (<see langword="True"/>) or disabled (<see langword="False"/>).
     ''' </param>
-    Friend Sub ToggleControlsEnabledState(enabled As Boolean)
+    Friend Sub ToggleControlsEnabledState(enable As Boolean)
 
         Dim f As MainForm = AppGlobals.MainFormInstance
 
         Dim act As New Action(
             Sub()
-                f.DarkGroupBox_AutoPluginRun.Enabled = enabled
-                f.DarkButtonImageAllignFix_ClearCache.Enabled = enabled
-                f.Label_Language.Enabled = enabled
-                f.DarkComboBox_Language.Enabled = enabled
+                f.DarkGroupBox_AutoPluginRun.Enabled = enable
+                f.DarkButtonImageAllignFix_ClearCache.Enabled = enable
+                f.Label_Language.Enabled = enable
+                f.DarkComboBox_Language.Enabled = enable
 
                 If f.DarkSectionPanel_Settings.Contains(f.ActiveControl) Then
                     f.DarkSectionPanel_Settings.Update()
@@ -427,11 +427,17 @@ Public Module UIHelper
                     Dim sectionPanel As DarkSectionPanel = tb.Controls.OfType(Of DarkSectionPanel).SingleOrDefault()
                     If sectionPanel IsNot Nothing AndAlso sectionPanel.Controls.Count <> 0 Then
                         For Each ctrl As Control In sectionPanel.Controls
-                            If (TypeOf ctrl Is DarkButton) AndAlso Not enabled Then
-                                ctrl.Enabled = Not (ctrl.Name.Contains("_RunPlugin_") OrElse ctrl.Name.Contains("_ClearCache_"))
+                            If (TypeOf ctrl Is DarkButton) Then
+
+                                If ctrl.Name.Contains("_RunPlugin_") Then
+                                    ' Ignore.
+                                Else
+                                    ctrl.Enabled = If(Not enable, Not ctrl.Name.Contains("_ClearCache_"), enable)
+                                End If
 
                             Else
                                 ctrl.Enabled = True
+
                             End If
                         Next
                     End If
@@ -862,7 +868,14 @@ Public Module UIHelper
 
         Dim f As MainForm = AppGlobals.MainFormInstance
         f.UseWaitCursor = True
-        UIHelper.ToggleControlsEnabledState(enabled:=False)
+
+        If plugin.ButtonRunPlugin.InvokeRequired Then
+            plugin.ButtonRunPlugin.Invoke(Sub() plugin.ButtonRunPlugin.Enabled = False)
+        Else
+            plugin.ButtonRunPlugin.Enabled = False
+        End If
+
+        UIHelper.ToggleControlsEnabledState(enable:=False)
 
         If f.DarkCheckBox_ClearPreviousLogEntries.Checked() Then
             If plugin.LogTextBox.InvokeRequired Then
@@ -880,11 +893,24 @@ Public Module UIHelper
             Return flags
 
         Finally
-            f.PluginWorkInProgress = False
-            UIHelper.ToggleControlsEnabledState(enabled:=True)
-            UIHelper.UpdateStatusLabelText(plugin, flags)
-            f.UseWaitCursor = False
-            Cursor.Current = Cursors.Default
+            f.PluginWorkInProgress = f.IsRunningPluginsAutomatically
+
+            If Not f.IsRunningPluginsAutomatically Then
+                UIHelper.ToggleControlsEnabledState(enable:=True)
+                f.UseWaitCursor = False
+                Cursor.Current = Cursors.Default
+            End If
+
+            If plugin.ButtonRunPlugin.InvokeRequired Then
+                plugin.ButtonRunPlugin.Invoke(
+                    Sub()
+                        plugin.ButtonRunPlugin.Enabled = True
+                        UIHelper.UpdateStatusLabelText(plugin, flags)
+                    End Sub)
+            Else
+                plugin.ButtonRunPlugin.Enabled = True
+                UIHelper.UpdateStatusLabelText(plugin, flags)
+            End If
 
             If plugin.ButtonRunPlugin.InvokeRequired Then
                 plugin.ButtonRunPlugin.Invoke(Sub() plugin.ButtonRunPlugin.Focus())

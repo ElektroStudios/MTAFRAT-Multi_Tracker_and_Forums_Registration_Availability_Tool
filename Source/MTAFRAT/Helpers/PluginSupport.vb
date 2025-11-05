@@ -16,6 +16,8 @@ Imports System.Net.Http
 Imports System.Resources
 Imports System.Threading
 
+Imports MTAFRAT.Win32
+
 Imports OpenQA.Selenium
 Imports OpenQA.Selenium.Chrome
 Imports OpenQA.Selenium.Support.UI
@@ -136,6 +138,18 @@ Public Module PluginSupport
         End If
 
         Dim driver As New ChromeDriver(refService, options)
+
+        ' Hide Chrome.exe window / taskbar icon.
+        If Not headless Then
+            Dim chromeChilds As List(Of Process) = ApplicationHelper.GetChildProcesses(refService.ProcessId)
+            For Each chromeChild As Process In chromeChilds
+                Dim hwnd As IntPtr = chromeChild.MainWindowHandle
+                If hwnd <> IntPtr.Zero Then
+                    NativeMethods.ShowWindow(hwnd, NativeWindowState.Hide)
+                End If
+            Next
+        End If
+
         Return driver
     End Function
 
@@ -178,21 +192,54 @@ Public Module PluginSupport
     End Sub
 
     ''' <summary>
-    ''' Waits until the web page loaded in the specified <see cref="IWebDriver"/> instance 
-    ''' reports a ready state of <c>"complete"</c>.
+    ''' Waits for the current web page in the specified <see cref="IWebDriver"/> instance 
+    ''' to report a ready state of <c>"complete"</c>. And optionally, it can also 
+    ''' wait for any pending dynamic updates in the DOM to complete after the page 
+    ''' has reported a ready state of <c>"complete"</c>.
     ''' </summary>
     ''' 
     ''' <param name="driver">
     ''' The <see cref="IWebDriver"/> instance.
     ''' </param>
     ''' 
-    ''' <param name="timeoutSeconds">
-    ''' Optional. The maximum number of seconds to wait. Default is 30 seconds.
+    ''' <param name="afterPageReadyDelay">
+    ''' Optional. A <see cref="TimeSpan"/> representing the delay to wait 
+    ''' <b>after</b> the web page reports a ready state of <c>"complete"</c>, 
+    ''' before the method returns.
     ''' <para></para>
-    ''' If the condition is not met within this time, a <see cref="WebDriverTimeoutException"/> is thrown.
+    ''' This can be useful to allow background scripts, animations, or 
+    ''' asynchronous content to finish initializing after the document is loaded.
+    ''' <para></para>
+    ''' The default value is <see cref="TimeSpan.Zero"/>.
+    ''' </param>
+    ''' 
+    ''' <param name="waitForDomIdle">
+    ''' Optional. When set to <see langword="True"/>, the method starts waiting for any pending dynamic updates in the DOM 
+    ''' to complete after the page has reported a ready state of <c>"complete"</c>.
+    ''' <para></para>
+    ''' The default value is <see langword="False"/>.
+    ''' <para></para>
+    ''' ⚠️ Do not set this parameter to <see langword="True"/> for web pages with continuously changing DOM elements 
+    ''' (e.g., pages with animations, snow effects, or real-time updates), as it will cause the wait operation to time out.
+    ''' </param>
+    ''' 
+    ''' <param name="timeout">
+    ''' Optional. The maximum time to wait for the page to report a ready state of <c>"complete"</c>, 
+    ''' and for any pending dynamic updates in the DOM to complete if 
+    ''' <paramref name="waitForDomIdle"/> is set to <see langword="True"/>.
+    ''' <para></para>
+    ''' Default value is 30 seconds.
     ''' </param>
     <DebuggerStepThrough>
-    Public Sub WaitForPageReady(driver As IWebDriver, Optional timeout As TimeSpan = Nothing)
+    Public Sub WaitForPageReady(driver As IWebDriver,
+                                Optional afterPageReadyDelay As TimeSpan = Nothing,
+                                Optional waitForDomIdle As Boolean = False,
+                                Optional timeout As TimeSpan = Nothing)
+
+        Dim js As IJavaScriptExecutor = TryCast(driver, IJavaScriptExecutor)
+        If js Is Nothing Then
+            Throw New ArgumentException(My.Resources.Strings.IWebDriverMustSupportJavascriptExecution, NameOf(driver))
+        End If
 
         If timeout = Nothing Then
             timeout = New TimeSpan(hours:=0, minutes:=0, seconds:=30)
@@ -202,16 +249,19 @@ Public Module PluginSupport
             .PollingInterval = TimeSpan.FromMilliseconds(500)
         }
 
-        Dim js As IJavaScriptExecutor = TryCast(driver, IJavaScriptExecutor)
-        If js Is Nothing Then
-            Throw New ArgumentException(My.Resources.Strings.IWebDriverMustSupportJavascriptExecution, NameOf(driver))
-        End If
+        Dim startTime As Date = Date.Now
+        Dim domLength As Integer
 
         drvWait.Until(
                 Function(x As IWebDriver)
                     Try
                         Dim readyState As String = js.ExecuteScript("if (document.readyState) return document.readyState;").ToString()
-                        Return readyState.Equals("complete", StringComparison.InvariantCultureIgnoreCase)
+                        If readyState.Equals("complete", StringComparison.InvariantCultureIgnoreCase) Then
+                            domLength = driver.PageSource.Length
+                            Return True
+                        Else
+                            Return False
+                        End If
 
                     Catch ex As InvalidOperationException
                         ' Window is no longer available
@@ -227,6 +277,36 @@ Public Module PluginSupport
                     End Try
                 End Function)
 
+        If afterPageReadyDelay = Nothing Then
+            afterPageReadyDelay = TimeSpan.Zero
+        End If
+        Thread.Sleep(afterPageReadyDelay)
+
+        ' Even when "document.readyState()" returns "complete", web pages can continue to modify
+        ' the DOM dynamically after the initial load. This can occur due to asynchronous scripts,
+        ' client-side rendering frameworks (such as React, Angular, or Vue), AJAX/fetch requests
+        ' that inject additional content and rewrites portions of the page, etc.
+        '
+        ' As a result, the page source may still change for a short period of time even though the 
+        ' web browser reports that the document has finished loading.
+        '
+        ' This check ensures that the HTML content remains stable (IDLE) before exiting.
+        If waitForDomIdle Then
+
+            While True
+                Dim newDomlength As Integer = driver.PageSource.Length
+                If newDomlength = domLength Then
+                    Exit While
+                End If
+
+                If (Date.Now - startTime).TotalMilliseconds >= timeout.TotalMilliseconds Then
+                    Throw New TimeoutException(My.Resources.Strings.StatusMsg_DomChangesTimedOut)
+                End If
+
+                domLength = newDomlength
+                Thread.Sleep(1000)
+            End While
+        End If
     End Sub
 
     ''' <summary>
@@ -242,19 +322,23 @@ Public Module PluginSupport
     ''' The <see cref="By"/> selector used to locate the element.
     ''' </param>
     ''' 
-    ''' <param name="timeoutSeconds">
-    ''' Optional. The maximum number of seconds to wait. Default is 30 seconds.
+    ''' <param name="timeout">
+    ''' Optional. The maximum time to wait for the element. 
     ''' <para></para>
-    ''' If the condition is not met within this time, a <see cref="WebDriverTimeoutException"/> is thrown.
+    ''' Default value is 30 seconds.
     ''' </param>
     ''' 
     ''' <returns>
     ''' If the function succeds, returns the found <see cref="IWebElement"/>.
     ''' </returns>
     <DebuggerStepThrough>
-    Public Function WaitForElement(driver As IWebDriver, by As By, Optional timeoutSeconds As Integer = 30) As IWebElement
+    Public Function WaitForElement(driver As IWebDriver, by As By, Optional timeout As TimeSpan = Nothing) As IWebElement
 
-        Dim wait As New WebDriverWait(driver, TimeSpan.FromSeconds(timeoutSeconds)) With {
+        If timeout = Nothing Then
+            timeout = New TimeSpan(hours:=0, minutes:=0, seconds:=30)
+        End If
+
+        Dim wait As New WebDriverWait(driver, timeout) With {
             .PollingInterval = TimeSpan.FromMilliseconds(500)
         }
 
@@ -494,7 +578,10 @@ Public Module PluginSupport
     ''' </returns>
     <DebuggerStepThrough>
     Public Function DefaultRegistrationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
-                                                          trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+                                                          trigger As String, isOpenTrigger As Boolean,
+                                                          afterPageReadyDelay As TimeSpan,
+                                                          waitForDomIdle As Boolean,
+                                                          timeout As TimeSpan) As RegistrationFlags
 
         Dim pluginUrl As String = plugin.UrlRegistration
 
@@ -502,11 +589,13 @@ Public Module PluginSupport
         PluginSupport.LogMessage(plugin, $"➜ {pluginUrl}")
         PluginSupport.NavigateTo(driver, pluginUrl)
 
+        PluginSupport.LogMessage(plugin, "StatusMsg_VerifyingPageLoadRequirements")
         If PluginSupport.IsCloudflareChallengeRequired(pluginUrl) Then
             PluginSupport.WaitToCompleteCloudflareChallenge(plugin, driver, timeout:=30000)
         End If
 
-        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(plugin, "StatusMsg_WaitingForPageLoad")
+        PluginSupport.WaitForPageReady(driver, afterPageReadyDelay, waitForDomIdle, timeout)
         If Not driver.Url.Equals(pluginUrl, StringComparison.InvariantCultureIgnoreCase) Then
             Throw New Exception(My.Resources.Strings.CurrentBrowserUrlDiffersFromPluginUrl & $" ({pluginUrl} ➜ {driver.Url})")
         End If
@@ -542,7 +631,10 @@ Public Module PluginSupport
     ''' </returns>
     <DebuggerStepThrough>
     Public Function DefaultApplicationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
-                                                         trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+                                                         trigger As String, isOpenTrigger As Boolean,
+                                                         afterPageReadyDelay As TimeSpan,
+                                                         waitForDomIdle As Boolean,
+                                                         timeout As TimeSpan) As RegistrationFlags
 
         Dim pluginUrl As String = plugin.UrlApplication
 
@@ -550,11 +642,13 @@ Public Module PluginSupport
         PluginSupport.LogMessage(plugin, $"➜ {pluginUrl}")
         PluginSupport.NavigateTo(driver, pluginUrl)
 
+        PluginSupport.LogMessage(plugin, "StatusMsg_VerifyingPageLoadRequirements")
         If PluginSupport.IsCloudflareChallengeRequired(pluginUrl) Then
             PluginSupport.WaitToCompleteCloudflareChallenge(plugin, driver, timeout:=30000)
         End If
 
-        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(plugin, "StatusMsg_WaitingForPageLoad")
+        PluginSupport.WaitForPageReady(driver, afterPageReadyDelay, waitForDomIdle, timeout)
         If Not driver.Url.Equals(pluginUrl, StringComparison.InvariantCultureIgnoreCase) Then
             Throw New Exception(My.Resources.Strings.CurrentBrowserUrlDiffersFromPluginUrl & $" ({pluginUrl} ➜ {driver.Url})")
         End If

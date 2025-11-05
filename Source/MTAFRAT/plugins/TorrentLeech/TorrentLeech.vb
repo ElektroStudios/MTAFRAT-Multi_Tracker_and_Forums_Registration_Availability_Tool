@@ -47,7 +47,10 @@ Class TorrentLeechPlugin : Inherits DynamicPlugin
         PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
         PluginSupport.LogMessage(Me, $"➜ {Me.UrlLogin}")
         PluginSupport.NavigateTo(driver, Me.UrlLogin)
-        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(Me, "StatusMsg_WaitingForPageLoad")
+        PluginSupport.WaitForPageReady(driver,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True, timeout:=TimeSpan.FromSeconds(30))
         PluginSupport.LogMessage(Me, "StatusMsg_LoginPageLoaded")
 
         PluginSupport.LogMessage(Me, "StatusMsg_AnalyzingPageContent")

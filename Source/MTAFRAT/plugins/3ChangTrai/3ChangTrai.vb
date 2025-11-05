@@ -34,8 +34,11 @@ Class ThreeChangTraiPlugin : Inherits DynamicPlugin
                     Const triggerRegistration As String = "Registration is currently closed"
                     Try
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
-                                                                                                   isOpenTrigger:=False)
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(
+                                       Me, driver, triggerRegistration, isOpenTrigger:=False,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True,
+                                       timeout:=TimeSpan.FromSeconds(30))
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

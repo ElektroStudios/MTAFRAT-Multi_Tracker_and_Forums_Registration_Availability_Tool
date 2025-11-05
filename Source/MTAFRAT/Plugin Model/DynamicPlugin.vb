@@ -116,6 +116,21 @@ Public Class DynamicPlugin : Inherits PluginBase
 #Region " Public Properties "
 
     ''' <summary>
+    ''' Gets a value that determines whether this plugin is actually being executed.
+    ''' </summary>
+    Public ReadOnly Property IsRunning As Boolean
+        Get
+            Return Me._isRunning
+        End Get
+    End Property
+    ''' <summary>
+    ''' ( Backing field of <see cref="IsRunning"/> property. )
+    ''' <para></para>
+    ''' A value that determines whether this plugin is actually being executed.
+    ''' </summary>
+    Private _isRunning As Boolean
+
+    ''' <summary>
     ''' Gets or sets the VB.NET source code associated with this plugin.
     ''' </summary>
     Public Property VbCode As String
@@ -509,6 +524,8 @@ Public Class DynamicPlugin : Inherits PluginBase
         target.Image = Me.Image
         target.VbCode = Me.VbCode
 
+        target._isRunning = Me._isRunning
+
         target._buttonPane = Me._buttonPane
         target._tabPage = Me._tabPage
         target._sectionPanel = Me._sectionPanel
@@ -560,6 +577,7 @@ Public Class DynamicPlugin : Inherits PluginBase
                 If runAsyncMethod Is Nothing Then
                     PluginSupport.LogMessage(Me, My.Resources.Strings.MissingRunAsyncMethod)
                 Else
+                    Me._isRunning = True
                     Try
                         Dim regFlags As RegistrationFlags =
                             Await CType(runAsyncMethod.Invoke(pluginInstance, Nothing), Task(Of RegistrationFlags))
@@ -570,6 +588,7 @@ Public Class DynamicPlugin : Inherits PluginBase
 
                     Finally
                         pluginInstance = Nothing
+                        Me._isRunning = False
                         GC.Collect()
                         GC.WaitForPendingFinalizers()
                         GC.Collect()

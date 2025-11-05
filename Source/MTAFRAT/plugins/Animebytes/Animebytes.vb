@@ -25,8 +25,12 @@ Class AnimebytesPlugin : Inherits DynamicPlugin
 
                     Const triggerApplication As String = "closed"
                     Try
-                        regFlags = regFlags Or PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerApplication,
-                                                                                                  isOpenTrigger:=False)
+                        regFlags = regFlags Or
+                                   PluginSupport.DefaultApplicationFormCheckProcedure(
+                                       Me, driver, triggerApplication, isOpenTrigger:=False,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True,
+                                       timeout:=TimeSpan.FromSeconds(30))
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

@@ -70,7 +70,9 @@ Indica al `IWebDriver` que navegue a la URL especificada, manejando de forma seg
  - `WaitForPageReady`
 ```vbnet
 driver As IWebDriver
-Optional timeoutSeconds As Integer = 10
+Optional afterReadyDelay As TimeSpan
+Optional waitForDomIdle As Boolean
+Optional timeout As TimeSpan
 ```
 Espera hasta que la página cargue completamente (`document.readyState = "complete"`).
 
@@ -78,7 +80,7 @@ Espera hasta que la página cargue completamente (`document.readyState = "comple
 ```vbnet
 driver As IWebDriver
 by As By
-Optional timeoutSeconds As Integer = 10
+Optional timeout As TimeSpan
 ```
 Espera a que un elemento coincidente con el selector `By` esté presente, visible e interactuable.
     
@@ -163,6 +165,10 @@ plugin As DynamicPlugin
 driver As ChromeDriver
 trigger As String
 isOpenTrigger As Boolean
+isOpenTrigger As Boolean
+afterPageReadyDelay As TimeSpan
+waitForDomIdle As Boolean
+timeout As TimeSpan
 ```
 Una función de utilidad común utilizada por varios plugins, que encapsula los procedimientos predeterminados para navegar a una página de formulario de registro, verificar y devolver su estado actual, y manejar el registro de mensajes y las notificaciones en la interfaz de usuario.
 
@@ -172,6 +178,10 @@ plugin As DynamicPlugin
 driver As ChromeDriver
 trigger As String
 isOpenTrigger As Boolean
+isOpenTrigger As Boolean
+afterPageReadyDelay As TimeSpan
+waitForDomIdle As Boolean
+timeout As TimeSpan
 ```
 Una función de utilidad común utilizada por varios plugins, que encapsula los procedimientos predeterminados para navegar a una página de formulario de solicitud de membresía, verificar y devolver su estado actual, y manejar el registro de mensajes y las notificaciones en la interfaz de usuario.
 

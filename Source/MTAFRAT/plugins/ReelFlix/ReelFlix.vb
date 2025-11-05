@@ -24,15 +24,21 @@ Class ReelFlixPlugin : Inherits DynamicPlugin
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
                     Const triggerRegistration As String = "Registration Is Disabled"
-                    Const triggerAppication As String = "Your Profiles From Other Trackers"
+                    Const triggerApplication As String = "Your Profiles From Other Trackers"
                     Try
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver, triggerRegistration,
-                                                                                                   isOpenTrigger:=False)
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(
+                                       Me, driver, triggerRegistration, isOpenTrigger:=False,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True,
+                                       timeout:=TimeSpan.FromSeconds(30))
 
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver, triggerAppication,
-                                                                                                  isOpenTrigger:=True)
+                                   PluginSupport.DefaultApplicationFormCheckProcedure(
+                                       Me, driver, triggerApplication, isOpenTrigger:=True,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True,
+                                       timeout:=TimeSpan.FromSeconds(30))
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

@@ -6,12 +6,6 @@ Option Infer Off
 
 #End Region
 
-#Region " Imports "
-
-Imports System.Management
-
-#End Region
-
 ''' <summary>
 ''' Provides helper members related to selenium / selenium-manager.exe operations.
 ''' </summary>
@@ -81,38 +75,20 @@ Friend Module SeleniumHelper
     <DebuggerStepThrough>
     Friend Sub KillChildrenChromeDriverAndChromeProcesses()
 
-        ' Retrieves the parent process ID of the specified process.
-        Dim getParentProcessIdFunc As New Func(Of Integer, Integer)(
-            Function(pid As Integer) As Integer
-                Dim query As String = $"SELECT ParentProcessId FROM Win32_Process WHERE ProcessId = {pid}"
-                Dim options As New Management.EnumerationOptions() With {
-                    .EnsureLocatable = False,
-                    .ReturnImmediately = True,
-                    .Rewindable = False,
-                    .Timeout = TimeSpan.FromSeconds(5)
-                }
-                Using searcher As New ManagementObjectSearcher(query)
-                    Dim obj As ManagementObject = searcher.Get().OfType(Of ManagementObject).SingleOrDefault()
-                    If obj IsNot Nothing Then
-                        Return Convert.ToInt32(obj("ParentProcessId"))
-                    End If
-                End Using
+        Dim childProcesses As List(Of Process) = GetChildProcesses(Environment.ProcessId)
 
-                Return 0
-            End Function)
+        Dim childChromeDriverProcesses As List(Of Process) =
+            (From p As Process In childProcesses
+             Where Not p?.HasExited AndAlso p.ProcessName.Equals("chromedriver", StringComparison.InvariantCultureIgnoreCase)
+            ).ToList()
 
-        Dim myProcessID As Integer = Environment.ProcessId
-        For Each p As Process In Process.GetProcessesByName("chromedriver")
-            Dim parentProcessId As Integer = getParentProcessIdFunc(p.Id)
-            Dim isMyChild As Boolean = (parentProcessId = myProcessID)
-
-            If isMyChild Then
-                Try
-                    p.Kill(entireProcessTree:=True)
-                Catch
-                End Try
-            End If
+        For Each p As Process In childChromeDriverProcesses
+            Try
+                p.Kill(entireProcessTree:=True)
+            Catch ' Ignore. Process can no longer exists.
+            End Try
         Next
+
     End Sub
 
 #End Region

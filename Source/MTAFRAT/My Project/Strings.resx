@@ -157,7 +157,7 @@
     <value>➡️ Register button clicked.</value>
   </data>
   <data name="StatusMsg_AnalyzingPageContent" xml:space="preserve">
-    <value>⏳ Analyzing page content...</value>
+    <value>⚙️ Analyzing page content...</value>
   </data>
   <data name="StatusMsg_DetectedRegClosed" xml:space="preserve">
     <value>🚫 Registration form is closed.</value>
@@ -363,5 +363,14 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
   </data>
   <data name="CurrentBrowserUrlDiffersFromPluginUrl" xml:space="preserve">
     <value>The current URL loaded in the web browser does not match the URL expected by the plugin</value>
+  </data>
+  <data name="StatusMsg_DomChangesTimedOut" xml:space="preserve">
+    <value>The HTML content is still changing (the dynamic DOM updates did not complete within the time out).</value>
+  </data>
+  <data name="StatusMsg_WaitingForPageLoad" xml:space="preserve">
+    <value>⏳ Waiting for the page to finish loading...</value>
+  </data>
+  <data name="StatusMsg_VerifyingPageLoadRequirements" xml:space="preserve">
+    <value>⚙️ Verifying page load requirements...</value>
   </data>
 </root>

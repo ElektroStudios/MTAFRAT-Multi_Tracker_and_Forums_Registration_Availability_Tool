@@ -157,7 +157,7 @@
     <value>➡️ Botón de registro presionado.</value>
   </data>
   <data name="StatusMsg_AnalyzingPageContent" xml:space="preserve">
-    <value>⏳ Analizando el contenido de la página...</value>
+    <value>⚙️ Analizando el contenido de la página...</value>
   </data>
   <data name="StatusMsg_DetectedRegClosed" xml:space="preserve">
     <value>🚫 El formulario de registro está cerrado.</value>
@@ -260,7 +260,7 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
     <value>La caché de la aplicación se ha borrado completamente.</value>
   </data>
   <data name="ClearingApplicationCacheMsg" xml:space="preserve">
-    <value>🧹  Borrando caché de la aplicación...</value>
+    <value>🧹 Borrando caché de la aplicación...</value>
   </data>
   <data name="EnableParalellExecution" xml:space="preserve">
     <value>Habilitar ejecución en paralelo</value>
@@ -363,5 +363,14 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
   </data>
   <data name="CurrentBrowserUrlDiffersFromPluginUrl" xml:space="preserve">
     <value>La URL actual cargada en el navegador web no coincide con la URL esperada por el plugin.</value>
+  </data>
+  <data name="StatusMsg_DomChangesTimedOut" xml:space="preserve">
+    <value>El contenido HTML sigue cambiando (las actualizaciones dinámicas del DOM no se completaron dentro del tiempo de espera).</value>
+  </data>
+  <data name="StatusMsg_WaitingForPageLoad" xml:space="preserve">
+    <value>⏳ Esperando a que la página termine de cargar...</value>
+  </data>
+  <data name="StatusMsg_VerifyingPageLoadRequirements" xml:space="preserve">
+    <value>⚙️ Verificando requisitos de carga de la página...</value>
   </data>
 </root>

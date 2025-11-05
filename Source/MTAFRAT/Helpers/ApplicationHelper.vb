@@ -10,6 +10,7 @@ Option Infer Off
 
 Imports System.Collections.ObjectModel
 Imports System.IO
+Imports System.Management
 Imports System.Reflection
 
 #End Region
@@ -47,7 +48,7 @@ Friend Module ApplicationHelper
             Directory.CreateDirectory(AppGlobals.PluginsDirectoryPath)
         End If
 
-        Dim options As New EnumerationOptions With {
+        Dim options As New System.IO.EnumerationOptions With {
             .AttributesToSkip = FileAttributes.None,
             .MatchCasing = MatchCasing.CaseInsensitive,
             .MatchType = MatchType.Simple,
@@ -194,6 +195,49 @@ Friend Module ApplicationHelper
                                MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ''' <summary>
+    ''' Retrieves a list of child processes for the specified parent process ID.
+    ''' </summary>
+    ''' 
+    ''' <param name="parentProcessId">
+    ''' The ID of the parent process whose child processes should be retrieved.
+    ''' </param>
+    ''' 
+    ''' <returns>
+    ''' A <see cref="List(Of Process)"/> containing all child processes of the specified parent process.
+    ''' </returns>
+    <DebuggerStepThrough>
+    Friend Function GetChildProcesses(parentProcessId As Integer) As List(Of Process)
+
+        Dim children As New List(Of Process)()
+
+        Dim scope As New ManagementScope("root\CIMV2")
+        Dim query As New ObjectQuery($"SELECT ProcessId FROM Win32_Process WHERE ParentProcessId={parentProcessId}")
+        Dim options As New System.Management.EnumerationOptions() With {
+            .EnsureLocatable = False,
+            .ReturnImmediately = True,
+            .Rewindable = False,
+            .Timeout = TimeSpan.FromSeconds(5)
+        }
+
+        scope.Connect()
+
+        Using searcher As New ManagementObjectSearcher(scope, query, options)
+
+            For Each proc As ManagementObject In searcher.Get()
+
+                Dim pid As Integer = Convert.ToInt32(proc("ProcessId"))
+                Try
+                    Dim childProc As Process = Process.GetProcessById(pid)
+                    children.Add(childProc)
+                Catch ' Ignore. Process can no longer exists.
+                End Try
+            Next
+        End Using
+
+        Return children
+    End Function
 
 #End Region
 

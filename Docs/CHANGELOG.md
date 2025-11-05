@@ -1,6 +1,19 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.4 *(current)* 🆕
+## v1.1.5 *(current)* 🆕
+
+#### 🌟 Improvements:
+- Added an additional verification when navigating to a web page to account for dynamic DOM updates and wait until they are completed.
+- The taskbar icon for non-headless Chrome windows now become hidden after Chrome process execution (although still visible for a moment).
+- When a plugin is already running, the application now allows you to click the "Run plugin" button of another plugin to run it simultaneously.
+- Automatic plugin execution has been improved to run smoother, avoiding user-interface flickering.
+- The parallel execution mode has been optimized to dynamically determine the number of simultaneous Chrome instances to use —up to a maximum of 8— based on available system memory and CPU cores.
+
+#### 🛠️ Fixes:
+ - The combination of the navigation improvements mentioned above and the other ones mentioned in v1.1.4 should fix previous unexpected false positives in the registration/application form validation performed by some plugins.
+ - The labels displaying the last run status of their corresponding plugin were not updating correctly when plugins were executed in parallel mode.
+
+## v1.1.4 🔄
 
 #### 🌟 Improvements:
  - A basic detection mechanism for web pages that requires to complete a Cloudflare challenge has been integrated, allowing also to simplify plugins source-code.
@@ -10,9 +23,6 @@
  - Added two new methods for plugin developers:
    - `IsCloudflareChallengeRequired`
    - `WaitToCompleteCloudflareChallenge`
-
-#### 🛠️ Fixes:
- - The combination of all the improvements mentioned above should fix unexpected false positives in the registration/application form validations performed by some plugins.
 
 ## v1.1.3 🔄
 

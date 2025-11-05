@@ -18,8 +18,8 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Product>Multi-Tracker and Forums Registration Availability Tool</Product>
     <UseApplicationFramework>true</UseApplicationFramework>
-    <AssemblyVersion>1.1.4</AssemblyVersion>
-    <FileVersion>1.1.4</FileVersion>
+    <AssemblyVersion>1.1.5</AssemblyVersion>
+    <FileVersion>1.1.5</FileVersion>
     <RepositoryUrl>https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool</RepositoryUrl>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>

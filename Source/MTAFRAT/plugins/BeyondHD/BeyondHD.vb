@@ -51,7 +51,10 @@ Class BeyondHDPlugin : Inherits DynamicPlugin
         PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
         PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
         PluginSupport.NavigateTo(driver, Me.UrlRegistration)
-        PluginSupport.WaitForPageReady(driver)
+        PluginSupport.LogMessage(Me, "StatusMsg_WaitingForPageLoad")
+        PluginSupport.WaitForPageReady(driver,
+                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
+                                       waitForDomIdle:=True, timeout:=TimeSpan.FromSeconds(30))
         PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
 
         Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)

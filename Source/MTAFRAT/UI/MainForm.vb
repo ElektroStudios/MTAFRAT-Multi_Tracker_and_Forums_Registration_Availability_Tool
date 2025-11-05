@@ -12,6 +12,7 @@ Imports System.ComponentModel
 Imports System.Diagnostics.CodeAnalysis
 Imports System.Globalization
 Imports System.IO
+Imports System.Threading
 
 Imports DarkUI.Controls
 
@@ -51,7 +52,15 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     ''' <summary>
     ''' Keeps track of the last focused button in the plugins navigation pane.
     ''' </summary>
-    Friend lastFocusedButtonPane As DarkButtonImageAllignFix
+    Friend LastFocusedButtonPane As DarkButtonImageAllignFix
+
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    Friend IsRunningPluginsAutomatically As Boolean
+
+
 
 #End Region
 
@@ -148,7 +157,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
             JotHelper.StopTrackingSettings()
         End If
 
-        If Me.pluginWorkInProgress Then
+        If Me.PluginWorkInProgress Then
             Dim dlgResult As DialogResult =
                 MessageBox.Show(Me, My.Resources.Strings.FormCloseWarningPluginWorkInProgress,
                                     My.Application.Info.ProductName,
@@ -215,7 +224,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     <DebuggerStepThrough>
     Private Sub NotifyIconMain_DoubleClick(sender As Object, e As EventArgs) Handles NotifyIcon_Main.DoubleClick
 
-        If Me.isFormLoaded Then
+        If Me.IsFormLoaded Then
             UIHelper.ToggleMainFormVisibility()
         End If
     End Sub
@@ -540,7 +549,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
         Me.CheckedListBox_AutoPluginRun.Enabled = cb.Checked
         Me.DarkCheckBox_ParalellExecution.Enabled = cb.Checked
         Me.Label_AutoRunPluginCheckedCount.Enabled = cb.Checked
-        Me.DarkButton_RunAllSelectedPluginsNow.Enabled = cb.Checked AndAlso (Me.CheckedListBox_AutoPluginRun.CheckedItems.Count <> 0)
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Enabled = cb.Checked AndAlso (Me.CheckedListBox_AutoPluginRun.CheckedItems.Count <> 0)
 
         ApplicationHelper.ResetRemainingAutoPluginRunInterval()
 
@@ -560,7 +569,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
 
     ''' <summary>
     ''' Handles the ItemCheck and Click events 
-    ''' of the <see cref="DarkButton_RunAllSelectedPluginsNow"/> control.
+    ''' of the <see cref="DarkButtonImageAllignFix_RunAllSelectedPluginsNow"/> control.
     ''' </summary>
     ''' 
     ''' <param name="sender">
@@ -571,10 +580,10 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     ''' The <see cref="EventArgs"/> instance containing the event data.
     ''' </param>
     <DebuggerStepThrough>
-    Private Sub DarkButtonRunAllSelectedPluginsNow_Click(sender As Object, e As EventArgs) Handles DarkButton_RunAllSelectedPluginsNow.Click
+    Private Sub DarkButtonImageAllignFixRunAllSelectedPluginsNow_Click(sender As Object, e As EventArgs) Handles DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Click
 
         Me.RemainingAutoPluginRunInterval = TimeSpan.Zero
-        Me.TimerAutoRunPlugins_Tick(Me.Timer_AutoRunPlugins, EventArgs.Empty)
+        'Me.TimerAutoRunPlugins_Tick(Me.Timer_AutoRunPlugins, EventArgs.Empty)
     End Sub
 
     ''' <summary>
@@ -631,7 +640,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
             End If
         End If
 
-        Me.DarkButton_RunAllSelectedPluginsNow.Enabled = checkedCount <> 0
+        Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Enabled = checkedCount <> 0
     End Sub
 
     ''' <summary>
@@ -664,33 +673,45 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
 
             Me.NotifyIcon_Main.ShowBalloonTip(5000, My.Application.Info.AssemblyName, My.Resources.Strings.ExecutingPluginsTooltip, ToolTipIcon.Info)
 
+            Me.IsRunningPluginsAutomatically = True
+            Me.PluginWorkInProgress = True
+
             If Me.ParalellExecutionEnabled Then
-                Me.TableLayoutPanel_Main.Enabled = False
-                Dim parallelOptions As New ParallelOptions With {.MaxDegreeOfParallelism = 4}
+                Dim chromeMemPerInstanceGB As Double = 0.5 ' 500 MB estimated.
+                Dim freeMemGB As Double = My.Computer.Info.AvailablePhysicalMemory / (1024 ^ 3)
+                Dim maxByMem As Integer = CInt(Math.Min(8, Math.Floor(freeMemGB / chromeMemPerInstanceGB)))
+                Dim maxByCpu As Integer = Environment.ProcessorCount \ 2
+                Dim maxChromeInstances As Integer = Math.Max(2, Math.Min(Math.Min(maxByMem, maxByCpu), 8))
+
+                Dim parallelOptions As New ParallelOptions With {
+                    .MaxDegreeOfParallelism = maxChromeInstances
+                }
                 Await Parallel.ForEachAsync(pluginsToRun, parallelOptions,
-                                            Function(plugin, ct)
-                                                Return New ValueTask(
-                                                    Task.Run(
-                                                    Async Function()
-                                                        Dim regFlags As RegistrationFlags =
-                                                            Await UIHelper.RunPluginFromButtonAsync(plugin)
-                                                        UIHelper.UpdateStatusLabelText(plugin, regFlags)
-                                                        Me.PluginWorkInProgress = True
-                                                    End Function, ct))
-                                            End Function)
-                Me.pluginWorkInProgress = False
-                Me.TableLayoutPanel_Main.Enabled = True
+                          Function(plugin, ct)
+                              Return New ValueTask(
+                                  Task.Run(
+                                      Async Function()
+                                          Dim regFlags As RegistrationFlags = Await UIHelper.RunPluginFromButtonAsync(plugin)
+                                          UIHelper.UpdateStatusLabelText(plugin, regFlags)
+                                      End Function, ct))
+                          End Function)
+
             Else
                 For Each plugin As DynamicPlugin In pluginsToRun
-                    Dim regFlags As RegistrationFlags =
-                        Await UIHelper.RunPluginFromButtonAsync(plugin)
+                    Dim regFlags As RegistrationFlags = Await UIHelper.RunPluginFromButtonAsync(plugin)
                     UIHelper.UpdateStatusLabelText(plugin, regFlags)
                 Next
 
             End If
 
-            NotifyIconExtensions.CloseBallontip(Me.NotifyIcon_Main)
+            Me.IsRunningPluginsAutomatically = False
+            Me.PluginWorkInProgress = False
 
+            UIHelper.ToggleControlsEnabledState(enable:=True)
+            Me.UseWaitCursor = False
+            Cursor.Current = Cursors.Default
+
+            NotifyIconExtensions.CloseBallontip(Me.NotifyIcon_Main)
             ApplicationHelper.ResetRemainingAutoPluginRunInterval()
             Me.Timer_AutoRunPlugins.Start()
         End If

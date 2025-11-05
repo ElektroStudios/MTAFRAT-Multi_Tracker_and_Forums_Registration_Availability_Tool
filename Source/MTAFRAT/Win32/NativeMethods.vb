@@ -105,6 +105,32 @@ Namespace Win32
         Friend Function FlashWindowEx(ByRef refFlashInfo As FlashInfo) As Boolean
         End Function
 
+        ''' <summary>
+        ''' Sets the specified window's show state.
+        ''' </summary>
+        '''
+        ''' <remarks>
+        ''' For more information, see:
+        ''' <see href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindow">ShowWindow function (winuser.h)</see>.
+        ''' </remarks>
+        ''' 
+        ''' <param name="hWnd">
+        ''' A <see cref="IntPtr"/> handle to the window.
+        ''' </param>
+        ''' 
+        ''' <param name="windowState">
+        ''' Controls how the window is to be shown.
+        ''' </param>
+        '''
+        ''' <returns>
+        ''' If the window was previously visible, the return value is <see langword="True"/>.
+        ''' <para></para>
+        ''' If the window was previously hidden, the return value is <see langword="False"/>.
+        ''' </returns>
+        <DllImport("user32.dll")>
+        Friend Function ShowWindow(hWnd As IntPtr, windowState As NativeWindowState) As Boolean
+        End Function
+
 #End Region
 
     End Module

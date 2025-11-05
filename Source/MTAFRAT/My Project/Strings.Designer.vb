@@ -546,7 +546,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to ⏳ Analyzing page content....
+        '''  Looks up a localized string similar to ⚙️ Analyzing page content....
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_AnalyzingPageContent() As String
             Get
@@ -562,7 +562,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_ApplicationPageLoaded", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to ✅ Cloudflare challenge completed..
         '''</summary>
@@ -571,7 +571,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_CloudflareChallengeCompleted", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Cloudflare challenge has timed out (cf_clearance cookie could not be validated)..
         '''</summary>
@@ -580,7 +580,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_CloudflareChallengeTimedOut", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to ⌛ Waiting to complete Cloudflare challenge....
         '''</summary>
@@ -589,7 +589,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_CloudflareChallengeWait", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🌐 Connecting to {0} website....
         '''</summary>
@@ -598,7 +598,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_ConnectingFormat", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🚫 Application form is closed..
         '''</summary>
@@ -607,7 +607,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_DetectedApplicationClosed", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🎉 Application form is open..
         '''</summary>
@@ -616,7 +616,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_DetectedApplicationOpen", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🚫 Registration form is closed..
         '''</summary>
@@ -625,7 +625,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_DetectedRegClosed", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🎉 Registration form is open..
         '''</summary>
@@ -634,7 +634,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_DetectedRegOpen", resourceCulture)
             End Get
         End Property
-
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The HTML content is still changing (the dynamic DOM updates did not complete within the time out)..
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_DomChangesTimedOut() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_DomChangesTimedOut", resourceCulture)
+            End Get
+        End Property
+        
         '''<summary>
         '''  Looks up a localized string similar to ❌ Error: {0}.
         '''</summary>
@@ -643,7 +652,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_ExceptionFormat", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to ❌ There was an error during the last plugin run: {0}.
         '''</summary>
@@ -652,7 +661,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_ExceptionMessageBoxFormat", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to ✅ Login page loaded..
         '''</summary>
@@ -661,7 +670,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_LoginPageLoaded", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🎉 The application form is now open on {0}! You can apply for an account now. 😃.
         '''</summary>
@@ -670,7 +679,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_MsgboxApplicationOpenFormat", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🎉 The registration form is now open on {0}! You can create an account now. 😃.
         '''</summary>
@@ -679,7 +688,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_MsgboxRegOpenFormat", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Network is not available..
         '''</summary>
@@ -688,7 +697,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_NetworkIsNotAvailable", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to 🧹 Closing browser. Operation completed..
         '''</summary>
@@ -697,7 +706,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_OperationCompleted", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to The page source code is empty: &quot;{0}&quot;.
         '''</summary>
@@ -706,7 +715,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_PageSourceEmptyFormat", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to ➡️ Register button clicked..
         '''</summary>
@@ -715,7 +724,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_RegisterButtonClicked", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to ✅ Register button found..
         '''</summary>
@@ -724,7 +733,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_RegisterButtonFound", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to ✅ Registration page loaded..
         '''</summary>
@@ -733,7 +742,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_RegisterPageLoaded", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to The trigger phrase for the application form is empty..
         '''</summary>
@@ -742,7 +751,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_TriggerAppEmpty", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to The trigger phrase for the registration form is empty..
         '''</summary>
@@ -751,13 +760,31 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_TriggerRegEmpty", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Cannot navigate to the specified URL due an HTTP error code 404 (Not found)..
         '''</summary>
         Friend Shared ReadOnly Property StatusMsg_UrlNotfound404() As String
             Get
                 Return ResourceManager.GetString("StatusMsg_UrlNotfound404", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ⚙️ Verifying page load requirements....
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_VerifyingPageLoadRequirements() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_VerifyingPageLoadRequirements", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ⏳ Waiting for the page to finish loading....
+        '''</summary>
+        Friend Shared ReadOnly Property StatusMsg_WaitingForPageLoad() As String
+            Get
+                Return ResourceManager.GetString("StatusMsg_WaitingForPageLoad", resourceCulture)
             End Get
         End Property
         
