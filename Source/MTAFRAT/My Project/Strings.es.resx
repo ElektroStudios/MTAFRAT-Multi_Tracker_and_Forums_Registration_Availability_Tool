@@ -121,13 +121,10 @@
     <value>Acerca de...</value>
   </data>
   <data name="AutoPluginRunMsg" xml:space="preserve">
-    <value>Ejecutar los plugins seleccionados cada hora:</value>
+    <value>Ejecutar los plugins seleccionados cada:</value>
   </data>
   <data name="AutoPluginRunGroupBox" xml:space="preserve">
     <value>Ejecución Automática de Plugins</value>
-  </data>
-  <data name="ComputerGroupBox" xml:space="preserve">
-    <value>Equipo</value>
   </data>
   <data name="Program" xml:space="preserve">
     <value>Programa</value>
@@ -302,7 +299,7 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
     <value>Iniciar aplicación minimizada en la bandeja del sistema</value>
   </data>
   <data name="RunAllSelectedPluginsNow" xml:space="preserve">
-    <value>Ejecutar ahora</value>
+    <value>Ejecutar plugins seleccionados ahora</value>
   </data>
   <data name="ClearPreviousLogEntries" xml:space="preserve">
     <value>Borrar entradas previas del registro al ejecutar un plugin</value>
@@ -372,5 +369,11 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
   </data>
   <data name="StatusMsg_VerifyingPageLoadRequirements" xml:space="preserve">
     <value>⚙️ Verificando requisitos de carga de la página...</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>horas</value>
+  </data>
+  <data name="DontRunIfFullscreen" xml:space="preserve">
+    <value>No ejecutar los plugins seleccionados si una aplicación está en modo de pantalla completa.</value>
   </data>
 </root>

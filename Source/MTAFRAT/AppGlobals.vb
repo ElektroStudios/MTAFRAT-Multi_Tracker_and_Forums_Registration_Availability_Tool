@@ -45,7 +45,7 @@ Public Module AppGlobals
     ''' <summary>
     ''' Default time interval between automatic plugin executions.
     ''' </summary>
-    Public ReadOnly AutomaticPluginRunInterval As TimeSpan = TimeSpan.FromHours(1)
+    Public AutomaticPluginRunInterval As TimeSpan = TimeSpan.FromHours(1)
 #End If
 
     ''' <summary>

@@ -44,7 +44,6 @@ Public Module UIHelper
         f.DarkCheckBox_AutoPluginRun.Text = My.Resources.Strings.AutoPluginRunMsg
         f.DarkCheckBox_SystemSleep.Text = My.Resources.Strings.SystemSleepMsg
         f.DarkGroupBox_AutoPluginRun.Text = My.Resources.Strings.AutoPluginRunGroupBox
-        f.DarkGroupBox_OS.Text = My.Resources.Strings.ComputerGroupBox
         f.DarkButton_Settings.Text = My.Resources.Strings.Settings
         f.DarkButton_About.Text = My.Resources.Strings.About
         f.DarkGroupBox_Application.Text = My.Resources.Strings.GroupBoxApplication
@@ -56,6 +55,8 @@ Public Module UIHelper
         f.DarkCheckBox_RunAppMinimized.Text = My.Resources.Strings.RunAppMinimized
         f.DarkCheckBox_ClearPreviousLogEntries.Text = My.Resources.Strings.ClearPreviousLogEntries
         f.DarkCheckBox_AllowPluginApplicationFormCheck.Text = My.Resources.Strings.AllowPluginsToCheckApplicationForms
+        f.Label_Hours.Text = My.Resources.Strings.Hours
+        f.DarkCheckBox_DontRunIfFullscreen.Text = My.Resources.Strings.DontRunIfFullscreen
         f.ToolStripMenuItem_ClearSelectedPlugins.Text = My.Resources.Strings.ClearSelectedPlugins
         f.ToolStripMenuItem_SelectAllPlugins.Text = My.Resources.Strings.SelectAllPlugins
         f.ToolStripMenuItem_ShowWindow.Text = My.Resources.Strings.ShowWindow

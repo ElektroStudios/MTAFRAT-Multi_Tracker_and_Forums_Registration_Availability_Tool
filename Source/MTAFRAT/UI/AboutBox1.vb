@@ -41,10 +41,10 @@ Public NotInheritable Class AboutBox1 : Inherits DarkForm
 
         Try
             Using p As New Process
-                p.StartInfo.FileName = AppGlobals.GitHubUrl
+                p.StartInfo.FileName = GitHubUrl
                 p.StartInfo.UseShellExecute = True
 
-                p.Start()
+                p.Start
             End Using
         Catch ex As Exception
             MessageBox.Show(Me, $"Error: {ex.Message}", My.Application.Info.ProductName,

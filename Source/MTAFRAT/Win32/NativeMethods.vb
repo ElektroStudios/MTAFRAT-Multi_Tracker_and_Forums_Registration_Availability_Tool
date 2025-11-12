@@ -78,6 +78,27 @@ Namespace Win32
         Public Function Shell_NotifyIcon(message As NotifyIconMessages, ByRef refData As NotifyiconData) As Boolean
         End Function
 
+        ''' <summary>
+        ''' Checks the state of the computer for the current user to determine whether sending a notification is appropriate.
+        ''' </summary>
+        '''
+        ''' <remarks>
+        ''' <see href="https://docs.microsoft.com/en-us/windows/desktop/api/shellapi/nf-shellapi-shqueryusernotificationstate"/>
+        ''' </remarks>
+        '''
+        ''' <param name="refState">
+        ''' When this function returns, contains one of the values of the <see cref="QueryUserNotificationState"/> enumeration.
+        ''' </param>
+        '''
+        ''' <returns>
+        ''' If this function succeeds, it returns HResult.S_OK. 
+        ''' Otherwise, it returns an HResult error code.
+        ''' </returns>
+        <DllImport("shell32.dll", SetLastError:=False)>
+        Public Function SHQueryUserNotificationState(<Out> ByRef refState As QueryUserNotificationState
+        ) As Integer ' HResult
+        End Function
+
 #End Region
 
 #Region " user32 "

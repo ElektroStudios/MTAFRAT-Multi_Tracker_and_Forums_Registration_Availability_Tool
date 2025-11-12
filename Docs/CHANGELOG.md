@@ -1,6 +1,13 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.5 *(current)* 🆕
+## v1.1.6 *(current)* 🆕
+
+#### 🌟 Improvements:
+- Added an option to set the hourly interval for automatic plugin execution.
+- Added an option to prevent automatic plugin execution from running when any full-screen window (normal or exclusive mode) is active in the computer.
+- Minor UI adjustments in the 'Settings' page to better utilize available space.
+
+## v1.1.5 🔄
 
 #### 🌟 Improvements:
 - Added an additional verification when navigating to a web page to account for dynamic DOM updates and wait until they are completed.

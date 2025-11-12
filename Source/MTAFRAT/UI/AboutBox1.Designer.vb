@@ -143,7 +143,7 @@ Partial Class AboutBox1
         Me.LinkLabelGitHub.Size = New Size(393, 23)
         Me.LinkLabelGitHub.TabIndex = 4
         Me.LinkLabelGitHub.TabStop = True
-        Me.LinkLabelGitHub.Text = "Company Name"
+        Me.LinkLabelGitHub.Text = "GitHub"
         Me.LinkLabelGitHub.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' TextBoxDescription

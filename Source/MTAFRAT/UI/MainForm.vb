@@ -12,6 +12,7 @@ Imports System.ComponentModel
 Imports System.Diagnostics.CodeAnalysis
 Imports System.Globalization
 Imports System.IO
+Imports System.Runtime.InteropServices
 Imports System.Threading
 
 Imports DarkUI.Controls
@@ -38,11 +39,16 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     Friend IsFormLoaded As Boolean
 
     ''' <summary>
-    ''' Indicates whether any plugins are currently executing in the application.
+    ''' Indicates whether any plugin is currently executing in the application.
     ''' <para></para>
     ''' Used to prevent the <see cref="MainForm"/> from being closed while a plugin is running and interacting with the UI.
     ''' </summary>
     Friend PluginWorkInProgress As Boolean
+
+    ''' <summary>
+    ''' Indicates whether a plugin is running as a result of automatic plugin execution trigger.
+    ''' ''' </summary>
+    Friend IsRunningPluginsAutomatically As Boolean
 
     ''' <summary>
     ''' Flag that indicates whether the plugins must run in paralell execution.
@@ -53,14 +59,6 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     ''' Keeps track of the last focused button in the plugins navigation pane.
     ''' </summary>
     Friend LastFocusedButtonPane As DarkButtonImageAllignFix
-
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    Friend IsRunningPluginsAutomatically As Boolean
-
-
 
 #End Region
 
@@ -123,6 +121,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
 
         JotHelper.StartTrackingOtherCheckBoxes()
         JotHelper.StartTrackingCheckedListBox()
+        JotHelper.StartTrackingNumericupDown()
 
         Me.SuspendLayout()
         If Not Me.DarkCheckBox_RunAppMinimized.Checked Then
@@ -549,6 +548,10 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
         Me.CheckedListBox_AutoPluginRun.Enabled = cb.Checked
         Me.DarkCheckBox_ParalellExecution.Enabled = cb.Checked
         Me.Label_AutoRunPluginCheckedCount.Enabled = cb.Checked
+        Me.DarkCheckBox_DontRunIfFullscreen.Enabled = cb.Checked
+        Me.DarkNumericUpDown_Hours.Enabled = cb.Checked
+        Me.Label_Hours.Enabled = cb.Checked
+        Me.DarkCheckBox_SystemSleep.Enabled = cb.Checked
         Me.DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Enabled = cb.Checked AndAlso (Me.CheckedListBox_AutoPluginRun.CheckedItems.Count <> 0)
 
         ApplicationHelper.ResetRemainingAutoPluginRunInterval()
@@ -568,6 +571,47 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     End Sub
 
     ''' <summary>
+    ''' Handles the Click event of the <see cref="Label_AutoRunPluginCheckedCount"/> control.
+    ''' </summary>
+    ''' 
+    ''' <param name="sender">
+    ''' The source of the event.
+    ''' </param>
+    ''' 
+    ''' <param name="e">
+    ''' The <see cref="EventArgs"/> instance containing the event data.
+    ''' </param>
+    <DebuggerStepThrough>
+    Private Sub Label_AutoRunPluginCheckedCount_Click(sender As Object, e As EventArgs) Handles Label_AutoRunPluginCheckedCount.Click
+
+        Dim lbl As Label = DirectCast(sender, Label)
+        lbl.ContextMenuStrip.Show(lbl, Point.Empty)
+    End Sub
+
+    ''' <summary>
+    ''' Handles the ValueChanged event of the <see cref="DarkNumericUpDown_Hours"/> control.
+    ''' </summary>
+    ''' 
+    ''' <param name="sender">
+    ''' The source of the event.
+    ''' </param>
+    ''' 
+    ''' <param name="e">
+    ''' The <see cref="EventArgs"/> instance containing the event data.
+    ''' </param>
+    <DebuggerStepThrough>
+    Private Sub DarkNumericUpDown_Hours_ValueChanged(sender As Object, e As EventArgs) Handles DarkNumericUpDown_Hours.ValueChanged
+
+#If Not DEBUG Then
+        Dim nupd As DarkNumericUpDown = DirectCast(sender, DarkNumericUpDown)
+        AppGlobals.AutomaticPluginRunInterval = TimeSpan.FromHours(nupd.Value)
+#End If
+        If Me.DarkCheckBox_AutoPluginRun.Checked Then
+            ApplicationHelper.ResetRemainingAutoPluginRunInterval()
+        End If
+    End Sub
+
+    ''' <summary>
     ''' Handles the ItemCheck and Click events 
     ''' of the <see cref="DarkButtonImageAllignFix_RunAllSelectedPluginsNow"/> control.
     ''' </summary>
@@ -583,7 +627,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     Private Sub DarkButtonImageAllignFixRunAllSelectedPluginsNow_Click(sender As Object, e As EventArgs) Handles DarkButtonImageAllignFix_RunAllSelectedPluginsNow.Click
 
         Me.RemainingAutoPluginRunInterval = TimeSpan.Zero
-        'Me.TimerAutoRunPlugins_Tick(Me.Timer_AutoRunPlugins, EventArgs.Empty)
+        ' Me.TimerAutoRunPlugins_Tick(Me.Timer_AutoRunPlugins, EventArgs.Empty)
     End Sub
 
     ''' <summary>
@@ -667,6 +711,12 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
 
         If Me.RemainingAutoPluginRunInterval.TotalMilliseconds <= 0 Then
             Me.Timer_AutoRunPlugins.Stop()
+
+            If Me.DarkCheckBox_DontRunIfFullscreen.Checked Then
+                Do While ApplicationHelper.IsFullscreenAppRunning()
+                    Await Task.Delay(TimeSpan.FromSeconds(10))
+                Loop
+            End If
 
             Dim pluginsToRun As List(Of DynamicPlugin) =
                 Me.CheckedListBox_AutoPluginRun.CheckedItems.Cast(Of DynamicPlugin)?.ToList()

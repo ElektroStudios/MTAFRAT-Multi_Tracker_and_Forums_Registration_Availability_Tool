@@ -9,9 +9,13 @@ Option Infer Off
 #Region " Imports "
 
 Imports System.Collections.ObjectModel
+Imports System.ComponentModel
 Imports System.IO
 Imports System.Management
 Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+Imports MTAFRAT.Win32
 
 #End Region
 
@@ -237,6 +241,35 @@ Friend Module ApplicationHelper
         End Using
 
         Return children
+    End Function
+
+    ''' <summary>
+    ''' Determines whether the computer is currently running a full-screen application.
+    ''' </summary>
+    ''' 
+    ''' <returns>
+    ''' <see langword="True"/> if a full-screen application is running, 
+    ''' a full-screen (exclusive mode) Direct3D application is running, 
+    ''' or Presentation Settings are applied.
+    ''' <para></para>
+    ''' <see langword="False"/> otherwise.
+    ''' </returns>
+    ''' 
+    ''' <exception cref="Win32Exception">
+    ''' Thrown when the native Windows Shell function <c>SHQueryUserNotificationState</c> fails.
+    ''' The error code from the failed P/Invoke call is retrieved using <see cref="Marshal.GetLastPInvokeError"/>.
+    ''' </exception>
+    <DebuggerStepThrough>
+    Friend Function IsFullscreenAppRunning() As Boolean
+
+        Dim queryState As QueryUserNotificationState
+        If NativeMethods.SHQueryUserNotificationState(queryState) <> 0 Then
+            Dim lastErrorCode As Integer = Marshal.GetLastPInvokeError()
+            Throw New Win32Exception(lastErrorCode)
+        End If
+
+        Return (queryState = QueryUserNotificationState.Busy) OrElse ' A full-screen application is running or Presentation Settings are applied.
+               (queryState = QueryUserNotificationState.RunningD3DFullScreen) ' A full-screen (exclusive mode) Direct3D application is running.
     End Function
 
 #End Region

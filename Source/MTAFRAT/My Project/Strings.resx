@@ -121,13 +121,10 @@
     <value>About...</value>
   </data>
   <data name="AutoPluginRunMsg" xml:space="preserve">
-    <value>Run selected plugins every hour:</value>
+    <value>Run selected plugins every:</value>
   </data>
   <data name="AutoPluginRunGroupBox" xml:space="preserve">
     <value>Automatic Plugin Execution</value>
-  </data>
-  <data name="ComputerGroupBox" xml:space="preserve">
-    <value>Computer</value>
   </data>
   <data name="Program" xml:space="preserve">
     <value>Program</value>
@@ -139,7 +136,7 @@
     <value>Only one instance of the program is allowed.</value>
   </data>
   <data name="SystemSleepMsg" xml:space="preserve">
-    <value>Prevent the system from entering sleep mode.</value>
+    <value>Prevent the system from entering sleep mode</value>
   </data>
   <data name="Plugins" xml:space="preserve">
     <value>Plugins</value>
@@ -302,7 +299,7 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
     <value>Run application minimized to system-tray</value>
   </data>
   <data name="RunAllSelectedPluginsNow" xml:space="preserve">
-    <value>Run now</value>
+    <value>Run selected plugins now</value>
   </data>
   <data name="ClearPreviousLogEntries" xml:space="preserve">
     <value>Clear previous log entries on plugin execution</value>
@@ -372,5 +369,11 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
   </data>
   <data name="StatusMsg_VerifyingPageLoadRequirements" xml:space="preserve">
     <value>⚙️ Verifying page load requirements...</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="DontRunIfFullscreen" xml:space="preserve">
+    <value>Don't run selected plugins if an application is in fullscreen mode</value>
   </data>
 </root>

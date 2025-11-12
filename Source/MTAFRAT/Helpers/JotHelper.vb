@@ -64,6 +64,13 @@ Friend Module JotHelper
     ''' </summary>
     Private comboBoxLanguageTrackingConfig As TrackingConfiguration(Of DarkComboBox)
 
+    ''' <summary>
+    ''' The object that determines how the target <see cref="MainForm.DarkNumericUpDown_Hours"/> will be tracked. 
+    ''' <para></para>
+    ''' This includes list of properties to track, persist triggers and id getter.
+    ''' </summary>
+    Private numericUpDownHoursTrackingConfig As TrackingConfiguration(Of DarkNumericUpDown)
+
 #End Region
 
 #Region " Restricted Methods "
@@ -116,10 +123,18 @@ Friend Module JotHelper
             .StopTrackingOn(NameOf(DarkComboBox.Disposed))
         End With
 
+        JotHelper.numericUpDownHoursTrackingConfig = JotHelper.jotTracker.Configure(Of DarkNumericUpDown)
+        With JotHelper.numericUpDownHoursTrackingConfig
+            .Id(Function(i As DarkNumericUpDown) i.Name)
+            .Properties(Function(i As DarkNumericUpDown) New With {i.Value})
+            .PersistOn(NameOf(DarkNumericUpDown.ValueChanged))
+            .StopTrackingOn(NameOf(DarkNumericUpDown.Disposed))
+        End With
+
     End Sub
 
     ''' <summary>
-    ''' Starts tracking the <see cref="MainForm.DarkCheckBox_RememberCurrentSettings"/> checked states.
+    ''' Starts tracking the <see cref="MainForm.DarkCheckBox_RememberCurrentSettings"/> checked state.
     ''' </summary>
     <DebuggerStepThrough>
     Friend Sub StartTrackingRememberCurrentSettingsCheckBox()
@@ -139,10 +154,11 @@ Friend Module JotHelper
         JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
         JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
         JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_AllowPluginApplicationFormCheck)
+        JotHelper.checkBoxOtherTrackingConfig.Track(My.Forms.MainForm.DarkCheckBox_DontRunIfFullscreen)
     End Sub
 
     ''' <summary>
-    ''' Starts tracking the <see cref="PersistableCheckedListBox"/> checked states.
+    ''' Starts tracking the <see cref="PersistableCheckedListBox"/> items.
     ''' </summary>
     <DebuggerStepThrough>
     Friend Sub StartTrackingCheckedListBox()
@@ -151,12 +167,21 @@ Friend Module JotHelper
     End Sub
 
     ''' <summary>
-    ''' Starts tracking the <see cref="MainForm.DarkComboBox_Language"/> checked states.
+    ''' Starts tracking the <see cref="MainForm.DarkComboBox_Language"/> value.
     ''' </summary>
     <DebuggerStepThrough>
     Friend Sub StartTrackingComboBoxLanguage()
 
         JotHelper.comboBoxLanguageTrackingConfig.Track(My.Forms.MainForm.DarkComboBox_Language)
+    End Sub
+
+    ''' <summary>
+    ''' Starts tracking the <see cref="MainForm.DarkNumericUpDown_Hours"/> value.
+    ''' </summary>
+    <DebuggerStepThrough>
+    Friend Sub StartTrackingNumericupDown()
+
+        JotHelper.numericUpDownHoursTrackingConfig.Track(My.Forms.MainForm.DarkNumericUpDown_Hours)
     End Sub
 
     ''' <summary>
@@ -173,6 +198,7 @@ Friend Module JotHelper
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_AllowPluginApplicationFormCheck)
+            JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkCheckBox_DontRunIfFullscreen)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.CheckedListBox_AutoPluginRun)
             JotHelper.jotTracker.StopTracking(My.Forms.MainForm.DarkComboBox_Language)
 
@@ -183,6 +209,7 @@ Friend Module JotHelper
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_AllowPluginApplicationFormCheck)
+            JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkCheckBox_DontRunIfFullscreen)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.CheckedListBox_AutoPluginRun)
             JotHelper.jotTracker.Forget(My.Forms.MainForm.DarkComboBox_Language)
 
@@ -193,6 +220,7 @@ Friend Module JotHelper
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_RunAppMinimized)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_AllowPluginApplicationFormCheck)
+            JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkCheckBox_DontRunIfFullscreen)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.CheckedListBox_AutoPluginRun)
             JotHelper.jotTracker.ApplyDefaults(My.Forms.MainForm.DarkComboBox_Language)
 
@@ -204,6 +232,7 @@ Friend Module JotHelper
             store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_RunAppMinimized))
             store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_ClearPreviousLogEntries))
             store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_AllowPluginApplicationFormCheck))
+            store.ClearData(JotHelper.checkBoxOtherTrackingConfig.GetStoreId(My.Forms.MainForm.DarkCheckBox_DontRunIfFullscreen))
             store.ClearData(JotHelper.checkedListBoxTrackingConfig.GetStoreId(My.Forms.MainForm.CheckedListBox_AutoPluginRun))
             store.ClearData(JotHelper.comboBoxLanguageTrackingConfig.GetStoreId(My.Forms.MainForm.DarkComboBox_Language))
         Catch ex As DirectoryNotFoundException

@@ -119,7 +119,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Run selected plugins every hour:.
+        '''  Looks up a localized string similar to Run selected plugins every:.
         '''</summary>
         Friend Shared ReadOnly Property AutoPluginRunMsg() As String
             Get
@@ -245,20 +245,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Computer.
-        '''</summary>
-        Friend Shared ReadOnly Property ComputerGroupBox() As String
-            Get
-                Return ResourceManager.GetString("ComputerGroupBox", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to The current URL loaded in the web browser does not match the URL expected by the plugin.
         '''</summary>
         Friend Shared ReadOnly Property CurrentBrowserUrlDiffersFromPluginUrl() As String
             Get
                 Return ResourceManager.GetString("CurrentBrowserUrlDiffersFromPluginUrl", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Don&apos;t run selected plugins if an application is in fullscreen mode.
+        '''</summary>
+        Friend Shared ReadOnly Property DontRunIfFullscreen() As String
+            Get
+                Return ResourceManager.GetString("DontRunIfFullscreen", resourceCulture)
             End Get
         End Property
         
@@ -353,6 +353,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property HideWindow() As String
             Get
                 Return ResourceManager.GetString("HideWindow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to hours.
+        '''</summary>
+        Friend Shared ReadOnly Property Hours() As String
+            Get
+                Return ResourceManager.GetString("Hours", resourceCulture)
             End Get
         End Property
         
@@ -483,7 +492,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Run now.
+        '''  Looks up a localized string similar to Run selected plugins now.
         '''</summary>
         Friend Shared ReadOnly Property RunAllSelectedPluginsNow() As String
             Get
@@ -787,9 +796,9 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_WaitingForPageLoad", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to Prevent the system from entering sleep mode..
+        '''  Looks up a localized string similar to Prevent the system from entering sleep mode.
         '''</summary>
         Friend Shared ReadOnly Property SystemSleepMsg() As String
             Get
