@@ -37,6 +37,10 @@ Public Module UIHelper
             splashScreen.Invoke(Sub() splashScreen.Label_StatusLoad.Text = "Setting up language...")
         End If
 
+        Dim fGit As GitHubUpdatePrompt = My.Forms.GitHubUpdatePrompt
+        fGit.DarkLabel_ProgramUpdateAvailable.Text = My.Resources.Strings.ProgramUpdateAvailable
+        fGit.DarkButton_OpenGitHubLatestReleasePage.Text = My.Resources.Strings.OpenGitHubLatestReleasePage
+
         Dim f As MainForm = AppGlobals.MainFormInstance
         f.DarkSectionPanel_Plugins.SectionHeader = My.Resources.Strings.Plugins
         f.DarkSectionPanel_Program.SectionHeader = My.Resources.Strings.Program
@@ -55,6 +59,7 @@ Public Module UIHelper
         f.DarkCheckBox_RunAppMinimized.Text = My.Resources.Strings.RunAppMinimized
         f.DarkCheckBox_ClearPreviousLogEntries.Text = My.Resources.Strings.ClearPreviousLogEntries
         f.DarkCheckBox_AllowPluginApplicationFormCheck.Text = My.Resources.Strings.AllowPluginsToCheckApplicationForms
+        f.DarkCheckBox_SearchProgramUpdates.Text = My.Resources.Strings.SearchProgramUpdates
         f.Label_Hours.Text = My.Resources.Strings.Hours
         f.DarkCheckBox_DontRunIfFullscreen.Text = My.Resources.Strings.DontRunIfFullscreen
         f.ToolStripMenuItem_ClearSelectedPlugins.Text = My.Resources.Strings.ClearSelectedPlugins

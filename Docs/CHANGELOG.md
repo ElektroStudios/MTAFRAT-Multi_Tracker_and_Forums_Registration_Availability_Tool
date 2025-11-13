@@ -1,6 +1,11 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.6 *(current)* 🆕
+## v1.1.7 *(current)* 🆕
+
+#### 🌟 Improvements:
+- Added an option to search for program updates at startup.
+
+## v1.1.6 🔄
 
 #### 🌟 Improvements:
 - Added an option to set the hourly interval for automatic plugin execution.

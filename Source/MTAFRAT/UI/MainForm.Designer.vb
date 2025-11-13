@@ -29,6 +29,7 @@ Partial Public Class MainForm
         Me.TabPage_Settings = New TabPage()
         Me.DarkSectionPanel_Settings = New DarkUI.Controls.DarkSectionPanel()
         Me.DarkGroupBox_Application = New DarkUI.Controls.DarkGroupBox()
+        Me.DarkCheckBox_SearchProgramUpdates = New DarkUI.Controls.DarkCheckBox()
         Me.DarkCheckBox_AllowPluginApplicationFormCheck = New DarkUI.Controls.DarkCheckBox()
         Me.DarkCheckBox_ClearPreviousLogEntries = New DarkUI.Controls.DarkCheckBox()
         Me.DarkCheckBox_RunAppMinimized = New DarkUI.Controls.DarkCheckBox()
@@ -101,7 +102,7 @@ Partial Public Class MainForm
         Me.TableLayoutPanel_Main.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
         Me.TableLayoutPanel_Main.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
         Me.TableLayoutPanel_Main.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
-        Me.TableLayoutPanel_Main.Size = New Size(824, 519)
+        Me.TableLayoutPanel_Main.Size = New Size(824, 539)
         Me.TableLayoutPanel_Main.TabIndex = 0
         ' 
         ' TabControlNoBorder_Main
@@ -116,7 +117,7 @@ Partial Public Class MainForm
         Me.TabControlNoBorder_Main.Padding = New Point(0, 0)
         Me.TabControlNoBorder_Main.SelectedIndex = 0
         Me.TabControlNoBorder_Main.ShowTabHeader = False
-        Me.TabControlNoBorder_Main.Size = New Size(585, 519)
+        Me.TabControlNoBorder_Main.Size = New Size(585, 539)
         Me.TabControlNoBorder_Main.SizeMode = TabSizeMode.Fixed
         Me.TabControlNoBorder_Main.TabIndex = 1
         ' 
@@ -125,7 +126,7 @@ Partial Public Class MainForm
         Me.TabPage_Settings.Controls.Add(Me.DarkSectionPanel_Settings)
         Me.TabPage_Settings.Location = New Point(0, 0)
         Me.TabPage_Settings.Name = "TabPage_Settings"
-        Me.TabPage_Settings.Size = New Size(585, 519)
+        Me.TabPage_Settings.Size = New Size(585, 539)
         Me.TabPage_Settings.TabIndex = 2
         Me.TabPage_Settings.Text = "Settings"
         Me.TabPage_Settings.UseVisualStyleBackColor = True
@@ -140,12 +141,13 @@ Partial Public Class MainForm
         Me.DarkSectionPanel_Settings.Margin = New Padding(0)
         Me.DarkSectionPanel_Settings.Name = "DarkSectionPanel_Settings"
         Me.DarkSectionPanel_Settings.SectionHeader = "Settings"
-        Me.DarkSectionPanel_Settings.Size = New Size(585, 519)
+        Me.DarkSectionPanel_Settings.Size = New Size(585, 539)
         Me.DarkSectionPanel_Settings.TabIndex = 0
         ' 
         ' DarkGroupBox_Application
         ' 
         Me.DarkGroupBox_Application.BorderColor = Color.FromArgb(CByte(51), CByte(51), CByte(51))
+        Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_SearchProgramUpdates)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_AllowPluginApplicationFormCheck)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_ClearPreviousLogEntries)
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkCheckBox_RunAppMinimized)
@@ -154,15 +156,24 @@ Partial Public Class MainForm
         Me.DarkGroupBox_Application.Controls.Add(Me.DarkComboBox_Language)
         Me.DarkGroupBox_Application.Location = New Point(8, 342)
         Me.DarkGroupBox_Application.Name = "DarkGroupBox_Application"
-        Me.DarkGroupBox_Application.Size = New Size(565, 136)
+        Me.DarkGroupBox_Application.Size = New Size(565, 162)
         Me.DarkGroupBox_Application.TabIndex = 1
         Me.DarkGroupBox_Application.TabStop = False
         Me.DarkGroupBox_Application.Text = "Application"
         ' 
+        ' DarkCheckBox_SearchProgramUpdates
+        ' 
+        Me.DarkCheckBox_SearchProgramUpdates.Cursor = Cursors.Hand
+        Me.DarkCheckBox_SearchProgramUpdates.Location = New Point(6, 28)
+        Me.DarkCheckBox_SearchProgramUpdates.Name = "DarkCheckBox_SearchProgramUpdates"
+        Me.DarkCheckBox_SearchProgramUpdates.Size = New Size(321, 25)
+        Me.DarkCheckBox_SearchProgramUpdates.TabIndex = 6
+        Me.DarkCheckBox_SearchProgramUpdates.Text = "Search program updates"
+        ' 
         ' DarkCheckBox_AllowPluginApplicationFormCheck
         ' 
         Me.DarkCheckBox_AllowPluginApplicationFormCheck.Cursor = Cursors.Hand
-        Me.DarkCheckBox_AllowPluginApplicationFormCheck.Location = New Point(6, 59)
+        Me.DarkCheckBox_AllowPluginApplicationFormCheck.Location = New Point(6, 116)
         Me.DarkCheckBox_AllowPluginApplicationFormCheck.Name = "DarkCheckBox_AllowPluginApplicationFormCheck"
         Me.DarkCheckBox_AllowPluginApplicationFormCheck.Size = New Size(440, 40)
         Me.DarkCheckBox_AllowPluginApplicationFormCheck.TabIndex = 1
@@ -171,7 +182,7 @@ Partial Public Class MainForm
         ' DarkCheckBox_ClearPreviousLogEntries
         ' 
         Me.DarkCheckBox_ClearPreviousLogEntries.Cursor = Cursors.Hand
-        Me.DarkCheckBox_ClearPreviousLogEntries.Location = New Point(6, 28)
+        Me.DarkCheckBox_ClearPreviousLogEntries.Location = New Point(6, 90)
         Me.DarkCheckBox_ClearPreviousLogEntries.Name = "DarkCheckBox_ClearPreviousLogEntries"
         Me.DarkCheckBox_ClearPreviousLogEntries.Size = New Size(440, 25)
         Me.DarkCheckBox_ClearPreviousLogEntries.TabIndex = 0
@@ -180,7 +191,7 @@ Partial Public Class MainForm
         ' DarkCheckBox_RunAppMinimized
         ' 
         Me.DarkCheckBox_RunAppMinimized.Cursor = Cursors.Hand
-        Me.DarkCheckBox_RunAppMinimized.Location = New Point(6, 105)
+        Me.DarkCheckBox_RunAppMinimized.Location = New Point(6, 59)
         Me.DarkCheckBox_RunAppMinimized.Name = "DarkCheckBox_RunAppMinimized"
         Me.DarkCheckBox_RunAppMinimized.Size = New Size(440, 25)
         Me.DarkCheckBox_RunAppMinimized.TabIndex = 2
@@ -190,7 +201,7 @@ Partial Public Class MainForm
         ' 
         Me.DarkButtonImageAllignFix_ClearCache.Anchor = AnchorStyles.None
         Me.DarkButtonImageAllignFix_ClearCache.Cursor = Cursors.Hand
-        Me.DarkButtonImageAllignFix_ClearCache.Location = New Point(452, 20)
+        Me.DarkButtonImageAllignFix_ClearCache.Location = New Point(452, 33)
         Me.DarkButtonImageAllignFix_ClearCache.Name = "DarkButtonImageAllignFix_ClearCache"
         Me.DarkButtonImageAllignFix_ClearCache.Padding = New Padding(5)
         Me.DarkButtonImageAllignFix_ClearCache.ResizedImage = My.Resources.Resources.clean
@@ -204,7 +215,7 @@ Partial Public Class MainForm
         Me.Label_Language.AutoSize = True
         Me.Label_Language.BackColor = Color.FromArgb(CByte(60), CByte(63), CByte(65))
         Me.Label_Language.ForeColor = Color.Gainsboro
-        Me.Label_Language.Location = New Point(452, 76)
+        Me.Label_Language.Location = New Point(452, 90)
         Me.Label_Language.Name = "Label_Language"
         Me.Label_Language.Size = New Size(78, 21)
         Me.Label_Language.TabIndex = 4
@@ -216,7 +227,7 @@ Partial Public Class MainForm
         Me.DarkComboBox_Language.DrawMode = DrawMode.OwnerDrawVariable
         Me.DarkComboBox_Language.FormattingEnabled = True
         Me.DarkComboBox_Language.Items.AddRange(New Object() {"English", "Spanish"})
-        Me.DarkComboBox_Language.Location = New Point(452, 100)
+        Me.DarkComboBox_Language.Location = New Point(452, 114)
         Me.DarkComboBox_Language.Name = "DarkComboBox_Language"
         Me.DarkComboBox_Language.Size = New Size(107, 30)
         Me.DarkComboBox_Language.TabIndex = 5
@@ -371,7 +382,7 @@ Partial Public Class MainForm
         ' DarkCheckBox_RememberCurrentSettings
         ' 
         Me.DarkCheckBox_RememberCurrentSettings.Cursor = Cursors.Hand
-        Me.DarkCheckBox_RememberCurrentSettings.Location = New Point(14, 484)
+        Me.DarkCheckBox_RememberCurrentSettings.Location = New Point(14, 510)
         Me.DarkCheckBox_RememberCurrentSettings.Name = "DarkCheckBox_RememberCurrentSettings"
         Me.DarkCheckBox_RememberCurrentSettings.Size = New Size(277, 25)
         Me.DarkCheckBox_RememberCurrentSettings.TabIndex = 2
@@ -389,7 +400,7 @@ Partial Public Class MainForm
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 75.63353F))
         Me.TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 24.3664722F))
-        Me.TableLayoutPanel1.Size = New Size(233, 513)
+        Me.TableLayoutPanel1.Size = New Size(233, 533)
         Me.TableLayoutPanel1.TabIndex = 0
         ' 
         ' DarkSectionPanel_Plugins
@@ -398,17 +409,17 @@ Partial Public Class MainForm
         Me.DarkSectionPanel_Plugins.Location = New Point(3, 3)
         Me.DarkSectionPanel_Plugins.Name = "DarkSectionPanel_Plugins"
         Me.DarkSectionPanel_Plugins.SectionHeader = "Plugins"
-        Me.DarkSectionPanel_Plugins.Size = New Size(227, 382)
+        Me.DarkSectionPanel_Plugins.Size = New Size(227, 397)
         Me.DarkSectionPanel_Plugins.TabIndex = 0
         ' 
         ' DarkSectionPanel_Program
         ' 
         Me.DarkSectionPanel_Program.Controls.Add(Me.TableLayoutPanel2)
         Me.DarkSectionPanel_Program.Dock = DockStyle.Fill
-        Me.DarkSectionPanel_Program.Location = New Point(3, 391)
+        Me.DarkSectionPanel_Program.Location = New Point(3, 406)
         Me.DarkSectionPanel_Program.Name = "DarkSectionPanel_Program"
         Me.DarkSectionPanel_Program.SectionHeader = "Program"
-        Me.DarkSectionPanel_Program.Size = New Size(227, 119)
+        Me.DarkSectionPanel_Program.Size = New Size(227, 124)
         Me.DarkSectionPanel_Program.TabIndex = 1
         ' 
         ' TableLayoutPanel2
@@ -423,7 +434,7 @@ Partial Public Class MainForm
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
-        Me.TableLayoutPanel2.Size = New Size(225, 93)
+        Me.TableLayoutPanel2.Size = New Size(225, 98)
         Me.TableLayoutPanel2.TabIndex = 0
         ' 
         ' DarkButton_About
@@ -434,7 +445,7 @@ Partial Public Class MainForm
         Me.DarkButton_About.Name = "DarkButton_About"
         Me.DarkButton_About.Padding = New Padding(5)
         Me.DarkButton_About.ResizedImage = My.Resources.Resources.About
-        Me.DarkButton_About.Size = New Size(107, 87)
+        Me.DarkButton_About.Size = New Size(107, 92)
         Me.DarkButton_About.TabIndex = 1
         Me.DarkButton_About.Text = "About..."
         Me.DarkButton_About.TextImageRelation = TextImageRelation.ImageAboveText
@@ -447,7 +458,7 @@ Partial Public Class MainForm
         Me.DarkButton_Settings.Name = "DarkButton_Settings"
         Me.DarkButton_Settings.Padding = New Padding(5)
         Me.DarkButton_Settings.ResizedImage = My.Resources.Resources.Settings
-        Me.DarkButton_Settings.Size = New Size(106, 87)
+        Me.DarkButton_Settings.Size = New Size(106, 92)
         Me.DarkButton_Settings.TabIndex = 0
         Me.DarkButton_Settings.Text = "Settings"
         Me.DarkButton_Settings.TextImageRelation = TextImageRelation.ImageAboveText
@@ -502,7 +513,7 @@ Partial Public Class MainForm
         ' 
         Me.StatusStrip1.BackColor = Color.FromArgb(CByte(42), CByte(43), CByte(42))
         Me.StatusStrip1.Items.AddRange(New ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New Point(0, 519)
+        Me.StatusStrip1.Location = New Point(0, 539)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New Size(824, 22)
         Me.StatusStrip1.SizingGrip = False
@@ -558,7 +569,7 @@ Partial Public Class MainForm
         ' 
         Me.AutoScaleDimensions = New SizeF(9F, 21F)
         Me.AutoScaleMode = AutoScaleMode.Font
-        Me.ClientSize = New Size(824, 541)
+        Me.ClientSize = New Size(824, 561)
         Me.Controls.Add(Me.TableLayoutPanel_Main)
         Me.Controls.Add(Me.StatusStrip1)
         Me.DoubleBuffered = True
@@ -635,5 +646,6 @@ Partial Public Class MainForm
     Friend WithEvents DarkCheckBox_DontRunIfFullscreen As DarkUI.Controls.DarkCheckBox
     Friend WithEvents Label_Hours As Label
     Friend WithEvents DarkNumericUpDown_Hours As DarkUI.Controls.DarkNumericUpDown
+    Friend WithEvents DarkCheckBox_SearchProgramUpdates As DarkUI.Controls.DarkCheckBox
 
 End Class

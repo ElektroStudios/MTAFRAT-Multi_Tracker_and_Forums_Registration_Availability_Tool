@@ -438,6 +438,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Open release page.
+        '''</summary>
+        Friend Shared ReadOnly Property OpenGitHubLatestReleasePage() As String
+            Get
+                Return ResourceManager.GetString("OpenGitHubLatestReleasePage", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Open Website.
         '''</summary>
         Friend Shared ReadOnly Property OpenWebsiteButton() As String
@@ -470,6 +479,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property Program() As String
             Get
                 Return ResourceManager.GetString("Program", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A new version of the program is available..
+        '''</summary>
+        Friend Shared ReadOnly Property ProgramUpdateAvailable() As String
+            Get
+                Return ResourceManager.GetString("ProgramUpdateAvailable", resourceCulture)
             End Get
         End Property
         
@@ -515,6 +533,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property RunPluginButton() As String
             Get
                 Return ResourceManager.GetString("RunPluginButton", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search program updates.
+        '''</summary>
+        Friend Shared ReadOnly Property SearchProgramUpdates() As String
+            Get
+                Return ResourceManager.GetString("SearchProgramUpdates", resourceCulture)
             End Get
         End Property
         
@@ -796,7 +823,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusMsg_WaitingForPageLoad", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Prevent the system from entering sleep mode.
         '''</summary>

@@ -14,9 +14,10 @@ Imports DarkUI.Forms
 
 #End Region
 
-Public NotInheritable Class AboutBox1 : Inherits DarkForm
+Friend NotInheritable Class AboutBox1 : Inherits DarkForm
 
     Private Sub AboutBox1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         ' Set the title of the form.
         Dim ApplicationTitle As String = If(My.Application.Info.Title <> "",
             My.Application.Info.Title,
@@ -39,16 +40,7 @@ Public NotInheritable Class AboutBox1 : Inherits DarkForm
 
     Private Sub LinkLabelGitHub_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelGitHub.LinkClicked
 
-        Try
-            Using p As New Process
-                p.StartInfo.FileName = GitHubUrl
-                p.StartInfo.UseShellExecute = True
-
-                p.Start
-            End Using
-        Catch ex As Exception
-            MessageBox.Show(Me, $"Error: {ex.Message}", My.Application.Info.ProductName,
-                                MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        ApplicationHelper.ShellOpenUrl(AppGlobals.GitHubUrl)
     End Sub
+
 End Class

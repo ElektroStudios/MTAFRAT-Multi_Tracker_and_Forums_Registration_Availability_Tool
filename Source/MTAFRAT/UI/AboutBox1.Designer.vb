@@ -50,8 +50,8 @@ Partial Class AboutBox1
         ' TableLayoutPanel
         ' 
         Me.TableLayoutPanel.ColumnCount = 2
-        Me.TableLayoutPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 22.9007626F))
-        Me.TableLayoutPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 77.0992355F))
+        Me.TableLayoutPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 22.90076F))
+        Me.TableLayoutPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 77.09924F))
         Me.TableLayoutPanel.Controls.Add(Me.LogoPictureBox, 0, 0)
         Me.TableLayoutPanel.Controls.Add(Me.LabelProductName, 1, 0)
         Me.TableLayoutPanel.Controls.Add(Me.LabelVersion, 1, 1)
@@ -83,7 +83,7 @@ Partial Class AboutBox1
         Me.LogoPictureBox.Margin = New Padding(4, 3, 4, 3)
         Me.LogoPictureBox.Name = "LogoPictureBox"
         Me.TableLayoutPanel.SetRowSpan(Me.LogoPictureBox, 6)
-        Me.LogoPictureBox.Size = New Size(112, 333)
+        Me.LogoPictureBox.Size = New Size(111, 333)
         Me.LogoPictureBox.SizeMode = PictureBoxSizeMode.StretchImage
         Me.LogoPictureBox.TabIndex = 0
         Me.LogoPictureBox.TabStop = False
@@ -93,11 +93,11 @@ Partial Class AboutBox1
         Me.LabelProductName.Dock = DockStyle.Fill
         Me.LabelProductName.Font = New Font("Segoe UI", 11F)
         Me.LabelProductName.ForeColor = Color.Gainsboro
-        Me.LabelProductName.Location = New Point(127, 0)
+        Me.LabelProductName.Location = New Point(126, 0)
         Me.LabelProductName.Margin = New Padding(7, 0, 4, 0)
         Me.LabelProductName.MaximumSize = New Size(0, 23)
         Me.LabelProductName.Name = "LabelProductName"
-        Me.LabelProductName.Size = New Size(393, 23)
+        Me.LabelProductName.Size = New Size(394, 23)
         Me.LabelProductName.TabIndex = 1
         Me.LabelProductName.Text = "Product Name"
         Me.LabelProductName.TextAlign = ContentAlignment.MiddleLeft
@@ -107,11 +107,11 @@ Partial Class AboutBox1
         Me.LabelVersion.Dock = DockStyle.Fill
         Me.LabelVersion.Font = New Font("Segoe UI", 11F)
         Me.LabelVersion.ForeColor = Color.Gainsboro
-        Me.LabelVersion.Location = New Point(127, 33)
+        Me.LabelVersion.Location = New Point(126, 33)
         Me.LabelVersion.Margin = New Padding(7, 0, 4, 0)
         Me.LabelVersion.MaximumSize = New Size(0, 23)
         Me.LabelVersion.Name = "LabelVersion"
-        Me.LabelVersion.Size = New Size(393, 23)
+        Me.LabelVersion.Size = New Size(394, 23)
         Me.LabelVersion.TabIndex = 2
         Me.LabelVersion.Text = "Version"
         Me.LabelVersion.TextAlign = ContentAlignment.MiddleLeft
@@ -121,11 +121,11 @@ Partial Class AboutBox1
         Me.LabelCopyright.Dock = DockStyle.Fill
         Me.LabelCopyright.Font = New Font("Segoe UI", 11F)
         Me.LabelCopyright.ForeColor = Color.Gainsboro
-        Me.LabelCopyright.Location = New Point(127, 66)
+        Me.LabelCopyright.Location = New Point(126, 66)
         Me.LabelCopyright.Margin = New Padding(7, 0, 4, 0)
         Me.LabelCopyright.MaximumSize = New Size(0, 23)
         Me.LabelCopyright.Name = "LabelCopyright"
-        Me.LabelCopyright.Size = New Size(393, 23)
+        Me.LabelCopyright.Size = New Size(394, 23)
         Me.LabelCopyright.TabIndex = 3
         Me.LabelCopyright.Text = "Copyright"
         Me.LabelCopyright.TextAlign = ContentAlignment.MiddleLeft
@@ -136,11 +136,11 @@ Partial Class AboutBox1
         Me.LinkLabelGitHub.Font = New Font("Segoe UI", 11F)
         Me.LinkLabelGitHub.ForeColor = Color.Gainsboro
         Me.LinkLabelGitHub.LinkColor = SystemColors.ActiveCaption
-        Me.LinkLabelGitHub.Location = New Point(127, 99)
+        Me.LinkLabelGitHub.Location = New Point(126, 99)
         Me.LinkLabelGitHub.Margin = New Padding(7, 0, 4, 0)
         Me.LinkLabelGitHub.MaximumSize = New Size(0, 23)
         Me.LinkLabelGitHub.Name = "LinkLabelGitHub"
-        Me.LinkLabelGitHub.Size = New Size(393, 23)
+        Me.LinkLabelGitHub.Size = New Size(394, 23)
         Me.LinkLabelGitHub.TabIndex = 4
         Me.LinkLabelGitHub.TabStop = True
         Me.LinkLabelGitHub.Text = "GitHub"
@@ -153,27 +153,27 @@ Partial Class AboutBox1
         Me.TextBoxDescription.Dock = DockStyle.Fill
         Me.TextBoxDescription.Font = New Font("Segoe UI", 11F)
         Me.TextBoxDescription.ForeColor = Color.FromArgb(CByte(220), CByte(220), CByte(220))
-        Me.TextBoxDescription.Location = New Point(127, 135)
+        Me.TextBoxDescription.Location = New Point(126, 135)
         Me.TextBoxDescription.Margin = New Padding(7, 3, 4, 3)
         Me.TextBoxDescription.Multiline = True
         Me.TextBoxDescription.Name = "TextBoxDescription"
         Me.TextBoxDescription.ReadOnly = True
         Me.TextBoxDescription.ScrollBars = ScrollBars.Both
-        Me.TextBoxDescription.Size = New Size(393, 163)
+        Me.TextBoxDescription.Size = New Size(394, 163)
         Me.TextBoxDescription.TabIndex = 5
         Me.TextBoxDescription.TabStop = False
         Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
         ' 
         ' OKButton
         ' 
-        Me.OKButton.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         Me.OKButton.DialogResult = DialogResult.Cancel
+        Me.OKButton.Dock = DockStyle.Right
         Me.OKButton.Font = New Font("Segoe UI", 11F)
-        Me.OKButton.Location = New Point(432, 306)
+        Me.OKButton.Location = New Point(432, 304)
         Me.OKButton.Margin = New Padding(4, 3, 4, 3)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Padding = New Padding(5, 6, 5, 6)
-        Me.OKButton.Size = New Size(88, 30)
+        Me.OKButton.Size = New Size(88, 32)
         Me.OKButton.TabIndex = 0
         Me.OKButton.Text = "OK"
         ' 

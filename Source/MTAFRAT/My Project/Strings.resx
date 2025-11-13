@@ -376,4 +376,13 @@ Press YES to exit, forcefully terminating any Chrome-related child processes.</v
   <data name="DontRunIfFullscreen" xml:space="preserve">
     <value>Don't run selected plugins if an application is in fullscreen mode</value>
   </data>
+  <data name="ProgramUpdateAvailable" xml:space="preserve">
+    <value>A new version of the program is available.</value>
+  </data>
+  <data name="OpenGitHubLatestReleasePage" xml:space="preserve">
+    <value>Open release page</value>
+  </data>
+  <data name="SearchProgramUpdates" xml:space="preserve">
+    <value>Search program updates</value>
+  </data>
 </root>

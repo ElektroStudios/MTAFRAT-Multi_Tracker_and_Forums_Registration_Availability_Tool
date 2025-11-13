@@ -376,4 +376,13 @@ Pulse SÍ para salir, terminando forzosamente cualquier proceso hijo relacionado
   <data name="DontRunIfFullscreen" xml:space="preserve">
     <value>No ejecutar los plugins seleccionados si una aplicación está en modo de pantalla completa.</value>
   </data>
+  <data name="ProgramUpdateAvailable" xml:space="preserve">
+    <value>Hay disponible una nueva versión del programa.</value>
+  </data>
+  <data name="OpenGitHubLatestReleasePage" xml:space="preserve">
+    <value>Abrir página de la versión</value>
+  </data>
+  <data name="SearchProgramUpdates" xml:space="preserve">
+    <value>Buscar actualizaciones del programa</value>
+  </data>
 </root>

@@ -9,11 +9,7 @@ Option Infer Off
 #Region " Imports "
 
 Imports System.ComponentModel
-Imports System.Diagnostics.CodeAnalysis
 Imports System.Globalization
-Imports System.IO
-Imports System.Runtime.InteropServices
-Imports System.Threading
 
 Imports DarkUI.Controls
 
@@ -136,6 +132,9 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
         Me.ResumeLayout()
 
         Me.IsFormLoaded = True
+        If Me.DarkCheckBox_SearchProgramUpdates.Checked Then
+            ApplicationHelper.SearchAndNotifyProgramUpdateAsync()
+        End If
     End Sub
 
     ''' <summary>
@@ -426,7 +425,7 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
         Dim cms As DarkContextMenu = DirectCast(item.GetCurrentParent(), DarkContextMenu)
         Dim plugin As DynamicPlugin = DirectCast(cms.SourceControl.Tag, DynamicPlugin)
 
-        ApplicationHelper.OpenPluginUrl(plugin, item.Tag.ToString())
+        ApplicationHelper.ShellOpenPluginUrl(plugin, item.Tag.ToString())
     End Sub
 
     ''' <summary>

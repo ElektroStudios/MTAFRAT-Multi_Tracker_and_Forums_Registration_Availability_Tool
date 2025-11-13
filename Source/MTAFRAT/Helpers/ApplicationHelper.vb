@@ -15,6 +15,8 @@ Imports System.Management
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
+Imports MTAFRAT.DevCase.ThirdParty.GitHub
+
 Imports MTAFRAT.Win32
 
 #End Region
@@ -154,6 +156,31 @@ Friend Module ApplicationHelper
     End Function
 
     ''' <summary>
+    ''' Opens the specified URL using the system's default web browser.
+    ''' </summary>
+    ''' 
+    ''' <param name="url">
+    ''' The URL to open.
+    ''' </param>
+    <DebuggerStepThrough>
+    Friend Sub ShellOpenUrl(url As String)
+
+        Try
+            Using p As New Process
+                p.StartInfo.FileName = url
+                p.StartInfo.UseShellExecute = True
+
+                p.Start()
+            End Using
+
+        Catch ex As Exception
+            Dim f As MainForm = AppGlobals.MainFormInstance
+            MessageBox.Show(f, $"Error: {ex.Message}", My.Application.Info.ProductName,
+                               MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ''' <summary>
     ''' Opens a plugin-related URL (Login, Registration, or Application) using the system's default web browser.
     ''' </summary>
     ''' 
@@ -169,7 +196,7 @@ Friend Module ApplicationHelper
     ''' <see cref="AppGlobals.TagApplicationUrl"/>.
     ''' </param>
     <DebuggerStepThrough>
-    Friend Sub OpenPluginUrl(plugin As DynamicPlugin, tagUrl As String)
+    Friend Sub ShellOpenPluginUrl(plugin As DynamicPlugin, tagUrl As String)
 
         Dim url As String = Nothing
         Select Case tagUrl
@@ -185,19 +212,7 @@ Friend Module ApplicationHelper
 
         End Select
 
-        Try
-            Using p As New Process
-                p.StartInfo.FileName = url
-                p.StartInfo.UseShellExecute = True
-
-                p.Start()
-            End Using
-
-        Catch ex As Exception
-            Dim f As MainForm = AppGlobals.MainFormInstance
-            MessageBox.Show(f, $"Error: {ex.Message}", My.Application.Info.ProductName,
-                               MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        ApplicationHelper.ShellOpenUrl(url)
     End Sub
 
     ''' <summary>
@@ -271,6 +286,40 @@ Friend Module ApplicationHelper
         Return (queryState = QueryUserNotificationState.Busy) OrElse ' A full-screen application is running or Presentation Settings are applied.
                (queryState = QueryUserNotificationState.RunningD3DFullScreen) ' A full-screen (exclusive mode) Direct3D application is running.
     End Function
+
+    ''' <summary>
+    ''' Checks GitHub for a new release of MTAFRAT and displays a prompt with release details if an update is available.
+    ''' </summary>
+    Friend Async Sub SearchAndNotifyProgramUpdateAsync()
+
+        Try
+            Dim user As String = "ElektroStudios"
+            Dim repo As String = "MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool"
+            Dim currentVersion As Version = My.Application.Info.Version
+
+            Dim isUpdateAvailable As Boolean = Await UtilGitHub.IsUpdateAvailableAsync(user, repo, currentVersion)
+            If isUpdateAvailable Then
+                Dim latestRelease As GitHubRelease = UtilGitHub.GetLatestRelease(user, repo)
+                Dim versionName As String = $"Version {latestRelease.Name}"
+                Dim datePublished As Date = latestRelease.DatePublished
+                Dim body As String = latestRelease.Body
+
+                Dim f As GitHubUpdatePrompt = My.Forms.GitHubUpdatePrompt
+                f.DarkTextBox_GitHubReleaseData.AppendText(versionName)
+                f.DarkTextBox_GitHubReleaseData.AppendText(Environment.NewLine & Environment.NewLine)
+                f.DarkTextBox_GitHubReleaseData.AppendText(datePublished.ToLongDateString())
+                f.DarkTextBox_GitHubReleaseData.AppendText(Environment.NewLine & Environment.NewLine)
+                f.DarkTextBox_GitHubReleaseData.AppendText(body)
+
+                f.ShowDialog()
+            End If
+
+        Catch
+            ' Network issues? Ignore.
+
+        End Try
+
+    End Sub
 
 #End Region
 
