@@ -1,6 +1,12 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.7 *(current)* 🆕
+## v1.1.8 *(current)* 🆕
+
+#### 🌟 Improvements:
+- Added a new tracker plugin: ParabellumHD
+- Added a new auxiliary plugin: # Site autoLogin
+
+## v1.1.7 🔄
 
 #### 🌟 Improvements:
 - Added an option to search for program updates at startup.

@@ -18,8 +18,8 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Product>Multi-Tracker and Forums Registration Availability Tool</Product>
     <UseApplicationFramework>true</UseApplicationFramework>
-    <AssemblyVersion>1.1.7</AssemblyVersion>
-    <FileVersion>1.1.7</FileVersion>
+    <AssemblyVersion>1.1.8</AssemblyVersion>
+    <FileVersion>1.1.8</FileVersion>
     <RepositoryUrl>https://github.com/ElektroStudios/MTAFRAT-Multi_Tracker_and_Forums_Registration_Availability_Tool</RepositoryUrl>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -217,6 +217,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Update="plugins\iPtorrents\iPtorrents.vb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="plugins\# Site AutoLogin\SiteAutoLogin.vb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="plugins\ParabellumHD\ParabellumHD.vb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
@@ -599,6 +605,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="plugins\iPtorrents\iPtorrents.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugins\Add new plugins to .vbproj file.ps1">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="plugins\# Site AutoLogin\SiteAutoLogin.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugins\# Site AutoLogin\SiteAutoLogin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugins\ParabellumHD\ParabellumHD.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugins\ParabellumHD\ParabellumHD.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
