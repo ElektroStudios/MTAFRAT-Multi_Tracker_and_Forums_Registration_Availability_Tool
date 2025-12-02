@@ -15,7 +15,7 @@ Imports OpenQA.Selenium.Chrome
 Class FemdomcultPlugin : Inherits DynamicPlugin
 
     ReadOnly headless As Boolean = True
-    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)
 
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
@@ -50,12 +50,13 @@ Class FemdomcultPlugin : Inherits DynamicPlugin
         '
         ' However, when registrations are open, the registration page exists,
         ' and the main and login pages (index.php, login.php)
-        ' contains a link pointing to the page:
-        ' https://web.archive.org/web/20230401030035/https://femdomcult.org/register.php
+        ' contains a link pointing to the page: https://femdomcult.org/register.php
+        ' ( See: https://web.archive.org/web/20230401030035/https://femdomcult.org/register.php )
         '
         ' So we check the login page instead the registration page. 👇
 
-        Const triggerRegistration As String = "register.php"
+        Dim registrationTriggers As String() = {"register.php"}
+        Dim registrationTriggersIndicatesOpen As Boolean = True
 
         PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
         PluginSupport.LogMessage(Me, $"➜ {Me.UrlLogin}")
@@ -66,7 +67,7 @@ Class FemdomcultPlugin : Inherits DynamicPlugin
                                        waitForDomIdle:=True, timeout:=TimeSpan.FromSeconds(30))
         PluginSupport.LogMessage(Me, "StatusMsg_LoginPageLoaded")
 
-        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=True)
+        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, registrationTriggers, registrationTriggersIndicatesOpen)
     End Function
 
 End Class

@@ -18,7 +18,14 @@ Class HDTimePlugin : Inherits DynamicPlugin
     ' VIP / Paid account registration URL: https://hdtime.org/donate.php
 
     ReadOnly headless As Boolean = True
-    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)
+
+    ReadOnly registrationTriggers As String() = {"自由注册当前关"}
+    ReadOnly registrationTriggersIndicatesOpen As Boolean = False
+
+    ReadOnly waitForDomIdle As Boolean = True
+    ReadOnly afterPageReadyDelay As TimeSpan = TimeSpan.FromSeconds(1)
+    ReadOnly timeout As TimeSpan = TimeSpan.FromSeconds(20)
 
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
@@ -28,14 +35,12 @@ Class HDTimePlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerRegistration As String = "自由注册当前关"
                     Try
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(
-                                       Me, driver, triggerRegistration, isOpenTrigger:=False,
-                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
-                                       waitForDomIdle:=True,
-                                       timeout:=TimeSpan.FromSeconds(30))
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver,
+                                       registrationTriggers, registrationTriggersIndicatesOpen,
+                                       afterPageReadyDelay, waitForDomIdle, timeout
+                                   )
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

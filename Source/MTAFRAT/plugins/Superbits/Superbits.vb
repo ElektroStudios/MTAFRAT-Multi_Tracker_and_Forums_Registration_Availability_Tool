@@ -15,8 +15,15 @@ Class SuperbitsPlugin : Inherits DynamicPlugin
 
     ReadOnly headless As Boolean = False
     ReadOnly additionalArgs As String() = {
-        "--lang=swe" ' Avoids Chrome to show a translation window. 
+        "--lang=swe" ' Avoids Chrome to show a translation window on second runs. 
     }
+
+    ReadOnly registrationTriggers As String() = {"Inbjudningen är ogiltig"}
+    ReadOnly registrationTriggersIndicatesOpen As Boolean = False
+
+    ReadOnly waitForDomIdle As Boolean = True
+    ReadOnly afterPageReadyDelay As TimeSpan = TimeSpan.FromSeconds(1)
+    ReadOnly timeout As TimeSpan = TimeSpan.FromSeconds(20)
 
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
@@ -26,14 +33,12 @@ Class SuperbitsPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerRegistration As String = "Inbjudningen är ogiltig"
                     Try
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(
-                                       Me, driver, triggerRegistration, isOpenTrigger:=False,
-                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
-                                       waitForDomIdle:=True,
-                                       timeout:=TimeSpan.FromSeconds(30))
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver,
+                                       registrationTriggers, registrationTriggersIndicatesOpen,
+                                       afterPageReadyDelay, waitForDomIdle, timeout
+                                   )
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

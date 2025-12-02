@@ -13,7 +13,14 @@ Imports OpenQA.Selenium.Chrome
 Class AnimebytesPlugin : Inherits DynamicPlugin
 
     ReadOnly headless As Boolean = True
-    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)
+
+    ReadOnly applicationTriggers As String() = {"closed"}
+    ReadOnly applicationTriggersIndicatesOpen As Boolean = False
+
+    ReadOnly waitForDomIdle As Boolean = True
+    ReadOnly afterPageReadyDelay As TimeSpan = TimeSpan.FromSeconds(1)
+    ReadOnly timeout As TimeSpan = TimeSpan.FromSeconds(20)
 
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
@@ -23,14 +30,12 @@ Class AnimebytesPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerApplication As String = "closed"
                     Try
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultApplicationFormCheckProcedure(
-                                       Me, driver, triggerApplication, isOpenTrigger:=False,
-                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
-                                       waitForDomIdle:=True,
-                                       timeout:=TimeSpan.FromSeconds(30))
+                                   PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver,
+                                       applicationTriggers, applicationTriggersIndicatesOpen,
+                                       afterPageReadyDelay, waitForDomIdle, timeout
+                                   )
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

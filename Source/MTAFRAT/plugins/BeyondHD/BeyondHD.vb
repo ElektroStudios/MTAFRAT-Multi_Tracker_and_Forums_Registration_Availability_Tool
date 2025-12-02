@@ -13,7 +13,7 @@ Imports OpenQA.Selenium.Chrome
 Class BeyondHDPlugin : Inherits DynamicPlugin
 
     ReadOnly headless As Boolean = True
-    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)
 
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
@@ -46,7 +46,8 @@ Class BeyondHDPlugin : Inherits DynamicPlugin
         ' If the registration form is closed, the site redirects automatically to the login page,
         ' so we check if we are in the login page.
 
-        Const triggerRegistration As String = "Login now on BeyondHD"
+        Dim registrationTriggers As String() = {"Login now on BeyondHD"}
+        Dim registrationTriggersIndicatesOpen As Boolean = False
 
         PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
         PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
@@ -57,7 +58,7 @@ Class BeyondHDPlugin : Inherits DynamicPlugin
                                        waitForDomIdle:=True, timeout:=TimeSpan.FromSeconds(30))
         PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
 
-        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)
+        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, registrationTriggers, registrationTriggersIndicatesOpen)
     End Function
 
 End Class

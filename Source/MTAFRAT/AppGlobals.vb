@@ -34,19 +34,10 @@ Public Module AppGlobals
     ''' </summary>
     Public Const SplashScreenTime As Integer = 2500
 
-#If DEBUG Then
-    ''' <summary>
-    ''' Default time interval between automatic plugin executions.
-    ''' <para></para>
-    ''' ⚠️ Adjusted value to run plugins in a short interval when in DEBUG mode for testing purposes.
-    ''' </summary>
-    Public ReadOnly AutomaticPluginRunInterval As TimeSpan = TimeSpan.FromSeconds(60)
-#Else
     ''' <summary>
     ''' Default time interval between automatic plugin executions.
     ''' </summary>
     Public AutomaticPluginRunInterval As TimeSpan = TimeSpan.FromHours(1)
-#End If
 
     ''' <summary>
     ''' The application title and version, formatted as "ProductName (AssemblyName) vMajor.Minor".

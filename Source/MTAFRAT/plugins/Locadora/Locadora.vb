@@ -1,5 +1,6 @@
 Imports System
 Imports System.Diagnostics
+Imports System.Net.Mime.MediaTypeNames
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
 
@@ -13,7 +14,17 @@ Imports OpenQA.Selenium.Chrome
 Class LocadoraPlugin : Inherits DynamicPlugin
 
     ReadOnly headless As Boolean = True
-    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)
+
+    ReadOnly registrationTriggers As String() = {"Registration Is Disabled"}
+    ReadOnly registrationTriggersIndicatesOpen As Boolean = False
+
+    ReadOnly applicationTriggers As String() = {"Applications Are Closed"}
+    ReadOnly applicationTriggersIndicatesOpen As Boolean = False
+
+    ReadOnly waitForDomIdle As Boolean = True
+    ReadOnly afterPageReadyDelay As TimeSpan = TimeSpan.FromSeconds(1)
+    ReadOnly timeout As TimeSpan = TimeSpan.FromSeconds(20)
 
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
@@ -23,22 +34,16 @@ Class LocadoraPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerRegistration As String = "Registration Is Disabled"
-                    Const triggerApplication As String = "Applications Are Closed"
                     Try
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(
-                                       Me, driver, triggerRegistration, isOpenTrigger:=False,
-                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
-                                       waitForDomIdle:=True,
-                                       timeout:=TimeSpan.FromSeconds(30))
-
-                        regFlags = regFlags Or
-                                   PluginSupport.DefaultApplicationFormCheckProcedure(
-                                       Me, driver, triggerApplication, isOpenTrigger:=False,
-                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
-                                       waitForDomIdle:=True,
-                                       timeout:=TimeSpan.FromSeconds(30))
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver,
+                                       registrationTriggers, registrationTriggersIndicatesOpen,
+                                       afterPageReadyDelay, waitForDomIdle, timeout
+                                   ) Or
+                                   PluginSupport.DefaultApplicationFormCheckProcedure(Me, driver,
+                                       applicationTriggers, applicationTriggersIndicatesOpen,
+                                       afterPageReadyDelay, waitForDomIdle, timeout
+                                   )
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

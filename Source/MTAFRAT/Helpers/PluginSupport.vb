@@ -16,6 +16,8 @@ Imports System.Net.Http
 Imports System.Resources
 Imports System.Threading
 
+Imports Jot.Configuration
+
 Imports MTAFRAT.Win32
 
 Imports OpenQA.Selenium
@@ -564,13 +566,42 @@ Public Module PluginSupport
     ''' The <see cref="ChromeDriver"/> instance associated to the plugin.
     ''' </param>
     ''' 
-    ''' <param name="trigger">
-    ''' The trigger phrase that indicates the registration form is open or closed.
+    ''' <param name="triggers">
+    ''' One or more trigger strings that indicates the registration form is open or closed.
     ''' </param>
     ''' 
-    ''' <param name="isOpenTrigger">
-    ''' If <see langword="True"/>, the <paramref name="trigger"/> phrase indicates that the form is open;
-    ''' if <see langword="False"/>, the <paramref name="trigger"/> phrase indicates that the form is closed.
+    ''' <param name="triggersIndicatesOpen">
+    ''' If <see langword="True"/>, the strings in <paramref name="triggers"/> parameter indicates that the registration form is open;
+    ''' otherwise, the strings in <paramref name="triggers"/> parameter indicates that the registration form is closed.
+    ''' </param>
+    ''' 
+    ''' <param name="afterPageReadyDelay">
+    ''' Optional. A <see cref="TimeSpan"/> representing the delay to wait 
+    ''' <b>after</b> the web page reports a ready state of <c>"complete"</c>, 
+    ''' before the method returns.
+    ''' <para></para>
+    ''' This can be useful to allow background scripts, animations, or 
+    ''' asynchronous content to finish initializing after the document is loaded.
+    ''' <para></para>
+    ''' The default value is <see cref="TimeSpan.Zero"/>.
+    ''' </param>
+    ''' 
+    ''' <param name="waitForDomIdle">
+    ''' Optional. When set to <see langword="True"/>, the method starts waiting for any pending dynamic updates in the DOM 
+    ''' to complete after the page has reported a ready state of <c>"complete"</c>.
+    ''' <para></para>
+    ''' The default value is <see langword="False"/>.
+    ''' <para></para>
+    ''' ⚠️ Do not set this parameter to <see langword="True"/> for web pages with continuously changing DOM elements 
+    ''' (e.g., pages with animations, snow effects, or real-time updates), as it will cause the wait operation to time out.
+    ''' </param>
+    ''' 
+    ''' <param name="timeout">
+    ''' Optional. The maximum time to wait for the page to report a ready state of <c>"complete"</c>, 
+    ''' and for any pending dynamic updates in the DOM to complete if 
+    ''' <paramref name="waitForDomIdle"/> is set to <see langword="True"/>.
+    ''' <para></para>
+    ''' Default value is 30 seconds.
     ''' </param>
     ''' 
     ''' <returns>
@@ -578,7 +609,7 @@ Public Module PluginSupport
     ''' </returns>
     <DebuggerStepThrough>
     Public Function DefaultRegistrationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
-                                                          trigger As String, isOpenTrigger As Boolean,
+                                                          triggers As String(), triggersIndicatesOpen As Boolean,
                                                           afterPageReadyDelay As TimeSpan,
                                                           waitForDomIdle As Boolean,
                                                           timeout As TimeSpan) As RegistrationFlags
@@ -601,7 +632,7 @@ Public Module PluginSupport
         End If
         PluginSupport.LogMessage(plugin, "StatusMsg_RegisterPageLoaded")
 
-        Return PluginSupport.EvaluateRegistrationFormState(plugin, driver, trigger, isOpenTrigger)
+        Return PluginSupport.EvaluateRegistrationFormState(plugin, driver, triggers, triggersIndicatesOpen)
     End Function
 
     ''' <summary>
@@ -617,13 +648,42 @@ Public Module PluginSupport
     ''' The <see cref="ChromeDriver"/> instance associated to the plugin.
     ''' </param>
     ''' 
-    ''' <param name="trigger">
-    ''' A trigger phrase that indicates the application form is open or closed.
+    ''' <param name="triggers">
+    ''' One or more trigger strings that indicates the application form is open or closed.
     ''' </param>
     ''' 
-    ''' <param name="isOpenTrigger">
-    ''' If <see langword="True"/>, the <paramref name="trigger"/> phrase indicates that the application form is open;
-    ''' if <see langword="False"/>, the <paramref name="trigger"/> phrase indicates that the application form is closed.
+    ''' <param name="triggersIndicatesOpen">
+    ''' If <see langword="True"/>, the strings in <paramref name="triggers"/> parameter indicates that the application form is open;
+    ''' otherwise, the strings in <paramref name="triggers"/> parameter indicates that the application form is closed.
+    ''' </param>
+    ''' 
+    ''' <param name="afterPageReadyDelay">
+    ''' Optional. A <see cref="TimeSpan"/> representing the delay to wait 
+    ''' <b>after</b> the web page reports a ready state of <c>"complete"</c>, 
+    ''' before the method returns.
+    ''' <para></para>
+    ''' This can be useful to allow background scripts, animations, or 
+    ''' asynchronous content to finish initializing after the document is loaded.
+    ''' <para></para>
+    ''' The default value is <see cref="TimeSpan.Zero"/>.
+    ''' </param>
+    ''' 
+    ''' <param name="waitForDomIdle">
+    ''' Optional. When set to <see langword="True"/>, the method starts waiting for any pending dynamic updates in the DOM 
+    ''' to complete after the page has reported a ready state of <c>"complete"</c>.
+    ''' <para></para>
+    ''' The default value is <see langword="False"/>.
+    ''' <para></para>
+    ''' ⚠️ Do not set this parameter to <see langword="True"/> for web pages with continuously changing DOM elements 
+    ''' (e.g., pages with animations, snow effects, or real-time updates), as it will cause the wait operation to time out.
+    ''' </param>
+    ''' 
+    ''' <param name="timeout">
+    ''' Optional. The maximum time to wait for the page to report a ready state of <c>"complete"</c>, 
+    ''' and for any pending dynamic updates in the DOM to complete if 
+    ''' <paramref name="waitForDomIdle"/> is set to <see langword="True"/>.
+    ''' <para></para>
+    ''' Default value is 30 seconds.
     ''' </param>
     ''' 
     ''' <returns>
@@ -631,7 +691,7 @@ Public Module PluginSupport
     ''' </returns>
     <DebuggerStepThrough>
     Public Function DefaultApplicationFormCheckProcedure(plugin As DynamicPlugin, driver As ChromeDriver,
-                                                         trigger As String, isOpenTrigger As Boolean,
+                                                         triggers As String(), triggersIndicatesOpen As Boolean,
                                                          afterPageReadyDelay As TimeSpan,
                                                          waitForDomIdle As Boolean,
                                                          timeout As TimeSpan) As RegistrationFlags
@@ -654,7 +714,7 @@ Public Module PluginSupport
         End If
         PluginSupport.LogMessage(plugin, "StatusMsg_ApplicationPageLoaded")
 
-        Return PluginSupport.EvaluateApplicationFormState(plugin, driver, trigger, isOpenTrigger)
+        Return PluginSupport.EvaluateApplicationFormState(plugin, driver, triggers, triggersIndicatesOpen)
     End Function
 
     ''' <summary>
@@ -672,7 +732,7 @@ Public Module PluginSupport
     ''' </param>
     ''' 
     ''' <param name="trigger">
-    ''' The trigger phrase that indicates the registration form is open or closed.
+    ''' One or more trigger strings that indicates the registration form is open or closed.
     ''' </param>
     ''' 
     ''' <param name="isOpenTrigger">
@@ -684,12 +744,14 @@ Public Module PluginSupport
     ''' A <see cref="RegistrationFlags"/> value indicating whether the registration form is open or closed.
     ''' </returns>
     <DebuggerStepThrough>
-    Public Function EvaluateRegistrationFormState(plugin As DynamicPlugin, driver As ChromeDriver,
-                                                  trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+    Public Function EvaluateRegistrationFormState(plugin As DynamicPlugin,
+                                                  driver As ChromeDriver,
+                                                  triggers As String(),
+                                                  triggersIndicatesOpen As Boolean) As RegistrationFlags
 
         PluginSupport.LogMessage(plugin, "StatusMsg_AnalyzingPageContent")
 
-        If String.IsNullOrWhiteSpace(trigger) Then
+        If (triggers Is Nothing) OrElse (triggers.Length = 0) Then
             PluginSupport.LogMessage(plugin, "StatusMsg_TriggerRegEmpty")
             Return RegistrationFlags.RegistrationUnknown
         End If
@@ -702,12 +764,13 @@ Public Module PluginSupport
             Return RegistrationFlags.RegistrationUnknown
         End If
 
-        Dim triggerFound As Boolean = pageSource.Contains(trigger, StringComparison.InvariantCultureIgnoreCase)
+        Dim anyTriggerFound As Boolean =
+            triggers.Any(Function(trigger As String) pageSource.Contains(trigger, StringComparison.InvariantCultureIgnoreCase))
 
         Dim result As RegistrationFlags =
-            If(isOpenTrigger,
-               If(triggerFound, RegistrationFlags.RegistrationOpen, RegistrationFlags.RegistrationClosed),
-               If(triggerFound, RegistrationFlags.RegistrationClosed, RegistrationFlags.RegistrationOpen))
+            If(triggersIndicatesOpen,
+               If(anyTriggerFound, RegistrationFlags.RegistrationOpen, RegistrationFlags.RegistrationClosed),
+               If(anyTriggerFound, RegistrationFlags.RegistrationClosed, RegistrationFlags.RegistrationOpen))
 
         Select Case result
             Case RegistrationFlags.RegistrationOpen
@@ -735,7 +798,7 @@ Public Module PluginSupport
     ''' </param>
     ''' 
     ''' <param name="trigger">
-    ''' A trigger phrase that indicates the application form is open or closed.
+    ''' One or more trigger strings that indicates the application form is open or closed.
     ''' </param>
     ''' 
     ''' <param name="isOpenTrigger">
@@ -747,12 +810,14 @@ Public Module PluginSupport
     ''' A <see cref="RegistrationFlags"/> value indicating whether the application form is open or closed.
     ''' </returns>
     <DebuggerStepThrough>
-    Public Function EvaluateApplicationFormState(plugin As DynamicPlugin, driver As ChromeDriver,
-                                                 trigger As String, isOpenTrigger As Boolean) As RegistrationFlags
+    Public Function EvaluateApplicationFormState(plugin As DynamicPlugin,
+                                                 driver As ChromeDriver,
+                                                 triggers As String(),
+                                                 triggersIndicatesOpen As Boolean) As RegistrationFlags
 
         PluginSupport.LogMessage(plugin, "StatusMsg_AnalyzingPageContent")
 
-        If String.IsNullOrWhiteSpace(trigger) Then
+        If (triggers Is Nothing) OrElse (triggers.Length = 0) Then
             PluginSupport.LogMessage(plugin, "StatusMsg_TriggerAppEmpty")
             Return RegistrationFlags.ApplicationUnknown
         End If
@@ -765,12 +830,13 @@ Public Module PluginSupport
             Return RegistrationFlags.ApplicationUnknown
         End If
 
-        Dim triggerFound As Boolean = pageSource.Contains(trigger, StringComparison.InvariantCultureIgnoreCase)
+        Dim anyTriggerFound As Boolean =
+            triggers.Any(Function(trigger As String) pageSource.Contains(trigger, StringComparison.InvariantCultureIgnoreCase))
 
         Dim result As RegistrationFlags =
-            If(isOpenTrigger,
-               If(triggerFound, RegistrationFlags.ApplicationOpen, RegistrationFlags.ApplicationClosed),
-               If(triggerFound, RegistrationFlags.ApplicationClosed, RegistrationFlags.ApplicationOpen))
+            If(triggersIndicatesOpen,
+               If(anyTriggerFound, RegistrationFlags.ApplicationOpen, RegistrationFlags.ApplicationClosed),
+               If(anyTriggerFound, RegistrationFlags.ApplicationClosed, RegistrationFlags.ApplicationOpen))
 
         Select Case result
             Case RegistrationFlags.ApplicationOpen

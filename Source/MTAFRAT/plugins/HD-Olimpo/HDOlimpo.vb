@@ -13,7 +13,14 @@ Imports OpenQA.Selenium.Chrome
 Class HDOlimpoPlugin : Inherits DynamicPlugin
 
     ReadOnly headless As Boolean = True
-    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)
+
+    ReadOnly applicationTriggers As String() = {"No se aceptan nuevos usuarios"}
+    ReadOnly applicationTriggersIndicatesOpen As Boolean = False
+
+    ReadOnly waitForDomIdle As Boolean = True
+    ReadOnly afterPageReadyDelay As TimeSpan = TimeSpan.FromSeconds(1)
+    ReadOnly timeout As TimeSpan = TimeSpan.FromSeconds(20)
 
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
@@ -23,16 +30,15 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerApplication As String = "No se aceptan nuevos usuarios"
                     Try
                         regFlags = regFlags Or Me.CustomRegistrationCheck(driver)
 
                         regFlags = regFlags Or
                                    PluginSupport.DefaultApplicationFormCheckProcedure(
-                                       Me, driver, triggerApplication, isOpenTrigger:=False,
-                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
-                                       waitForDomIdle:=True,
-                                       timeout:=TimeSpan.FromSeconds(30))
+                                       Me, driver,
+                                       applicationTriggers, applicationTriggersIndicatesOpen,
+                                       afterPageReadyDelay, waitForDomIdle, timeout
+                                   )
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)
@@ -54,7 +60,8 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
         ' If the registration form is closed, the site redirects automatically to the login page,
         ' so we check if we are in the login page.
 
-        Const triggerRegistration As String = "Iniciar sesión en HD-Olimpo"
+        Dim registrationTriggers As String() = {"Iniciar sesión en HD-Olimpo"}
+        Dim registrationTriggersIndicatesOpen As Boolean = False
 
         PluginSupport.LogMessageFormat(Me, "StatusMsg_ConnectingFormat", Me.Name)
         PluginSupport.LogMessage(Me, $"➜ {Me.UrlRegistration}")
@@ -65,7 +72,7 @@ Class HDOlimpoPlugin : Inherits DynamicPlugin
                                        waitForDomIdle:=True, timeout:=TimeSpan.FromSeconds(30))
         PluginSupport.LogMessage(Me, "StatusMsg_RegisterPageLoaded")
 
-        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, triggerRegistration, isOpenTrigger:=False)
+        Return PluginSupport.EvaluateRegistrationFormState(Me, driver, registrationTriggers, registrationTriggersIndicatesOpen)
     End Function
 
 End Class

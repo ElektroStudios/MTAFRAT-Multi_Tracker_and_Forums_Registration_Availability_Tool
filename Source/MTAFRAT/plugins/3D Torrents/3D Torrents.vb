@@ -1,5 +1,6 @@
 Imports System
 Imports System.Diagnostics
+Imports System.Threading
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
 Imports System.Windows.Forms.Design.AxImporter
@@ -24,6 +25,13 @@ Class _3DTorrentsPlugin : Inherits DynamicPlugin
         $"--unsafely-treat-insecure-origin-as-secure=http://www.3dtorrents.org/"
     } ' Required to avoid error 'net::ERR_SSL_PROTOCOL_ERROR'
 
+    ReadOnly registrationTriggers As String() = {"registrations are closed"}
+    ReadOnly registrationTriggersIndicatesOpen As Boolean = False
+
+    ReadOnly waitForDomIdle As Boolean = True
+    ReadOnly afterPageReadyDelay As TimeSpan = TimeSpan.FromSeconds(1)
+    ReadOnly timeout As TimeSpan = TimeSpan.FromSeconds(20)
+
     Overloads Async Function RunAsync() As Task(Of RegistrationFlags)
         Dim regFlags As RegistrationFlags = RegistrationFlags.Null
 
@@ -32,14 +40,12 @@ Class _3DTorrentsPlugin : Inherits DynamicPlugin
                 Using service As ChromeDriverService = Nothing,
                       driver As ChromeDriver = CreateChromeDriver(Me, service, headless, additionalArgs)
 
-                    Const triggerRegistration As String = "registrations are closed"
                     Try
                         regFlags = regFlags Or
-                                   PluginSupport.DefaultRegistrationFormCheckProcedure(
-                                       Me, driver, triggerRegistration, isOpenTrigger:=False,
-                                       afterPageReadyDelay:=TimeSpan.FromSeconds(1),
-                                       waitForDomIdle:=True,
-                                       timeout:=TimeSpan.FromSeconds(30))
+                                   PluginSupport.DefaultRegistrationFormCheckProcedure(Me, driver,
+                                       registrationTriggers, registrationTriggersIndicatesOpen,
+                                       afterPageReadyDelay, waitForDomIdle, timeout
+                                   )
 
                     Catch ex As Exception
                         PluginSupport.LogMessageFormat(Me, "StatusMsg_ExceptionFormat", ex.Message)

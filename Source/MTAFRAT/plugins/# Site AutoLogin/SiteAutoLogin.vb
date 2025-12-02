@@ -18,7 +18,7 @@ Imports OpenQA.Selenium.Support.UI
 Class SiteAutoLogin : Inherits DynamicPlugin
 
     ReadOnly headless As Boolean = True
-    ReadOnly additionalArgs As String() = Array.Empty(Of String)()
+    ReadOnly additionalArgs As String() = Array.Empty(Of String)
 
     ReadOnly CurrentLangName As String = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName
 

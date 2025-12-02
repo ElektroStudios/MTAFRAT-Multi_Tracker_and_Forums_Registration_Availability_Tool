@@ -601,13 +601,8 @@ Public NotInheritable Class MainForm : Inherits DarkUI.Forms.DarkForm
     <DebuggerStepThrough>
     Private Sub DarkNumericUpDown_Hours_ValueChanged(sender As Object, e As EventArgs) Handles DarkNumericUpDown_Hours.ValueChanged
 
-#If Not DEBUG Then
         Dim nupd As DarkNumericUpDown = DirectCast(sender, DarkNumericUpDown)
         AppGlobals.AutomaticPluginRunInterval = TimeSpan.FromHours(nupd.Value)
-#End If
-        If Me.DarkCheckBox_AutoPluginRun.Checked Then
-            ApplicationHelper.ResetRemainingAutoPluginRunInterval()
-        End If
     End Sub
 
     ''' <summary>

@@ -1,6 +1,18 @@
 # MTAFRAT Change Log 📋
 
-## v1.1.8 *(current)* 🆕
+## v1.1.9 *(current)* 🆕
+
+#### 🛠️ Fixes:
+- Fixed malfunctioning plugins:
+  - 3ChangTrai
+  - TorrentDay
+
+#### 🌟 Improvements:
+- All plugin source codes have been updated.
+- Updated NuGet packages:
+  - Microsoft.CodeAnalysis.VisualBasic (used for VB.NET compiler support)
+
+## v1.1.8 🔄
 
 #### 🌟 Improvements:
 - Added a new tracker plugin: ParabellumHD
